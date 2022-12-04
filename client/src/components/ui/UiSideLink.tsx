@@ -1,0 +1,50 @@
+import { defineComponent, mergeProps } from "vue";
+import { RouterLink } from "vue-router";
+
+export const UiSideLink = defineComponent({
+  name: "UiSideLink",
+  props: {
+    IsActive: {
+      type: Boolean,
+      required: true,
+    },
+    IsText: {
+      type: Boolean,
+      required: true,
+    },
+    LinkPath: {
+      type: String,
+      default: "/",
+      required: true,
+    },
+    LinkIcon: {
+      type: String,
+      required: true,
+    },
+    LinkText: {
+      type: String,
+      required: true,
+    },
+  },
+
+  setup(props) {
+    return () => (
+      <RouterLink to={props.LinkPath}>
+        <span
+          class={
+            props.IsActive
+              ? "w-full flex h-full rounded-sm py-1 px-2 bg-gray-300 hover:bg-gray-200 transition-all duration-300"
+              : "w-full flex h-full rounded-sm py-1 px-2 hover:bg-gray-200 transition-all duration-300"
+          }
+        >
+          {props.LinkIcon}
+          {props.IsText ? (
+            <span class="text-[rgba(25,23,17,0.6)] ml-1">{props.LinkText}</span>
+          ) : (
+            ""
+          )}
+        </span>
+      </RouterLink>
+    );
+  },
+});

@@ -1,0 +1,82 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:../server/database/db.sqlite"
+}
+
+model accounts {
+  id       Int    @id @default(autoincrement())
+  email    String
+  password String
+}
+
+model client {
+  id      Int       @id @default(autoincrement())
+  c_name  String
+  adresse String
+  phone   String
+  command command[]
+}
+
+model command {
+  id               Int           @id @default(autoincrement())
+  id_client        Int
+  command_date     DateTime
+  command_delivery DateTime
+  client           client        @relation(fields: [id_client], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  commandLine      commandLine[]
+}
+
+model commandLine {
+  id               Int     @id @default(autoincrement())
+  id_command       Int
+  id_product       Int
+  product_quantity Int
+  command          command @relation(fields: [id_command], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  product          product @relation(fields: [id_product], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model commandLineCredi {
+  id               Int    @id @default(autoincrement())
+  id_credi         Int
+  product_quantity Int
+  p_name           String
+  unite            String
+  price            Int
+  credi            credi  @relation(fields: [id_credi], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
+
+model credi {
+  id               Int                @id @default(autoincrement())
+  id_client        Int
+  c_name           String
+  adresse          String
+  phone            String
+  id_command       Int
+  command_date     DateTime
+  command_delivery DateTime
+  status           String
+  unpaid           String
+  commandLineCredi commandLineCredi[]
+}
+
+model product {
+  id          Int           @id @default(autoincrement())
+  p_name      String        @unique(map: "sqlite_autoindex_product_1")
+  unite       String
+  price       Int
+  commandLine commandLine[]
+  stock       stock?
+}
+
+model stock {
+  id                Int     @id @default(autoincrement())
+  id_product        Int     @unique(map: "sqlite_autoindex_stock_1")
+  initiale_quantity Int
+  sold_quantity     Int
+  min_quantity      Int
+  product           product @relation(fields: [id_product], references: [id], onDelete: NoAction, onUpdate: NoAction)
+}
