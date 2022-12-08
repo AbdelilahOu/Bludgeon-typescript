@@ -14,3 +14,15 @@ export interface routerState {
 export interface toastState {
   ToastQueue: { text: string; id: number }[];
 }
+
+export interface modalsState {
+  TheModal: {
+    name: string;
+    mode: string;
+  };
+}
+
+export interface editModalArgs {
+  key: string;
+  value: string;
+}

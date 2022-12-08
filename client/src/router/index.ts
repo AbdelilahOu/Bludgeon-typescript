@@ -1,4 +1,5 @@
 import { createRouter, createWebHistory } from "vue-router";
+import { NotificationsView } from "@/views/content/NotificationsView";
 import { ProductView } from "@/views/content/ProductView";
 import { CommandView } from "@/views/content/CommandView";
 import { SittingView } from "@/views/content/SittingView";
@@ -7,7 +8,6 @@ import { StockView } from "@/views/content/StockView";
 import { StatsView } from "@/views/content/StatsView";
 import { IndexView } from "../views/IndexView";
 import { AuthView } from "@/views/AuthView";
-import { NotificationsView } from "@/views/content/NotificationsView";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
