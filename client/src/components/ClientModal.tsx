@@ -1,3 +1,5 @@
+import { defineComponent } from "vue";
+
 export const ClientModal = defineComponent({
   name: "ClientModal",
   setup() {
