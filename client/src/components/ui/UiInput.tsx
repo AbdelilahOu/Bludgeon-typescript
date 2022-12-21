@@ -28,7 +28,7 @@ export const UiInput = defineComponent({
 
     return () => (
       <input
-        class="rounded-sm border-2 px-2 py-1 w-full focus:outline-0"
+        class="rounded-sm  border-2 px-2 py-1 focus:py-[6px] focus:border-primary transition-all duration-200 focus:placeholder-primary w-full focus:outline-0"
         vModel={inputValue.value}
         disabled={props.Disable}
         onInput={emitChange}

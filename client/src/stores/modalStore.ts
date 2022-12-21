@@ -1,7 +1,7 @@
 import type { editModalArgs, modalsState } from "@/interfaces";
 import { defineStore } from "pinia";
 
-export const useToastStore = defineStore("ToastStore", {
+export const useModalStore = defineStore("ModalStore", {
   state: (): modalsState => {
     return {
       TheModal: {

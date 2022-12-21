@@ -15,7 +15,7 @@ model accounts {
 
 model client {
   id      Int       @id @default(autoincrement())
-  c_name  String
+  name    String
   adresse String
   phone   String
   command command[]
@@ -23,20 +23,20 @@ model client {
 
 model command {
   id               Int           @id @default(autoincrement())
-  id_client        Int
+  client_id        Int
   command_date     DateTime
   command_delivery DateTime
-  client           client        @relation(fields: [id_client], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  client           client        @relation(fields: [client_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
   commandLine      commandLine[]
 }
 
 model commandLine {
   id               Int     @id @default(autoincrement())
-  id_command       Int
-  id_product       Int
+  command_id       Int
+  product_id       Int
   product_quantity Int
-  command          command @relation(fields: [id_command], references: [id], onDelete: Cascade, onUpdate: NoAction)
-  product          product @relation(fields: [id_product], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  command          command @relation(fields: [command_id], references: [id], onDelete: Cascade, onUpdate: NoAction)
+  product          product @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
 
 model commandLineCredi {
@@ -51,11 +51,11 @@ model commandLineCredi {
 
 model credi {
   id               Int                @id @default(autoincrement())
-  id_client        Int
-  c_name           String
+  client_id        Int
+  name             String
   adresse          String
   phone            String
-  id_command       Int
+  command_id       Int
   command_date     DateTime
   command_delivery DateTime
   status           String
@@ -74,9 +74,9 @@ model product {
 
 model stock {
   id                Int     @id @default(autoincrement())
-  id_product        Int     @unique(map: "sqlite_autoindex_stock_1")
+  product_id        Int     @unique(map: "sqlite_autoindex_stock_1")
   initiale_quantity Int
   sold_quantity     Int
   min_quantity      Int
-  product           product @relation(fields: [id_product], references: [id], onDelete: NoAction, onUpdate: NoAction)
+  product           product @relation(fields: [product_id], references: [id], onDelete: NoAction, onUpdate: NoAction)
 }
