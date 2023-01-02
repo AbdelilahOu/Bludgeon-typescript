@@ -76,6 +76,13 @@ export const ClientTable = defineComponent({
             </tr>
           ))}
         </tbody>
+        {props.Clients?.length == 0 ? (
+          <tfoot>
+            <tr>No clients</tr>
+          </tfoot>
+        ) : (
+          ""
+        )}
       </table>
     );
   },
