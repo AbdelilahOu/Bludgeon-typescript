@@ -27,9 +27,13 @@ export interface editModalArgs {
   value: string;
 }
 
-export interface clientState {
+export interface client {
   id: number;
   name: string;
   adresse: string;
   phone: string;
+}
+
+export interface clientState {
+  clients: client[];
 }

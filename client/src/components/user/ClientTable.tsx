@@ -6,7 +6,7 @@ export const ClientTable = defineComponent({
   name: "ClientTable",
   props: {
     Clients: {
-      type: [] as PropType<client[]>,
+      type: Array as PropType<client[]>,
     },
   },
   setup(props) {

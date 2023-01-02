@@ -1,11 +1,18 @@
 import { defineComponent } from "vue";
+import { UiInput } from "../ui/UiInput";
 
 export const ClientModal = defineComponent({
   name: "ClientModal",
   setup() {
     return () => (
-      <div class="h-fit w-fit">
-        <div>sljdflkdjflksd</div>
+      <div class="w-full h-full">
+        <div class="h-full w-full flex flex-col">
+          <UiInput
+            OnInputChange={() => console.log(true)}
+            Type="text"
+            PlaceHolder="Client name"
+          />
+        </div>
       </div>
     );
   },
