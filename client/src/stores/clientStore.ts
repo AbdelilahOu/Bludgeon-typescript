@@ -1,8 +1,13 @@
+import type { clientState } from "@/interfaces";
 import { defineStore } from "pinia";
 
 export const useClientStore = defineStore("ClientStore", {
-  state: () => {
-    return {};
+  state: (): clientState => {
+    return {
+      clients: [],
+    };
   },
-  actions: {},
+  actions: {
+    getAllClients: async function () {},
+  },
 });

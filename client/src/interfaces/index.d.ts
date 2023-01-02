@@ -26,3 +26,10 @@ export interface editModalArgs {
   key: string;
   value: string;
 }
+
+export interface clientState {
+  id: number;
+  name: string;
+  adresse: string;
+  phone: string;
+}
