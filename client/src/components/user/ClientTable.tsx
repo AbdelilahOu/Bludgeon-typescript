@@ -10,26 +10,24 @@ export const ClientTable = defineComponent({
     },
   },
   setup(props) {
+    const feilds: string[] = [
+      "client name",
+      "phone number",
+      "adresse",
+      "action",
+    ];
     return () => (
       <table class="table-auto rounded-sm overflow-hidden w-full">
         <thead class="text-xs rounded-sm font-semibold uppercase text-[rgba(25,23,17,0.6)] bg-gray-300">
           <tr>
             <th></th>
-            <th class="p-2">
-              <div class="font-semibold text-left">CLIENT NAME</div>
-            </th>
-            <th class="p-2">
-              <div class="font-semibold text-left">pHONE NUMLBER</div>
-            </th>
-            <th class="p-2">
-              <div class="font-semibold text-left">ADRESSE</div>
-            </th>
-            <th class="p-2">
-              <div class="font-semibold text-center">Action</div>
-            </th>
+            {feilds.map((feild) => (
+              <th class="p-2">
+                <div class="font-semibold text-left">{feild}</div>
+              </th>
+            ))}
           </tr>
         </thead>
-
         <tbody class="text-sm divide-y divide-gray-100">
           {props.Clients?.map((client) => (
             <tr>
