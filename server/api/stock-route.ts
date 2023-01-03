@@ -9,9 +9,9 @@ import {
 const router = Router();
 
 router
-  .get("/read", readStockController)
-  .post("/create", createStockController)
-  .post("/delete/:id", deleteStockController)
-  .post("/update/:id", updateStockController);
+  .get("/", readStockController)
+  .post("/", createStockController)
+  .post("/:id", updateStockController)
+  .delete("/:id", deleteStockController);
 
 export { router as stockRoute };

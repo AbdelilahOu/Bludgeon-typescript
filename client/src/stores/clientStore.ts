@@ -1,7 +1,9 @@
-import type { client, clientState, dataRow, dataRows } from "@/types";
-import axios from "axios";
+import type { client, clientState, dataRows } from "@/types";
 import { defineStore } from "pinia";
+import axios from "axios";
+
 const api: string = "http://localhost:3111/client/";
+
 export const useClientStore = defineStore("ClientStore", {
   state: (): clientState => {
     return {

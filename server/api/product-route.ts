@@ -9,9 +9,9 @@ import {
 const router = Router();
 
 router
-  .get("/read", readProductController)
-  .post("/create", createProductController)
-  .post("/delete/:id", deleteProductController)
-  .post("/update/:id", updateProductController);
+  .get("/", readProductController)
+  .post("/", createProductController)
+  .post("/:id", updateProductController)
+  .delete("/:id", deleteProductController);
 
 export { router as productRoute };

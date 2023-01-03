@@ -9,9 +9,9 @@ import {
 const router = Router();
 
 router
-  .get("/read", readClientController)
-  .post("/create", createClientController)
-  .post("/delete/:id", deleteClientController)
-  .post("/update/:id", updateClientController);
+  .get("/", readClientController)
+  .post("/", createClientController)
+  .post("/:id", updateClientController)
+  .delete("/:id", deleteClientController);
 
 export { router as clientRoute };

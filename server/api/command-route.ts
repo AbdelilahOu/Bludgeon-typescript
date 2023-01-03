@@ -9,9 +9,9 @@ import {
 const router = Router();
 
 router
-  .get("/read", readCommandController)
-  .post("/create", createCommandController)
-  .post("/delete/:id", deleteCommandController)
-  .post("/update/:id", updateCommandController);
+  .get("/", readCommandController)
+  .post("/", createCommandController)
+  .post("/:id", updateCommandController)
+  .delete("/:id", deleteCommandController);
 
 export { router as commandRoute };
