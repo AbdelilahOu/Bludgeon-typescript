@@ -1,4 +1,4 @@
-import type { routerState } from "@/interfaces";
+import type { routerState } from "@/types";
 import { defineStore } from "pinia";
 
 export const useRouterStore = defineStore("Router", {

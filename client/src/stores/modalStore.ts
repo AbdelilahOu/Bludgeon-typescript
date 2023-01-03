@@ -1,4 +1,4 @@
-import type { editModalArgs, modalsState } from "@/interfaces";
+import type { editModalArgs, modalsState } from "@/types";
 import { defineStore } from "pinia";
 
 export const useModalStore = defineStore("ModalStore", {

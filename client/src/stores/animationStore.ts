@@ -6,7 +6,7 @@ import {
   truckLeaving,
   dualingo_start,
 } from "@/animations";
-import type { animationState } from "@/interfaces";
+import type { animationState } from "@/types";
 import { defineStore } from "pinia";
 
 export const useAnimationStore = defineStore("Animation", {

@@ -1,4 +1,4 @@
-import type { toastState } from "@/interfaces";
+import type { toastState } from "@/types";
 import { defineStore } from "pinia";
 
 export const useToastStore = defineStore("ToastStore", {

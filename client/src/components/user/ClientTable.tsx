@@ -1,6 +1,6 @@
 import { defineComponent, type PropType } from "vue";
 import { UiInput } from "../ui/UiInput";
-import type { client } from "@/interfaces";
+import type { client } from "@/types";
 
 export const ClientTable = defineComponent({
   name: "ClientTable",

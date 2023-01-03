@@ -37,3 +37,15 @@ export interface client {
 export interface clientState {
   clients: client[];
 }
+
+export interface dataRow<T> {
+  data: {
+    row: T;
+  };
+}
+
+export interface dataRows<T> {
+  data: {
+    rows: T[];
+  };
+}
