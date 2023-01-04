@@ -11,7 +11,7 @@ import {
 export const deleteProductController = async (req: Request, res: Response) => {
   try {
     await deleteProduct(Number(req.params?.id));
-    res.json({ msg: "done" });
+    res.status(200).json({ msg: "done" });
   } catch (error) {
     errorResponse(res, error.message, 404, false);
   }

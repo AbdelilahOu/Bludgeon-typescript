@@ -27,15 +27,27 @@ export interface editModalArgs {
   value: string;
 }
 
+export interface productState {
+  products: product[];
+}
+
+export interface product {
+  id: number;
+  name: string;
+  unite: String;
+  price: number;
+}
+
+export interface clientState {
+  clients: client[];
+  client: client | null;
+}
+
 export interface client {
   id: number;
   name: string;
   adresse: string;
   phone: string;
-}
-
-export interface clientState {
-  clients: client[];
 }
 
 export interface dataRow<T> {
@@ -48,4 +60,10 @@ export interface dataRows<T> {
   data: {
     rows: T[];
   };
+}
+
+export interface updateClient {
+  name?: string;
+  adresse?: string;
+  phone?: string;
 }

@@ -21,14 +21,27 @@ export const useClientStore = defineStore("ClientStore", {
           phone: "06082387782",
         },
       ],
+      client: null,
     };
   },
   actions: {
     getAllClients: async function () {
       const res: dataRows<client> = await axios.get(api);
-      console.log(res.data.rows);
+      this.clients = res.data.rows;
     },
-    getOneClient: async function (id: number) {},
+    getOneClient: async function (id: number) {
+      this.client = this.clients.find((cli) => cli.id === id) ?? null;
+    },
+    createOneClient: async function (client: client) {
+      const res: dataRow<client> = await axios.post(api, {
+        body: {
+          client,
+        },
+      });
+      if (res) {
+        this.clients.unshift(res.data.row);
+      }
+    },
     deleteOneClient: async function (id: number) {
       const res: { data: { msg: string } } = await axios.delete(api + id);
       console.log(res);
@@ -38,6 +51,9 @@ export const useClientStore = defineStore("ClientStore", {
         body: {
           client,
         },
+      });
+      this.clients.map((client) => {
+        if (client.id == res.data.row.id) client = res.data.row;
       });
     },
   },
