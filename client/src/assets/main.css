@@ -25,6 +25,10 @@
   transform: translateX(30px);
 }
 
+.router-link-exact-active {
+  @apply bg-gray-300 transition-all duration-300;
+}
+
 * {
   -webkit-user-select: none; /* Safari */
   -ms-user-select: none; /* IE 10 and IE 11 */

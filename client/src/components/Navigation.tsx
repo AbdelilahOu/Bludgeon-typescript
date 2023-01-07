@@ -1,13 +1,22 @@
-import { useRouterStore } from "@/stores/routerStore";
-import { RouterLink, useRouter } from "vue-router";
-import { defineComponent } from "vue";
-import { storeToRefs } from "pinia";
+import {
+  onBeforeRouteUpdate,
+  RouterLink,
+  useRoute,
+  useRouter,
+} from "vue-router";
+import { defineComponent, ref } from "vue";
+import { RouteLinks } from "@/stores/routeNames";
 
 export const Navigation = defineComponent({
   name: "Navigation",
   setup() {
     const router = useRouter();
-    const { ActiveLink } = storeToRefs(useRouterStore());
+    const route = useRoute();
+    const ActiveLink = ref<string>("");
+    onBeforeRouteUpdate((to) => {
+      ActiveLink.value =
+        RouteLinks.find((link) => link.path === to.fullPath)?.name ?? "/";
+    });
     return () => (
       <header class="w-full h-full ">
         <div class="w-full h-full flex  items-center p-3 justify-between">
@@ -29,8 +38,10 @@ export const Navigation = defineComponent({
               </svg>
             </span>
             <span class="pb-[3px] text-primary">
-              <RouterLink to="/">🏠</RouterLink>{" "}
-              {ActiveLink.value !== "Home" ? (
+              <RouterLink to="/">
+                <span class={"w-full h-full bg-white"}>🏠</span>
+              </RouterLink>{" "}
+              {route.fullPath !== "/" ? (
                 <span>
                   /<span> {ActiveLink.value}</span>
                 </span>

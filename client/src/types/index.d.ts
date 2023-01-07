@@ -5,10 +5,9 @@ export interface animationState {
   IsLoading: boolean;
 }
 
-export interface routerState {
-  RouteLinks: { path: string; name: string }[];
-  ValidRouteLinks: { path: string; StyledPath: string }[];
-  ActiveLink: string;
+export interface RouteLinksType {
+  path: string;
+  name: string;
 }
 
 export interface toastState {

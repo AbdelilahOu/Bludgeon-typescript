@@ -1,9 +1,6 @@
-import { useRouterStore } from "@/stores/routerStore";
-import { onBeforeRouteUpdate } from "vue-router";
 import { UiSideLink } from "./ui/UiSideLink";
 import { defineComponent, ref, type PropType } from "vue";
-import { storeToRefs } from "pinia";
-
+import { RouteLinks } from "@/stores/routeNames";
 export const SideBar = defineComponent({
   name: "SideBar",
   props: {
@@ -13,17 +10,12 @@ export const SideBar = defineComponent({
     },
   },
   setup(props) {
-    const RouterStore = useRouterStore();
-    const { RouteLinks, ActiveLink } = storeToRefs(RouterStore);
-
     const IsCollapse = ref<boolean>(false);
 
     const TriggerColapse = () => {
       IsCollapse.value = !IsCollapse.value;
       props.onCollapse(IsCollapse.value);
-    }; 
-
-    onBeforeRouteUpdate((route: any) => RouterStore.setActiveLink(route.path));
+    };
 
     return () => (
       <aside class="w-full h-full  bg-gray-100">
@@ -62,11 +54,10 @@ export const SideBar = defineComponent({
           </div>
           <div class="w-full px-1 h-full overflow-x-hidden grid grid-cols-1 gap-1 grid-rows-[1fr_32px_32px_32px] justify-between pb-[18px]">
             <div class="w-full h-full flex flex-col gap-1">
-              {RouteLinks.value.map((link) => {
+              {RouteLinks.map((link) => {
                 return (
                   <UiSideLink
                     IsText={!IsCollapse.value}
-                    IsActive={link.name.includes(ActiveLink.value)}
                     LinkPath={link.path}
                     LinkIcon={link.name.split(" ")[0]}
                     LinkText={link.name.split(" ")[1]}
@@ -76,21 +67,18 @@ export const SideBar = defineComponent({
             </div>
             <UiSideLink
               IsText={!IsCollapse.value}
-              IsActive={"🔔 Notifications".includes(ActiveLink.value)}
               LinkPath={"/Sitting"}
               LinkIcon={"🔔"}
               LinkText={"Notifications"}
             />
             <UiSideLink
               IsText={!IsCollapse.value}
-              IsActive={"⚙ Sittings".includes(ActiveLink.value)}
               LinkPath={"/Sitting"}
               LinkIcon={"⚙"}
               LinkText={"Sittings"}
             />
             <UiSideLink
               IsText={!IsCollapse.value}
-              IsActive={"⚙ Sittings".includes(ActiveLink.value)}
               LinkPath={"/Sitting"}
               LinkIcon={"🌐"}
               LinkText={"English"}

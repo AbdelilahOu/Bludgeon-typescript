@@ -4,10 +4,6 @@ import { RouterLink } from "vue-router";
 export const UiSideLink = defineComponent({
   name: "UiSideLink",
   props: {
-    IsActive: {
-      type: Boolean,
-      required: true,
-    },
     IsText: {
       type: Boolean,
       required: true,
@@ -32,9 +28,7 @@ export const UiSideLink = defineComponent({
       <RouterLink to={props.LinkPath}>
         <span
           class={
-            props.IsActive
-              ? "w-full flex h-full rounded-sm py-1 px-2 bg-gray-300 hover:bg-gray-200 transition-all duration-300"
-              : "w-full flex h-full rounded-sm py-1 px-2 hover:bg-gray-200 transition-all duration-300"
+            "w-full flex h-full rounded-sm py-1 px-2 hover:bg-gray-200 transition-all duration-300"
           }
         >
           {props.LinkIcon}
