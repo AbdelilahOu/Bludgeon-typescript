@@ -7,6 +7,10 @@ export const ClientTable = defineComponent({
   props: {
     Clients: {
       type: Array as PropType<client[]>,
+      required: true,
+    },
+    sortBy: {
+      type: Function as PropType<(by: string) => void>,
     },
   },
   setup(props) {
@@ -29,7 +33,7 @@ export const ClientTable = defineComponent({
           </tr>
         </thead>
         <tbody class="text-sm divide-y divide-gray-100">
-          {props.Clients?.map((client) => (
+          {props.Clients.map((client) => (
             <tr>
               <td class="p-2">
                 <span class="h-full w-full grid">
@@ -52,10 +56,10 @@ export const ClientTable = defineComponent({
                 </div>
               </td>
               <td class="p-2">
-                <div class="flex justify-center">
+                <div class="flex justify-start w-full ">
                   <button>
                     <svg
-                      class="w-8 h-8 hover:text-blue-600 rounded-full hover:bg-gray-100 p-1"
+                      class="w-8 h-8 text-red-400 hover:text-red-300  rounded-full hover:bg-gray-100 p-1"
                       fill="none"
                       stroke="currentColor"
                       viewBox="0 0 24 24"
