@@ -1,5 +1,5 @@
 import { defineComponent, type PropType } from "vue";
-import { UiInput } from "../ui/UiInput";
+import { UiCheckBox } from "../ui/UiCheckBox";
 import type { client } from "@/types";
 
 export const ClientTable = defineComponent({
@@ -37,10 +37,13 @@ export const ClientTable = defineComponent({
             <tr>
               <td class="p-2">
                 <span class="h-full w-full grid">
-                  <UiInput
-                    OnInputChange={(value) => console.log(value)}
-                    Disable={false}
-                    Type="checkbox"
+                  <UiCheckBox
+                    onCheck={(check) =>
+                      console.log(
+                        client.name,
+                        check ? "is checked" : "is unchecked"
+                      )
+                    }
                   />
                 </span>
               </td>

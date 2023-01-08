@@ -25,8 +25,8 @@
   transform: translateX(30px);
 }
 
-.router-link-exact-active {
-  @apply bg-gray-300 transition-all duration-300;
+.router-link-active {
+  @apply bg-gray-300 transition-all transform duration-200;
 }
 
 * {
