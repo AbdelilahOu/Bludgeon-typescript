@@ -1,5 +1,5 @@
-import { clientT, createClientT, updateClientT } from "../models";
 import { prisma } from "..";
+import { clientT, newClientT, updateClientT } from "../models";
 
 export const readClients = (): Promise<clientT[]> => {
   return prisma.client.findMany();
@@ -24,7 +24,7 @@ export const updateClient = (id: number, updateData: updateClientT) => {
   });
 };
 
-export const createClient = (client: createClientT) => {
+export const createClient = (client: newClientT) => {
   return prisma.client.create({
     data: {
       ...client,

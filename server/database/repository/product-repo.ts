@@ -1,5 +1,5 @@
-import { createProductT, productT, updateProductT } from "../models";
 import { prisma } from "../index";
+import { newProductT, productT, updateProductT } from "../models";
 
 export const readProduct = (): Promise<productT[]> => {
   return prisma.product.findMany({});
@@ -24,7 +24,7 @@ export const updateProduct = (id: number, updateData: updateProductT) => {
   });
 };
 
-export const createProduct = (createData: createProductT) => {
+export const createProduct = (createData: newProductT) => {
   return prisma.product.create({
     data: {
       ...createData,

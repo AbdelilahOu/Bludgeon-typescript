@@ -1,13 +1,19 @@
 import { prisma } from "..";
-import { commandlineT, createCommandT, updateCommandT } from "../models";
+import { newCommandItemT, updateCommandT } from "../models";
 
-export const createCommand = (command: createCommandT, line: commandlineT) => {
+export const createCommand = (lines: newCommandItemT[], id: number) => {
   return prisma.command.create({
     data: {
-      ...command,
-      commandLine: {
-        create: {
-          ...line,
+      items: {
+        create: lines.map((line) => ({
+          product: { connect: { id: line.productId } },
+          quantity: line.quantity,
+        })),
+      },
+      Invoice: {},
+      client: {
+        connect: {
+          id,
         },
       },
     },
@@ -17,14 +23,14 @@ export const createCommand = (command: createCommandT, line: commandlineT) => {
 export const readCommand = (): Promise<any[]> => {
   return prisma.command.findMany({
     include: {
-      commandLine: {
+      items: {
         select: {
           product: true,
         },
       },
       client: {
         select: {
-          c_name: true,
+          name: true,
         },
       },
     },
@@ -45,7 +51,12 @@ export const updateCommand = (id: number, updateData: updateCommandT) => {
       id: id,
     },
     data: {
-      ...updateData,
+      items: {
+        update: updateData.items.map((item) => ({
+          where: { id: item.productId },
+          data: { quantity: item.quantity },
+        })),
+      },
     },
   });
 };
