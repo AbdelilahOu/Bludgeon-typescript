@@ -1,12 +1,12 @@
 import { defineComponent, type PropType } from "vue";
 import { UiCheckBox } from "../ui/UiCheckBox";
-import type { client } from "@/types";
+import type { product } from "@/types";
 
-export const ClientTable = defineComponent({
-  name: "ClientTable",
+export const ProductTable = defineComponent({
+  name: "ProductTable",
   props: {
-    Clients: {
-      type: Array as PropType<client[]>,
+    Products: {
+      type: Array as PropType<product[]>,
       required: true,
     },
     sortBy: {
@@ -14,7 +14,7 @@ export const ClientTable = defineComponent({
     },
   },
   setup(props) {
-    const feilds: string[] = ["client name", "phone number", "action"];
+    const feilds: string[] = ["product name", "price", "unite", "action"];
     return () => (
       <table class="table-auto rounded-sm overflow-hidden w-full">
         <thead class="text-xs rounded-sm font-semibold uppercase text-[rgba(25,23,17,0.6)] bg-gray-300">
@@ -28,14 +28,14 @@ export const ClientTable = defineComponent({
           </tr>
         </thead>
         <tbody class="text-sm divide-y divide-gray-100">
-          {props.Clients.map((client) => (
+          {props.Products.map((product) => (
             <tr>
               <td class="p-2">
                 <span class="h-full w-full grid">
                   <UiCheckBox
                     onCheck={(check) =>
                       console.log(
-                        client.name,
+                        product.name,
                         check ? "is checked" : "is unchecked"
                       )
                     }
@@ -43,10 +43,13 @@ export const ClientTable = defineComponent({
                 </span>
               </td>
               <td class="p-2">
-                <div class="font-medium text-gray-800">{client.name}</div>
+                <div class="font-medium text-gray-800">{product.name}</div>
               </td>
               <td class="p-2">
-                <div class="text-left">{client.phone}</div>
+                <div class="text-left">{product.price}</div>
+              </td>
+              <td class="p-2">
+                <div class="text-left">{product.unite}</div>
               </td>
 
               <td class="p-2">
@@ -72,9 +75,9 @@ export const ClientTable = defineComponent({
             </tr>
           ))}
         </tbody>
-        {props.Clients?.length == 0 ? (
+        {props.Products?.length == 0 ? (
           <tfoot>
-            <tr>No clients</tr>
+            <tr>No products</tr>
           </tfoot>
         ) : (
           ""

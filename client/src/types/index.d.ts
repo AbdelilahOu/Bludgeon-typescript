@@ -25,7 +25,7 @@ export interface editModalArgs {
   key: string;
   value: string;
 }
-
+//
 export interface productState {
   products: product[];
 }
@@ -45,7 +45,6 @@ export interface clientState {
 export interface client {
   id: number;
   name: string;
-  adresse: string;
   phone: string;
 }
 
@@ -61,8 +60,4 @@ export interface dataRows<T> {
   };
 }
 
-export interface updateClient {
-  name?: string;
-  adresse?: string;
-  phone?: string;
-}
+export interface updateClient extends Partial<client> {}
