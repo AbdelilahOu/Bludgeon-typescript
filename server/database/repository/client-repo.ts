@@ -1,5 +1,5 @@
-import { prisma } from "..";
 import { clientT, newClientT, updateClientT } from "../models";
+import { prisma } from "..";
 
 export const readClients = (): Promise<clientT[]> => {
   return prisma.client.findMany();

@@ -1,5 +1,5 @@
-import { prisma } from "..";
 import { newCommandItemT, updateCommandT } from "../models";
+import { prisma } from "..";
 
 export const createCommand = (lines: newCommandItemT[], id: number) => {
   return prisma.command.create({
