@@ -1,4 +1,4 @@
-import { defineComponent, mergeProps } from "vue";
+import { defineComponent } from "vue";
 import { RouterLink } from "vue-router";
 
 export const UiSideLink = defineComponent({
