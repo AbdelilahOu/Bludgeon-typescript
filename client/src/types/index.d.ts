@@ -42,7 +42,7 @@ export interface clientState {
   client: client | null;
 }
 
-export interface client {
+export interface clientT {
   id: number;
   name: string;
   phone: string;
@@ -60,4 +60,4 @@ export interface dataRows<T> {
   };
 }
 
-export interface updateClient extends Partial<client> {}
+export interface updateClientT extends Partial<client> {}

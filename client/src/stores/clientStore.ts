@@ -1,9 +1,9 @@
 import type {
-  client,
+  clientT,
   dataRow,
   dataRows,
   clientState,
-  updateClient,
+  updateClientT,
 } from "@/types";
 import { defineStore } from "pinia";
 import axios from "axios";
@@ -17,7 +17,6 @@ export const useClientStore = defineStore("ClientStore", {
         {
           id: 1,
           name: "abdelilah",
-          adresse: "marrakech",
           phone: "06082387782",
         },
       ],
@@ -26,30 +25,36 @@ export const useClientStore = defineStore("ClientStore", {
   },
   actions: {
     getAllClients: async function () {
-      const res: dataRows<client> = await axios.get(api);
+      const res: dataRows<clientT> = await axios.get(api);
       this.clients = res.data.rows;
     },
     getOneClient: async function (id: number) {
       this.client = this.clients.find((cli) => cli.id === id) ?? null;
+      if (!this.client) {
+        const res: dataRow<clientT> = await axios.get(api + id);
+        this.client = res.data.row;
+      }
     },
-    createOneClient: async function (client: client) {
-      const res: dataRow<client> = await axios.post(api, {
-        body: {
-          client,
+    createOneClient: async function (Client: updateClientT) {
+      const res: dataRow<clientT> = await axios.post(api, {
+        data: {
+          Client,
         },
       });
-      if (res) {
+      if (res.data.row) {
         this.clients.unshift(res.data.row);
       }
     },
     deleteOneClient: async function (id: number) {
-      const res: { data: { msg: string } } = await axios.delete(api + id);
-      console.log(res);
+      const res: dataRow<clientT> = await axios.delete(api + id);
+      if (res.data.row.name) {
+        this.clients.filter((cli) => cli.id !== res.data.row.id);
+      }
     },
-    updateOneClient: async function (id: number, client: updateClient) {
-      const res: dataRow<client> = await axios.post(api + id, {
-        body: {
-          client,
+    updateOneClient: async function (id: number, Client: updateClientT) {
+      const res: dataRow<clientT> = await axios.put(api + id, {
+        data: {
+          Client,
         },
       });
       this.clients.map((client) => {
