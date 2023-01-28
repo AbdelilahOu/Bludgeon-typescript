@@ -2,7 +2,8 @@ import { createRouter, createWebHistory } from "vue-router";
 import { NotificationsView } from "@/views/content/NotificationsView";
 import { ProductView } from "@/views/content/ProductView";
 import { CommandView } from "@/views/content/CommandView";
-import { SittingView } from "@/views/content/SittingView";
+import { InvoiceView } from "@/views/content/InvoiceView";
+import { VendorView } from "@/views/content/VendorView";
 import { ClientView } from "@/views/content/ClientView";
 import { StockView } from "@/views/content/StockView";
 import { StatsView } from "@/views/content/StatsView";
@@ -28,6 +29,11 @@ const router = createRouter({
           component: ClientView,
         },
         {
+          path: "Vendor",
+          name: "Vendor",
+          component: VendorView,
+        },
+        {
           path: "Stock",
           name: "Stock",
           component: StockView,
@@ -43,9 +49,9 @@ const router = createRouter({
           component: StatsView,
         },
         {
-          path: "Sitting",
-          name: "Sitting",
-          component: SittingView,
+          path: "Invoice",
+          name: "Invoice",
+          component: InvoiceView,
         },
         {
           path: "Notifications",

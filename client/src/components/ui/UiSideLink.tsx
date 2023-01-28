@@ -28,7 +28,7 @@ export const UiSideLink = defineComponent({
       <RouterLink to={props.LinkPath}>
         <span
           class={
-            "w-full flex h-full rounded-sm py-1 px-2 hover:bg-gray-200 transition-all duration-300"
+            "w-full flex h-9 rounded-sm items-center py-1 px-2 hover:bg-gray-200 transition-all duration-300"
           }
         >
           {props.LinkIcon}

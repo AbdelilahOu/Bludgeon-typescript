@@ -1,5 +1,6 @@
-import { useToastStore } from "@/stores/toastStore";
 import { defineComponent, onMounted, onUnmounted, ref } from "vue";
+import { useToastStore } from "@/stores/toastStore";
+
 export const UiToast = defineComponent({
   name: "UiToast",
   props: {
