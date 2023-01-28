@@ -1,10 +1,12 @@
+import { commandRoute } from "./routes/commandRoute";
+import { invoiceRoute } from "./routes/invoiceRoute";
+import { productRoute } from "./routes/productRoute";
+import { clientRoute } from "./routes/clientRoute";
+import { vendorRoute } from "./routes/vendorRoute";
+import { stockRoute } from "./routes/stockRoute";
 import { Application } from "express";
 import * as express from "express";
 import * as cors from "cors";
-import { clientRoute } from "./api/client-route";
-import { commandRoute } from "./api/command-route";
-import { stockRoute } from "./api/stock-route";
-import { productRoute } from "./api/product-route";
 
 export default class expressServer {
   public app: Application;
@@ -19,7 +21,9 @@ export default class expressServer {
     this.app.use(express.json());
     this.app.use("/product", productRoute);
     this.app.use("/command", commandRoute);
+    this.app.use("/invoice", invoiceRoute);
     this.app.use("/client", clientRoute);
+    this.app.use("/vendor", vendorRoute);
     this.app.use("/stock", stockRoute);
     this.server = this.app.listen(3111 || process.env.PORT, () => {
       console.log(`server is running on port ${3111}`);

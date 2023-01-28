@@ -1,16 +1,20 @@
+export interface updateData<T> {
+  id: number;
+  data: T;
+}
 // client
+export interface updateClientT extends Partial<newClientT> {}
 export interface clientT extends newClientT {
   id: number;
 }
-
 export interface newClientT {
   name: string;
-  phone: string;
+  email?: string;
+  phone?: string;
+  addresse?: string;
 }
-
-export interface updateClientT extends Partial<newClientT> {}
-
 // product
+export interface updateProductT extends Partial<newProductT> {}
 export interface productT extends newProductT {
   id: number;
 }
@@ -19,48 +23,72 @@ export interface newProductT {
   name: string;
   price: number;
   stock: number;
+  description?: string;
 }
-
-export interface updateProductT extends Partial<newProductT> {}
-
-// stockmovement
-
-export interface stockMovementT extends newStockMovementT {
+// vendor
+export interface updateVendorT extends Partial<newVendorT> {}
+export interface vendorT extends newVendorT {
   id: number;
 }
 
-export interface newStockMovementT {
-  quantity: number;
+export interface newVendorT {
+  name: string;
+  email?: string;
+  phone?: string;
+  addresse?: string;
+}
+// stock
+
+export interface stockMvmT extends newStockMvmT {
+  id: number;
+}
+
+export interface newStockMvmT {
+  productId: number;
   model: string;
+  quantity: number;
 }
 
-//  command
-export interface commandT {
-  id: number;
-  client?: clientT;
-  items?: commandItemT[];
+// invoice
+export interface newInvoiceT {
+  total: number;
+  clientId: number;
+  vendorId: number;
+  products: number[];
 }
 
-// commanditems
+export interface updateInvoiceT extends Partial<newInvoiceT> {}
+// command
 
-export interface commandItemT extends newCommandItemT {
+export interface commandT extends newCommandT {
   id: number;
-  product: productT;
+}
+
+export interface newCommandT {
+  status: string;
+  clientId: number;
+  commandItems?: Omit<newCommandItemT, "commandId">[];
 }
 
 export interface newCommandItemT {
-  quantity: number;
+  commandId: number;
   productId: number;
+  quantity: number;
 }
 
-export interface updateCommandT extends Partial<{ items: newCommandItemT[] }> {}
-// Invoice
-export interface invoiceT extends newInvoiceT {
+export interface updateCommandItemT extends Partial<newCommandItemT> {
   id: number;
-  client?: clientT;
-  command?: commandT;
+  stockId: number;
 }
 
-export interface newInvoiceT {
-  total: number;
+export interface commandItemT extends newCommandItemT {
+  id: number;
+  stockId: number;
+}
+
+export interface updateCommmandT extends Partial<newCommandT> {}
+
+export interface updateCommandTapi
+  extends Partial<Omit<commandT, "commandItems">> {
+  commandItems: commandItemT[];
 }

@@ -1,8 +1,6 @@
 import { app, BrowserWindow } from "electron";
 import expressServer from "../server/app";
 import * as express from "express";
-
-// import axios from "axios";
 import * as path from "path";
 
 const server = new expressServer(express());
@@ -35,6 +33,5 @@ app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
     server.close();
-    // axios.get("http://localhost:3111/close");
   }
 });

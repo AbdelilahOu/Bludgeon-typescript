@@ -7,56 +7,81 @@ datasource db {
   url      = "file:../server/database/db.sqlite"
 }
 
-model Client {
-  id      Int       @id @default(autoincrement())
-  name    String
-  phone   String
-  Command Command[]
-  Invoice Invoice[]
-}
-
 model Product {
-  id            Int             @id @default(autoincrement())
-  name          String
-  price         Float
-  stock         Int
-  StockMovement StockMovement[]
-  CommandItem   CommandItem[]
+  id              Int              @id @default(autoincrement())
+  name            String           @unique()
+  description     String?
+  price           BigInt
+  stockMouvements StockMouvement[]
+  invoiceItems    InvoiceItem[]
+  commandItems    CommandItem[]
 }
 
-model StockMovement {
-  id        Int      @id @default(autoincrement())
-  product   Product  @relation(fields: [productId], references: [id])
-  quantity  Int
-  model     String
-  date      DateTime @default(now())
-  productId Int
+model Client {
+  id       Int       @id @default(autoincrement())
+  name     String
+  phone    String?
+  email    String?
+  addresse String?
+  commands Command[]
 }
 
-model Command {
-  id       Int           @id @default(autoincrement())
-  client   Client        @relation(fields: [clientId], references: [id])
-  items    CommandItem[]
-  date     DateTime      @default(now())
-  clientId Int
-  Invoice  Invoice[]
-}
-
-model CommandItem {
-  id        Int     @id @default(autoincrement())
-  product   Product @relation(fields: [productId], references: [id])
-  quantity  Int
-  Command   Command @relation(fields: [commandId], references: [id])
-  commandId Int
-  productId Int
+model Vendor {
+  id       Int       @id @default(autoincrement())
+  name     String
+  phone    String?
+  email    String?
+  addresse String?
+  invoices Invoice[]
 }
 
 model Invoice {
-  id        Int      @id @default(autoincrement())
-  client    Client   @relation(fields: [clientId], references: [id])
-  command   Command  @relation(fields: [commandId], references: [id])
-  total     Float
-  date      DateTime @default(now())
-  clientId  Int
+  id           Int           @id @default(autoincrement())
+  vendor       Vendor        @relation(fields: [vendorId], references: [id])
+  total        Float
+  createdAt    DateTime      @default(now())
+  vendorId     Int
+  invoiceItems InvoiceItem[]
+}
+
+model InvoiceItem {
+  id        Int            @id @default(autoincrement())
+  productId Int
+  invoiceId Int
+  product   Product        @relation(fields: [productId], references: [id], onDelete: NoAction, onUpdate: Cascade)
+  invoice   Invoice        @relation(fields: [invoiceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  quantity  BigInt
+  stockId   Int            @unique
+  stock     StockMouvement @relation(fields: [stockId], references: [id])
+}
+
+model StockMouvement {
+  id          Int          @id @default(autoincrement())
+  date        DateTime     @default(now())
+  model       String
+  quantity    BigInt
+  commandItem CommandItem?
+  invoiceItem InvoiceItem?
+  product     Product      @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  productId   Int
+}
+
+model Command {
+  id           Int           @id @default(autoincrement())
+  client       Client        @relation(fields: [clientId], references: [id], onDelete: NoAction, onUpdate: Cascade)
+  status       String
+  createdAt    DateTime      @default(now())
+  clientId     Int
+  commandItems CommandItem[]
+}
+
+model CommandItem {
+  id        Int            @id @unique @default(autoincrement())
+  productId Int
   commandId Int
+  product   Product        @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  command   Command        @relation(fields: [commandId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  quantity  BigInt
+  stockId   Int            @unique
+  stock     StockMouvement @relation(fields: [stockId], references: [id], onDelete: NoAction, onUpdate: Cascade)
 }

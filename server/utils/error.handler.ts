@@ -5,6 +5,7 @@ export const errorResponse = (
   statusCode = 500,
   error = {}
 ) => {
+  console.log(error);
   res.status(statusCode).json({
     success: false,
     message,
