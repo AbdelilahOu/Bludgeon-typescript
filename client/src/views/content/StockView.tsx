@@ -8,7 +8,7 @@ import { storeToRefs } from "pinia";
 import { useModalStore } from "@/stores/modalStore";
 
 export const StockView = defineComponent({
-  name: "Stock",
+  name: "Stocks",
   components: {
     StockTable,
     UiButton,

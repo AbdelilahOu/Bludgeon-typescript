@@ -1,5 +1,7 @@
+import { useModalStore } from "@/stores/modalStore";
 import type { invoiceT } from "@/types";
 import { defineComponent, ref, type PropType } from "vue";
+import { RouterLink } from "vue-router";
 import { UiCheckBox } from "../ui/UiCheckBox";
 import UiIcon from "../ui/UiIcon.vue";
 import { UiPagination } from "../ui/UiPagination";
@@ -21,15 +23,22 @@ export const InvoiceTable = defineComponent({
   },
   components: { UiIcon, UiCheckBox, UiPagination },
   setup(props) {
-    const checkThisInvoice = (a: any, b: number) => "";
+    const modalStore = useModalStore();
 
+    const checkedInvoices = ref<number[]>([]);
+
+    const checkThisInvoice = (IsIncluded: boolean, id: number) => {
+      IsIncluded
+        ? checkedInvoices.value.push(id)
+        : checkedInvoices.value.splice(checkedInvoices.value.indexOf(id), 1);
+    };
     const pagination = ref(0);
 
     const feilds: string[] = [
       "Invoice id",
       "vendor id",
       "items",
-      "status",
+      "total",
       "date",
       "action",
     ];
@@ -43,8 +52,11 @@ export const InvoiceTable = defineComponent({
         minute: "2-digit",
       });
     };
-    const toggleThisInvoice = (a: any, b: string) => "";
-
+    const toggleThisInvoice = (Invoice: invoiceT, name: string) => {
+      modalStore.updateModal({ key: "show", value: true });
+      modalStore.updateModal({ key: "name", value: name });
+      modalStore.updateInvoiceRow(Invoice);
+    };
     return () => (
       <div class="flex flex-col w-full h-full">
         <table class="table-auto rounded-sm overflow-hidden w-full">
@@ -77,14 +89,14 @@ export const InvoiceTable = defineComponent({
                   </td>
                   <td class="p-2">
                     <div class="text-left whitespace-nowrap overflow-ellipsis">
-                      {Invoice.clientId ?? (
+                      {Invoice.vendorId ?? (
                         <span class="text-red-400">No email</span>
                       )}
                     </div>
                   </td>
                   <td class="p-2">
                     <div class="text-left whitespace-nowrap overflow-ellipsis">
-                      {Invoice.InvoiceItems?.length ? (
+                      {Invoice.invoiceItems?.length ? (
                         <span>
                           {Invoice.invoiceItems?.length}{" "}
                           {Invoice.invoiceItems?.length == 1
@@ -98,21 +110,7 @@ export const InvoiceTable = defineComponent({
                   </td>
                   <td class="p-2">
                     <div class="text-left font-medium uppercase whitespace-nowrap overflow-ellipsis">
-                      {Invoice.status ? (
-                        <span
-                          class={
-                            Invoice.status == "pending"
-                              ? "bg-yellow-300 px-2 py-[1px] rounded-full"
-                              : Invoice.status == "Delivered"
-                              ? "bg-green-300 px-2 py-[1px] rounded-full"
-                              : "bg-red-300 px-2 py-[1px] rounded-full"
-                          }
-                        >
-                          {Invoice.status}
-                        </span>
-                      ) : (
-                        <span class="text-red-400">No status</span>
-                      )}
+                      {Invoice.total ?? 0}
                     </div>
                   </td>
                   <td class="p-2">
@@ -136,6 +134,14 @@ export const InvoiceTable = defineComponent({
                         }
                         name={"edit"}
                       />
+                      <RouterLink
+                        to={{
+                          name: "InvoiceDetails",
+                          params: { id: Invoice.id },
+                        }}
+                      >
+                        <UiIcon name={"print"} />
+                      </RouterLink>
                     </div>
                   </td>
                 </tr>

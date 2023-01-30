@@ -43,7 +43,7 @@ export const useVendorStore = defineStore("VendorStore", {
     deleteOneVendor: async function (id: number) {
       const res: dataRowT<number> = await axios.delete(api + id);
       if (res.data.row) {
-        this.vendors.filter((cli) => cli.id !== id);
+        this.vendors = this.vendors.filter((cli) => cli.id !== id);
       }
     },
     updateOneVendor: async function (id: number, Vendor: updateVendorT) {

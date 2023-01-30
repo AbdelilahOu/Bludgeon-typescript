@@ -9,29 +9,39 @@ export const StatsView = defineComponent({
   name: "Stats",
   components: { ChartBar, ChartLine },
   setup() {
+    // we got all the stock mouvements already
+    // no need to make an api call
     const { stockMouvements } = storeToRefs(useStockStore());
-    const stockMvmData = ref(stockMouvements.value);
-
-    stockMvmData.value = useStatsStore().getStockMouvementStats(
-      stockMvmData.value
+    // reformate the data
+    const [stockData, months] = useStatsStore().getStockMouvementStats(
+      stockMouvements.value
     );
-
     return () => (
       <main class="w-full h-full px-3 py-1">
-        <div>
+        <div class="w-full h-full grid grid-cols-1 grid-rows-2">
           <ChartBar
             id="stock-mouvements-for-past-three-months"
             chartData={{
-              labels: ["January", "February", "March"],
+              labels: months,
               datasets: [
                 {
+                  label: "BOUGHT",
                   backgroundColor: "rgba(255, 200, 0, 0.2)",
                   borderColor: "rgba(255, 200, 0,0.5)",
-                  data: [11, 89, 10],
+                  data: [
+                    stockData[months[0]]?.IN ?? 0,
+                    stockData[months[1]]?.IN ?? 0,
+                    stockData[months[2]]?.IN ?? 0,
+                  ],
                   borderWidth: 2,
                 },
                 {
-                  data: [13, 7, 97],
+                  label: "SOLD",
+                  data: [
+                    stockData[months[0]]?.OUT ?? 0,
+                    stockData[months[1]]?.OUT ?? 0,
+                    stockData[months[2]]?.OUT ?? 0,
+                  ],
                   backgroundColor: "rgba(255, 200, 0, 0.6)",
                   borderColor: "rgba(255, 200, 0,1)",
                   borderWidth: 2,
@@ -71,7 +81,7 @@ export const StatsView = defineComponent({
               },
             }}
           />
-          {/* <ChartLine
+          <ChartLine
             id="stock-mouvements-for"
             chartData={{
               labels: ["January", "February", "March"],
@@ -123,7 +133,7 @@ export const StatsView = defineComponent({
                 },
               },
             }}
-          /> */}
+          />
         </div>
       </main>
     );

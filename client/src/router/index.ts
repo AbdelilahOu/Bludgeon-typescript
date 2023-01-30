@@ -1,5 +1,7 @@
 import { createRouter, createWebHistory } from "vue-router";
 import { NotificationsView } from "@/views/content/NotificationsView";
+import { CommandDetails } from "@/views/content/CommandDetails";
+import { CommandIndex } from "@/views/content/CommandIndex";
 import { ProductView } from "@/views/content/ProductView";
 import { CommandView } from "@/views/content/CommandView";
 import { InvoiceView } from "@/views/content/InvoiceView";
@@ -9,6 +11,8 @@ import { StockView } from "@/views/content/StockView";
 import { StatsView } from "@/views/content/StatsView";
 import { IndexView } from "../views/IndexView";
 import { AuthView } from "@/views/AuthView";
+import { InvoiceDetails } from "@/views/content/InvoiceDetails";
+import { InvoiceIndex } from "@/views/content/InvoiceIndex";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -19,29 +23,41 @@ const router = createRouter({
       component: IndexView,
       children: [
         {
-          path: "Product",
-          name: "Product",
+          path: "Products",
+          name: "Products",
           component: ProductView,
         },
         {
-          path: "Client",
-          name: "Client",
+          path: "Clients",
+          name: "Clients",
           component: ClientView,
         },
         {
-          path: "Vendor",
-          name: "Vendor",
+          path: "Vendors",
+          name: "Vendors",
           component: VendorView,
         },
         {
-          path: "Stock",
-          name: "Stock",
+          path: "Stocks",
+          name: "Stocks",
           component: StockView,
         },
         {
-          path: "Command",
+          path: "Commands/",
           name: "Command",
-          component: CommandView,
+          component: CommandIndex,
+          children: [
+            {
+              path: "all",
+              name: "Commands",
+              component: CommandView,
+            },
+            {
+              path: "command/:id",
+              name: "CommandDetails",
+              component: CommandDetails,
+            },
+          ],
         },
         {
           path: "Stats",
@@ -49,9 +65,21 @@ const router = createRouter({
           component: StatsView,
         },
         {
-          path: "Invoice",
+          path: "Invoices/",
           name: "Invoice",
-          component: InvoiceView,
+          component: InvoiceIndex,
+          children: [
+            {
+              path: "all",
+              name: "Invoices",
+              component: InvoiceView,
+            },
+            {
+              path: "invoice/:id",
+              name: "InvoiceDetails",
+              component: InvoiceDetails,
+            },
+          ],
         },
         {
           path: "Notifications",

@@ -71,7 +71,7 @@ export const ProductTable = defineComponent({
                     <div class="text-left">{product.price.toFixed(2)}</div>
                   </td>
                   <td class="p-2">
-                    <div class="text-left">{product.stock}</div>
+                    <div class="text-left">{product.stock} item</div>
                   </td>
                   <td class="p-2">
                     <div class="flex  justify-start gap-3">

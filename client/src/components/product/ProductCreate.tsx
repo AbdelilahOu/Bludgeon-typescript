@@ -13,7 +13,7 @@ export const ProductCreate = defineComponent({
     const newProduct = reactive<newProductT>({
       name: "a",
       price: 0,
-      stock: 0,
+      quantity: 0,
       description: "aaaaaaaaa",
     });
     const createNewProduct = () => {
@@ -48,8 +48,8 @@ export const ProductCreate = defineComponent({
             PlaceHolder="Price in DH"
           />
           <UiInput
-            IsEmpty={isFlash.value && newProduct["stock"] == 0}
-            OnInputChange={(value) => (newProduct["stock"] = Number(value))}
+            IsEmpty={isFlash.value && newProduct["quantity"] == 0}
+            OnInputChange={(value) => (newProduct["quantity"] = Number(value))}
             Type="Number"
             PlaceHolder="Quantity in stock"
           />

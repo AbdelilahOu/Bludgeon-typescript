@@ -8,7 +8,7 @@ import UiIcon from "@/components/ui/UiIcon.vue";
 import { storeToRefs } from "pinia";
 
 export const ClientView = defineComponent({
-  name: "Client",
+  name: "Clients",
   components: {
     ClientTable,
     UiButton,

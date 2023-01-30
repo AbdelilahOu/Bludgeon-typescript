@@ -8,7 +8,7 @@ import UiIcon from "@/components/ui/UiIcon.vue";
 import { storeToRefs } from "pinia";
 
 export const InvoiceView = defineComponent({
-  name: "Invoice",
+  name: "Invoices",
   components: {
     InvoiceTable,
     UiButton,

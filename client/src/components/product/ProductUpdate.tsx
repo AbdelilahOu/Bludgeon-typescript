@@ -15,13 +15,14 @@ export const ProductUpdate = defineComponent({
     const Product = {
       id: undefined,
       name: undefined,
-      email: undefined,
-      phone: undefined,
-      addresse: undefined,
+      price: undefined,
+      quantity: undefined,
+      description: undefined,
     };
-    const updateProduct = reactive<updateProductT>(
-      ProductRow.value ? ProductRow.value : Product
-    );
+    const updateProduct = reactive<updateProductT>({
+      ...(ProductRow.value ? ProductRow.value : Product),
+      quantity: 0,
+    });
     const updateTheProduct = () => {
       if (updateProduct.id) {
         useProductStore().updateOneProduct(updateProduct.id, updateProduct);
@@ -53,7 +54,9 @@ export const ProductUpdate = defineComponent({
           />
           <UiUpdateInput
             // Value={ProductRow.value?.stock}
-            OnInputChange={(value) => (updateProduct["stock"] = Number(value))}
+            OnInputChange={(value) =>
+              (updateProduct["quantity"] = Number(value))
+            }
             Type="text"
             PlaceHolder="Add Stock"
           />

@@ -52,7 +52,7 @@ export const useCommandStore = defineStore("CommandStore", {
         );
       }
     },
-    deleteOneCommandItem: async function (id: number, commandId: number) {
+    deleteOneCommandItem: async function (id: number) {
       const res: dataRowT<number> = await axios.delete(api + "item/" + id);
       if (res.data.row) {
         // const commandIndex = this.commands.findIndex(

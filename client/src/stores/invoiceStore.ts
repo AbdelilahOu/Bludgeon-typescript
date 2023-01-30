@@ -22,6 +22,7 @@ export const useInvoiceStore = defineStore("InvoiceStore", {
     getAllInvoices: async function () {
       const res: dataRowsT<invoiceT> = await axios.get(api);
       this.invoices = res.data.rows;
+      console.log(res.data.rows);
     },
     createOneInvoice: async function (Invoice: newInvoiceT) {
       const res: dataRowT<invoiceT> = await axios.post(api, {
@@ -52,7 +53,7 @@ export const useInvoiceStore = defineStore("InvoiceStore", {
         );
       }
     },
-    deleteOneInvoiceItem: async function (id: number, InvoiceId: number) {
+    deleteOneInvoiceItem: async function (id: number) {
       const res: dataRowT<number> = await axios.delete(api + "item/" + id);
       if (res.data.row) {
         // const InvoiceIndex = this.invoices.findIndex(

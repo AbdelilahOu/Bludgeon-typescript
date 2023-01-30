@@ -11,6 +11,7 @@ export interface modalsState {
   client: clientT | null;
   command: commandT | null;
   vendor: vendorT | null;
+  invoice: invoiceT | null;
 }
 
 export interface productState {
@@ -80,8 +81,9 @@ export type invoiceT = {
   id: number;
   total: number;
   vendorId: number;
-  createdAt: Date;
+  createdAt: string;
   vendorId: number;
+  invoiceItems: invoiceItemT[];
 };
 
 export type invoiceItemT = {
@@ -91,6 +93,11 @@ export type invoiceItemT = {
   quantity: number;
   stockId: number;
 };
+
+export interface updateInvoiceT
+  extends Partial<Omit<invoiceT, "invoiceItems">> {
+  invoiceItems: Partial<invoiceItemT>[];
+}
 
 export interface newInvoiceT
   extends Omit<invoiceT, "id" | "createdAt" | "total"> {
@@ -140,7 +147,7 @@ export interface productT {
   id: number;
   name: string;
   price: number;
-  stock: number;
+  quantity: number;
   description?: string;
 }
 export interface newProductT extends Omit<productT, "id"> {}
@@ -152,6 +159,10 @@ export interface updateProductT extends Partial<productT> {}
 /////////////////////////////////////
 ///////////////// OTHERS //////////
 
+export interface FilteredStockData {
+  [key: string]: { IN: number; OUT: number };
+}
+
 export interface editModalArgsT {
   key: string;
   value: string | boolean;
@@ -160,6 +171,7 @@ export interface editModalArgsT {
 export interface RouteLinksTypeT {
   path: string;
   name: string;
+  component: string;
   icon: string;
 }
 

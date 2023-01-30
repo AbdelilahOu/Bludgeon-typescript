@@ -8,7 +8,7 @@ import UiIcon from "@/components/ui/UiIcon.vue";
 import { storeToRefs } from "pinia";
 
 export const CommandView = defineComponent({
-  name: "Command",
+  name: "Commands",
   components: {
     CommandTable,
     UiButton,

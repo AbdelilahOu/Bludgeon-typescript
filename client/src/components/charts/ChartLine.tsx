@@ -40,7 +40,6 @@ export const ChartLine = defineComponent({
       LineElement,
       CategoryScale,
       LineController,
-
       LinearScale
     );
 

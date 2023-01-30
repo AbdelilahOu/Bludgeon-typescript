@@ -5,6 +5,7 @@ import { UiPagination } from "../ui/UiPagination";
 import { UiCheckBox } from "../ui/UiCheckBox";
 import type { commandT } from "@/types";
 import UiIcon from "../ui/UiIcon.vue";
+import { RouterLink } from "vue-router";
 
 export const CommandTable = defineComponent({
   name: "CommandTable",
@@ -26,8 +27,8 @@ export const CommandTable = defineComponent({
   setup(props) {
     const modalStore = useModalStore();
 
-    const checkedCommands = ref<number[]>([]);
     const pagination = ref<number>(0);
+    const checkedCommands = ref<number[]>([]);
 
     const checkThisCommand = (IsIncluded: boolean, id: number) => {
       IsIncluded
@@ -150,6 +151,14 @@ export const CommandTable = defineComponent({
                         }
                         name={"edit"}
                       />
+                      <RouterLink
+                        to={{
+                          name: "CommandDetails",
+                          params: { id: Command.id },
+                        }}
+                      >
+                        <UiIcon name={"print"} />
+                      </RouterLink>
                     </div>
                   </td>
                 </tr>

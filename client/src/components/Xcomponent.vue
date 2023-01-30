@@ -8,6 +8,8 @@ import { ProductCreate } from "./product/ProductCreate";
 import { ProductDelete } from "./product/ProductDelete";
 import { ProductUpdate } from "./product/ProductUpdate";
 import { InvoiceCreate } from "./invoice/InvoiceCreate";
+import { InvoiceDelete } from "./invoice/InvoiceDelete";
+import { InvoiceUpdate } from "./invoice/InvoiceUpdate";
 import { VendorCreate } from "./vendor/VendorCreate";
 import { VendorDelete } from "./vendor/VendorDelete";
 import { VendorUpdate } from "./vendor/VendorUpdate";
@@ -25,6 +27,8 @@ export default {
     ProductDelete,
     ProductCreate,
     InvoiceCreate,
+    InvoiceUpdate,
+    InvoiceDelete,
     VendorCreate,
     VendorDelete,
     VendorUpdate,

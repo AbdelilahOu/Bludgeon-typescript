@@ -6,14 +6,16 @@ import { useProductStore } from "./stores/productStore";
 import { useVendorStore } from "./stores/vendorStore";
 import { useCommandStore } from "./stores/commandStore";
 import { useStockStore } from "./stores/stockStore";
+import { useInvoiceStore } from "./stores/invoiceStore";
 
 onBeforeMount(() => {
   useStockStore().getAllStockMouvements();
   useProductStore().getAllProducts();
   useCommandStore().getAllCommands();
+  useInvoiceStore().getAllInvoices();
   useClientStore().getAllClients();
   useVendorStore().getAllVendors();
-  useRouter().push("/");
+  // useRouter().push("/");
 });
 </script>
 

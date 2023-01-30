@@ -5,51 +5,51 @@ import {
   ref,
   withModifiers,
 } from "vue";
-import { useCommandStore } from "@/stores/commandStore";
+import { useInvoiceStore } from "@/stores/invoiceStore";
 import { useModalStore } from "@/stores/modalStore";
 import { UiUpdateInput } from "../ui/UiUpdateInput";
 import { UiButton } from "../ui/UiButton";
-import type { updateCommandT } from "@/types";
+import type { updateInvoiceT } from "@/types";
 import { storeToRefs } from "pinia";
 import { UiUpdateSelect } from "../ui/UiUpdateSelect";
-import { useClientStore } from "@/stores/clientStore";
+import { useVendorStore } from "@/stores/vendorStore";
 import { UiCheckBox } from "../ui/UiCheckBox";
 import { useProductStore } from "@/stores/productStore";
 import UiIcon from "../ui/UiIcon.vue";
 
-export const CommandUpdate = defineComponent({
-  name: "CommandUpdate",
+export const InvoiceUpdate = defineComponent({
+  name: "InvoiceUpdate",
   components: { UiButton, UiUpdateInput, UiIcon, UiUpdateSelect, UiCheckBox },
   setup() {
     //
     const productStore = useProductStore();
-    const clientStore = useClientStore();
+    const vendorStore = useVendorStore();
     const modalStore = useModalStore();
     //
-    const { command: CommandRow } = storeToRefs(modalStore);
+    const { invoice: invoiceRow } = storeToRefs(modalStore);
 
     const { products } = storeToRefs(productStore);
-    const { clients } = storeToRefs(clientStore);
+    const { vendors } = storeToRefs(vendorStore);
     const IsClicked = ref<boolean>(false);
     //
-    const Command: updateCommandT = {
+    const invoice: updateInvoiceT = {
       id: undefined,
-      status: undefined,
-      clientId: undefined,
-      commandItems: [],
+      total: undefined,
+      vendorId: undefined,
+      invoiceItems: [],
     };
     //
-    const updateCommand = reactive<updateCommandT>(
-      CommandRow.value ? CommandRow.value : Command
+    const updateInvoice = reactive<updateInvoiceT>(
+      invoiceRow.value ? invoiceRow.value : invoice
     );
     //
-    const updateTheCommand = () => {
-      if (updateCommand.id) {
-        useCommandStore().updateOneCommand(updateCommand.id, updateCommand);
+    const updateTheInvoice = () => {
+      if (updateInvoice.id) {
+        useInvoiceStore().updateOneInvoice(updateInvoice.id, updateInvoice);
         modalStore.updateModal({ key: "show", value: false });
       }
     };
-    onBeforeUnmount(() => modalStore.updateCommandRow(null));
+    onBeforeUnmount(() => modalStore.updateInvoiceRow(null));
 
     return () => (
       <div
@@ -66,62 +66,28 @@ export const CommandUpdate = defineComponent({
           )}
           class="font-semibold  text-lg text-gray-800 border-b-2 border-b-gray-500 pb-2 uppercase text-center"
         >
-          UPDATE COMMAND N° {updateCommand.id}
+          UPDATE invoice N° {updateInvoice.id}
         </h1>
         <div class="h-full  w-full grid grid-cols-1 gap-2">
           <div class="w-full  h-full flex flex-col gap-1">
-            <h1 class="font-medium">client details</h1>
+            <h1 class="font-medium">vendor details</h1>
             <UiUpdateSelect
               Value={
-                clients.value.find((cli) => updateCommand.clientId === cli.id)
+                vendors.value.find((cli) => updateInvoice.vendorId === cli.id)
                   ?.name ?? ""
               }
-              items={clients.value.map((client) => ({
-                name: client.name,
-                id: client.id,
+              items={vendors.value.map((vendor) => ({
+                name: vendor.name,
+                id: vendor.id,
               }))}
-              onSelect={(id: number) => (updateCommand.clientId = id)}
+              onSelect={(id: number) => (updateInvoice.vendorId = id)}
               IsClickedOuside={IsClicked.value}
             >
-              Select a client
+              Select a vendor
             </UiUpdateSelect>
           </div>
           <div class="w-full  h-full flex flex-col gap-1">
-            <h1 class="font-medium">command details</h1>
-            <div class="w-full  h-full flex flex-col mb-1 gap-1">
-              <div class="flex justify-between w-full">
-                <div class="h-full w-full flex flex-row flex-nowrap items-center gap-2">
-                  <UiCheckBox
-                    onCheck={(check) =>
-                      check
-                        ? (updateCommand.status = "Delivered")
-                        : (updateCommand.status = "")
-                    }
-                  />
-                  <span>Delivered</span>
-                </div>
-                <div class="h-full w-full flex flex-row flex-nowrap items-center justify-center gap-2">
-                  <UiCheckBox
-                    onCheck={(check) =>
-                      check
-                        ? (updateCommand.status = "pending")
-                        : (updateCommand.status = "")
-                    }
-                  />
-                  <span>pending</span>
-                </div>
-                <div class="h-full w-full flex flex-row justify-end flex-nowrap items-center gap-2">
-                  <UiCheckBox
-                    onCheck={(check) =>
-                      check
-                        ? (updateCommand.status = "canceled")
-                        : (updateCommand.status = "")
-                    }
-                  />
-                  <span>canceled</span>
-                </div>
-              </div>
-            </div>
+            <h1 class="font-medium">invoice details</h1>
             <div
               onClick={withModifiers(
                 () => (IsClicked.value = !IsClicked.value),
@@ -131,7 +97,7 @@ export const CommandUpdate = defineComponent({
             >
               <UiButton
                 onClick={() =>
-                  updateCommand.commandItems?.push({
+                  updateInvoice.invoiceItems?.push({
                     productId: 0,
                     quantity: 0,
                   })
@@ -141,7 +107,7 @@ export const CommandUpdate = defineComponent({
               </UiButton>
               <div class="w-full grid grid-cols-[1fr_1fr_36px] pb-10 overflow-auto scrollbar-thin scrollbar-thumb-transparent max-h-64 gap-1">
                 <div class="flex flex-col gap-2">
-                  {updateCommand.commandItems?.map((item, index) => (
+                  {updateInvoice.invoiceItems?.map((item, index) => (
                     <UiUpdateSelect
                       Value={
                         products.value.find((pro) => pro.id == item.productId)
@@ -159,7 +125,7 @@ export const CommandUpdate = defineComponent({
                   ))}
                 </div>
                 <div class="flex flex-col gap-2">
-                  {updateCommand.commandItems?.map((item, index) => (
+                  {updateInvoice.invoiceItems?.map((item, index) => (
                     <div class="h-full w-full items-center relative">
                       <UiUpdateInput
                         Value={item.quantity}
@@ -173,13 +139,13 @@ export const CommandUpdate = defineComponent({
                   ))}
                 </div>
                 <div class="flex flex-col gap-2">
-                  {updateCommand.commandItems?.map((item, index) => (
+                  {updateInvoice.invoiceItems?.map((item, index) => (
                     <div class="flex justify-center bg-gray-100 hover:bg-gray-300 transition-all duration-200  rounded-sm items-center w-full h-full">
                       <UiIcon
                         onClick={() => {
-                          updateCommand.commandItems?.splice(index, 1);
+                          updateInvoice.invoiceItems?.splice(index, 1);
                           if (item.id)
-                            useCommandStore().deleteOneCommandItem(item.id);
+                            useInvoiceStore().deleteOneInvoiceItem(item.id);
                         }}
                         name="delete"
                       />
@@ -191,8 +157,8 @@ export const CommandUpdate = defineComponent({
           </div>
         </div>
         <div class="flex">
-          <UiButton colorTheme="a" onClick={() => updateTheCommand()}>
-            Update Command
+          <UiButton colorTheme="a" onClick={() => updateTheInvoice()}>
+            Update invoice
           </UiButton>
         </div>
       </div>
