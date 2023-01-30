@@ -9,7 +9,7 @@ export const createProduct = (data: newProductT) => {
       description: data.description,
       stockMouvements: {
         create: {
-          quantity: Number(data.stock),
+          quantity: Number(data.quantity),
           model: "IN",
         },
       },

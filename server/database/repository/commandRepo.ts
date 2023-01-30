@@ -77,6 +77,11 @@ export const updateCommandItem = (data: updateCommandItemT) => {
           id: data.productId,
         },
       },
+      stock: {
+        update: {
+          quantity: -data.quantity,
+        },
+      },
     },
     create: {
       product: {

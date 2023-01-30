@@ -38,12 +38,14 @@ export const getProductController = async (req: Request, res: Response) => {
 
 export const createProductController = async (req: Request, res: Response) => {
   const { Product } = req.body.data;
+  console.log(Product);
   try {
     const row = await createProduct(Product);
     res.status(200).json({
       row: serializeBigInt(row),
     });
   } catch (error) {
+    console.log(error);
     errorResponse(res, error.message, 404, false);
   }
 };
@@ -54,15 +56,18 @@ export const updateProductController = async (req: Request, res: Response) => {
   const { id } = req.params;
   try {
     const row = await updateProduct({ id: Number(id), data: Product });
-    const updateStock = await createStockMouvement({
-      productId: row.id,
-      quantity: Product.stock,
-      model: "IN",
-    });
+    if (Product.quantity && Product.quantity > 0) {
+      const updateStock = await createStockMouvement({
+        productId: row.id,
+        quantity: Product.quantity,
+        model: "IN",
+      });
+    }
     res.status(200).json({
       row: serializeBigInt(row),
     });
   } catch (error) {
+    console.log(error);
     errorResponse(res, error.message, 404, false);
   }
 };

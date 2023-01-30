@@ -1,94 +1,114 @@
+////////////////////////////
 export interface updateData<T> {
   id: number;
   data: T;
 }
-// client
-export interface updateClientT extends Partial<newClientT> {}
-export interface clientT extends newClientT {
+///////////////////////////
+/////////// CLIENT ///////
+/////////////////////////
+export interface clientT {
   id: number;
-}
-export interface newClientT {
   name: string;
   email?: string;
   phone?: string;
   addresse?: string;
 }
-// product
-export interface updateProductT extends Partial<newProductT> {}
-export interface productT extends newProductT {
-  id: number;
-}
+export interface newClientT extends Omit<clientT, "id"> {}
+export interface updateClientT extends Partial<newClientT> {}
 
-export interface newProductT {
+////////////////////////////
+////////////// VENDOR //////
+////////////////////////////
+
+export interface vendorT {
+  id: number;
+  name: string;
+  email?: string;
+  phone?: string;
+  addresse?: string;
+}
+export interface newVendorT extends Omit<vendorT, "id"> {}
+export interface updateVendorT extends Partial<newVendorT> {}
+
+//////////////////////////
+///////////// PRODUCT ////
+/////////////////////////
+
+export interface productT {
+  id: number;
   name: string;
   price: number;
-  stock: number;
   description?: string;
-}
-// vendor
-export interface updateVendorT extends Partial<newVendorT> {}
-export interface vendorT extends newVendorT {
-  id: number;
-}
-
-export interface newVendorT {
-  name: string;
-  email?: string;
-  phone?: string;
-  addresse?: string;
-}
-// stock
-
-export interface stockMvmT extends newStockMvmT {
-  id: number;
-}
-
-export interface newStockMvmT {
-  productId: number;
-  model: string;
   quantity: number;
 }
 
-// invoice
-export interface newInvoiceT {
-  total: number;
-  clientId: number;
-  vendorId: number;
-  products: number[];
-}
+export interface newProductT extends Omit<productT, "id"> {}
+export interface updateProductT extends Partial<newProductT> {}
 
-export interface updateInvoiceT extends Partial<newInvoiceT> {}
-// command
-
-export interface commandT extends newCommandT {
+//////////////////////////
+//////////// COMMAND /////
+//////////////////////////
+export interface commandT {
   id: number;
-}
-
-export interface newCommandT {
+  clientId: number;
   status: string;
-  clientId: number;
-  commandItems?: Omit<newCommandItemT, "commandId">[];
 }
 
-export interface newCommandItemT {
-  commandId: number;
-  productId: number;
-  quantity: number;
-}
-
-export interface updateCommandItemT extends Partial<newCommandItemT> {
-  id: number;
-  stockId: number;
-}
-
-export interface commandItemT extends newCommandItemT {
-  id: number;
-  stockId: number;
-}
+export interface newCommandT extends Omit<commandT, "id"> {}
 
 export interface updateCommmandT extends Partial<newCommandT> {}
 
-export interface updateCommandTapi
-  extends Partial<Omit<commandT, "commandItems">> {
-  commandItems: commandItemT[];
+export interface commandItemT {
+  id: number;
+  commandId: number;
+  productId: number;
+  stockId: number;
+  quantity: number;
 }
+
+export interface newCommandItemT extends Omit<commandItemT, "id"> {}
+export interface updateCommandItemT extends Partial<commandItemT> {}
+
+export interface incomingCommandT extends newCommandT {
+  commandItems: newCommandItemT[];
+}
+//////////////////////////////
+////////////// INVOICE ///////
+/////////////////////////////
+
+export interface invoiceT {
+  id: number;
+  vendorId: number;
+  total: number;
+}
+
+export interface newInvoiceT extends Omit<invoiceT, "id"> {}
+
+export interface updateInvoiceT extends Partial<newInvoiceT> {}
+
+export interface invoiceItemT {
+  id: number;
+  productId: number;
+  invoiceId: number;
+  stockId: number;
+  quantity: number;
+}
+
+export interface newInvoiceItemT extends Omit<invoiceItemT, "id"> {}
+export interface updateInvoiceItemT extends Partial<invoiceItemT> {}
+export interface incomingInvoiceT extends newInvoiceT {
+  invoiceItems: newInvoiceItemT[];
+}
+
+//////////////////////////////
+///////// STOCK //////////////
+///////////////////////////
+
+export interface stockT {
+  id: number;
+  model: string;
+  quantity: number;
+  productId: number;
+}
+
+export interface newStockT extends Omit<stockT, "id"> {}

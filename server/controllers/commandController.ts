@@ -1,21 +1,16 @@
 import { errorResponse } from "../utils/error.handler";
 import {
+  createCommandItem,
+  updateCommandItem,
+  deleteCommandItem,
   getAllCommands,
   createCommand,
   updateCommand,
   deleteCommand,
   getCommand,
-  createCommandItem,
-  updateCommandItem,
-  deleteCommandItem,
 } from "../database/repository";
 import { Response, Request } from "express";
-import {
-  commandItemT,
-  newCommandT,
-  updateCommandTapi,
-  updateCommmandT,
-} from "../database/models";
+import { incomingCommandT } from "../database/models";
 import { serializeBigInt } from "../utils/serializeBigInt";
 
 export const getCommandsController = async (req: Request, res: Response) => {
@@ -42,7 +37,7 @@ export const getCommandController = async (req: Request, res: Response) => {
 };
 
 export const createCommandController = async (req: Request, res: Response) => {
-  const { Command }: { Command: newCommandT } = req.body.data;
+  const { Command }: { Command: incomingCommandT } = req.body.data;
   const { status, clientId, commandItems } = Command;
   try {
     const commandRow = await createCommand({ status, clientId });
@@ -70,7 +65,7 @@ export const createCommandController = async (req: Request, res: Response) => {
 };
 
 export const updateCommandController = async (req: Request, res: Response) => {
-  const { Command }: { Command: updateCommandTapi } = req.body.data;
+  const { Command }: { Command: incomingCommandT } = req.body.data;
   const { id } = req.params;
   try {
     const { status, clientId, commandItems } = Command;

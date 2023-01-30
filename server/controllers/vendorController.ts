@@ -64,6 +64,7 @@ export const deleteVendorController = async (req: Request, res: Response) => {
     const row = await deleteVendor(Number(id));
     res.status(200).json({ row: row.id });
   } catch (error) {
+    console.log(error);
     errorResponse(res, error.message, 404, false);
   }
 };

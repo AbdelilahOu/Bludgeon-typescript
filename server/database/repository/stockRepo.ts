@@ -1,7 +1,7 @@
 import { prisma } from "..";
-import { newStockMvmT } from "../models";
+import { newStockT } from "../models";
 
-export const createStockMouvement = (data: newStockMvmT) => {
+export const createStockMouvement = (data: newStockT) => {
   return prisma.stockMouvement.create({
     data: {
       quantity: data.quantity,
