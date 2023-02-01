@@ -11,7 +11,7 @@ model Product {
   id              Int              @id @default(autoincrement())
   name            String           @unique()
   description     String?
-  price           BigInt
+  price           Float
   stockMouvements StockMouvement[]
   invoiceItems    InvoiceItem[]
   commandItems    CommandItem[]
@@ -37,7 +37,7 @@ model Vendor {
 
 model Invoice {
   id           Int           @id @default(autoincrement())
-  vendor       Vendor        @relation(fields: [vendorId], references: [id])
+  vendor       Vendor        @relation(fields: [vendorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   total        Float
   createdAt    DateTime      @default(now())
   vendorId     Int
@@ -48,11 +48,31 @@ model InvoiceItem {
   id        Int            @id @default(autoincrement())
   productId Int
   invoiceId Int
-  product   Product        @relation(fields: [productId], references: [id], onDelete: NoAction, onUpdate: Cascade)
+  product   Product        @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   invoice   Invoice        @relation(fields: [invoiceId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   quantity  BigInt
   stockId   Int            @unique
-  stock     StockMouvement @relation(fields: [stockId], references: [id])
+  stock     StockMouvement @relation(fields: [stockId], references: [id], onDelete: NoAction, onUpdate: Cascade)
+}
+
+model Command {
+  id           Int           @id @default(autoincrement())
+  client       Client        @relation(fields: [clientId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  status       String
+  createdAt    DateTime      @default(now())
+  clientId     Int
+  commandItems CommandItem[]
+}
+
+model CommandItem {
+  id        Int            @id @unique @default(autoincrement())
+  productId Int
+  commandId Int
+  stockId   Int            @unique
+  product   Product        @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  command   Command        @relation(fields: [commandId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  quantity  BigInt
+  stock     StockMouvement @relation(fields: [stockId], references: [id], onDelete: NoAction, onUpdate: Cascade)
 }
 
 model StockMouvement {
@@ -64,24 +84,4 @@ model StockMouvement {
   invoiceItem InvoiceItem?
   product     Product      @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   productId   Int
-}
-
-model Command {
-  id           Int           @id @default(autoincrement())
-  client       Client        @relation(fields: [clientId], references: [id], onDelete: NoAction, onUpdate: Cascade)
-  status       String
-  createdAt    DateTime      @default(now())
-  clientId     Int
-  commandItems CommandItem[]
-}
-
-model CommandItem {
-  id        Int            @id @unique @default(autoincrement())
-  productId Int
-  commandId Int
-  product   Product        @relation(fields: [productId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  command   Command        @relation(fields: [commandId], references: [id], onDelete: Cascade, onUpdate: Cascade)
-  quantity  BigInt
-  stockId   Int            @unique
-  stock     StockMouvement @relation(fields: [stockId], references: [id], onDelete: NoAction, onUpdate: Cascade)
 }
