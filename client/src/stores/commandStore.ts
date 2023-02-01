@@ -5,9 +5,20 @@ import type {
   dataRowsT,
   newCommandT,
   updateCommandT,
+  commandDetailsT,
 } from "@/types";
 import axios from "axios";
 import { defineStore } from "pinia";
+
+const formatDate = (theDate: string) => {
+  return new Date(theDate).toLocaleDateString("fr-fr", {
+    day: "numeric",
+    month: "numeric",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};
 
 const api: string = "http://localhost:3111/command/";
 
@@ -21,7 +32,14 @@ export const useCommandStore = defineStore("CommandStore", {
   actions: {
     getAllCommands: async function () {
       const res: dataRowsT<commandT> = await axios.get(api);
-      this.commands = res.data.rows;
+      this.commands = res.data.rows.map((row) => ({
+        ...row,
+        createdAt: formatDate(row.createdAt),
+      }));
+    },
+    getOneCommand: async function (id: number) {
+      const res: dataRowT<commandDetailsT> = await axios.get(api + id);
+      this.command = res.data.row;
     },
     createOneCommand: async function (Command: newCommandT) {
       const res: dataRowT<commandT> = await axios.post(api, {

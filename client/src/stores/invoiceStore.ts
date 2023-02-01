@@ -4,12 +4,23 @@ import type {
   dataRowT,
   dataRowsT,
   newInvoiceT,
+  invoiceDetailsT,
   //   updateInvoiceT,
 } from "@/types";
 import axios from "axios";
 import { defineStore } from "pinia";
 
 const api: string = "http://localhost:3111/invoice/";
+
+const formatDate = (theDate: string) => {
+  return new Date(theDate).toLocaleDateString("fr-fr", {
+    day: "numeric",
+    month: "numeric",
+    year: "numeric",
+    hour: "2-digit",
+    minute: "2-digit",
+  });
+};
 
 export const useInvoiceStore = defineStore("InvoiceStore", {
   state: (): invoiceState => {
@@ -21,8 +32,18 @@ export const useInvoiceStore = defineStore("InvoiceStore", {
   actions: {
     getAllInvoices: async function () {
       const res: dataRowsT<invoiceT> = await axios.get(api);
-      this.invoices = res.data.rows;
-      console.log(res.data.rows);
+      this.invoices = res.data.rows.map((item) => ({
+        ...item,
+        createdAt: formatDate(item.createdAt),
+        total: item.invoiceItems.reduce(
+          (acc, curr) => (acc += curr.quantity * curr.product.price),
+          0
+        ),
+      }));
+    },
+    getOneInvoice: async function (id: number) {
+      const res: dataRowT<invoiceDetailsT> = await axios.get(api + id);
+      this.invoice = res.data.row;
     },
     createOneInvoice: async function (Invoice: newInvoiceT) {
       const res: dataRowT<invoiceT> = await axios.post(api, {

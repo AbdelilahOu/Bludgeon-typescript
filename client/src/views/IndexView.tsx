@@ -18,18 +18,20 @@ export const IndexView = defineComponent({
     const IsCollapse = ref<boolean>(false);
     return () => (
       <main
-        class={
-          !IsCollapse.value
-            ? "w-screen h-screen overflow-y-auto scrollbar-thin scrollbar-thumb-transparent grid grid-cols-[180px_1fr] transition-all duration-200 transform"
-            : "w-screen h-screen  overflow-y-auto scrollbar-thin scrollbar-thumb-transparent grid grid-cols-[47px_1fr] transition-all duration-200 transform"
-        }
+        class={`w-screen h-screen overflow-y-auto scrollbar-thin scrollbar-thumb-transparent  flex `}
       >
-        <SideBar
-          onCollapse={(IsCollapsed: boolean) =>
-            (IsCollapse.value = IsCollapsed)
-          }
-        />
-        <div class="grid grid-rows-[46px_1fr] relative">
+        <div
+          class={`transition-all  duration-200 transform ${
+            IsCollapse.value ? "w-12" : "w-52"
+          }`}
+        >
+          <SideBar
+            onCollapse={(IsCollapsed: boolean) =>
+              (IsCollapse.value = IsCollapsed)
+            }
+          />
+        </div>
+        <div class="grid grid-rows-[46px_1fr] w-full relative">
           <Navigation />
           <div class="w-full h-full  flex flex-col items-center justify-center">
             {theModal.value.show ? (

@@ -17,17 +17,14 @@ export const useStatsStore = defineStore("StatsStore", {
       stocks: stockMvmT[]
     ): [result: FilteredStockData, months: string[]] => {
       let result: FilteredStockData = {};
-
       const months: string[] = [getMonth(2), getMonth(1), getMonth(0)];
       //group based on the month {january:[...]}
       let dataSet: { [key: string]: stockMvmT[] } = stocks
-        // 1 : get stock of the past three months
         .filter(
           ({ date }) =>
             new Date(date) >
             new Date(new Date().getTime() - 2 * 30 * 24 * 60 * 60 * 1000)
         )
-        // 2 : turn the full date feild to only month
         .map(({ date, quantity, model }) => ({
           date: new Date(date).toLocaleDateString("fr-fr", {
             month: "long",
@@ -35,7 +32,6 @@ export const useStatsStore = defineStore("StatsStore", {
           model,
           quantity,
         }))
-        // 3 : group them by the month
         .reduce((r, { date, quantity, model }) => {
           r[date] = r[date] || [];
           r[date].push({ date, quantity, model });
@@ -44,7 +40,6 @@ export const useStatsStore = defineStore("StatsStore", {
       // group based on the model of the sstock mouvmenet {january:{IN:[...],OUT:[...]}}
       for (const month of months) {
         if (dataSet[month]) {
-          // group the items by the stock mouvement model
           result[month] = dataSet[month].reduce((r, { model, quantity }) => {
             r[model] = r[model] || 0;
             r[model] += Math.abs(Number(quantity));

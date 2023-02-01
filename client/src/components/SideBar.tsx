@@ -19,8 +19,8 @@ export const SideBar = defineComponent({
     };
 
     return () => (
-      <aside class="w-full h-full bg-gray-100">
-        <div class="w-full h-screen sticky top-0 z-50 grid grid-rows-[46px_1fr] gap-1">
+      <aside class="w-full h-full  bg-gray-100">
+        <div class="w-full h-screen print:hidden sticky top-0 z-50 grid grid-rows-[46px_1fr] gap-1">
           <div class="w-full bg-gray-300/10  h-full px-1 grid grid-cols-1 items-center justify-start">
             <span
               class={`font-medium  text-black flex items-center px-1 ${

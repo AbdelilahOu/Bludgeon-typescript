@@ -18,7 +18,7 @@ export const Navigation = defineComponent({
       ActiveLink.value = link ? link.icon + " " + link.name : "/";
     });
     return () => (
-      <header class="w-full h-full sticky top-0 z-50 bg-white">
+      <header class="w-full h-full print:hidden sticky top-0 z-50 bg-white">
         <div class="w-full h-full flex  items-center p-3 justify-between">
           <div class="text-black flex items-center justify-center gap-2">
             <span
@@ -43,9 +43,9 @@ export const Navigation = defineComponent({
               </RouterLink>{" "}
               {route.fullPath !== "/" ? (
                 route.name == "CommandDetails" ? (
-                  "/ 🚚 Commands / " + route.params.id
+                  "/ 🚚 Commands / n°" + route.params.id
                 ) : route.name == "InvoiceDetails" ? (
-                  "/ 📋 Invoices / " + route.params.id
+                  "/ 📋 Invoices / n°" + route.params.id
                 ) : (
                   <span class="">
                     /<span> {ActiveLink.value}</span>

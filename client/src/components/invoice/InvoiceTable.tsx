@@ -43,15 +43,6 @@ export const InvoiceTable = defineComponent({
       "action",
     ];
 
-    const formatDate = (theDate: string) => {
-      return new Date(theDate).toLocaleDateString("fr-fr", {
-        day: "numeric",
-        month: "numeric",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      });
-    };
     const toggleThisInvoice = (Invoice: invoiceT, name: string) => {
       modalStore.updateModal({ key: "show", value: true });
       modalStore.updateModal({ key: "name", value: name });
@@ -109,13 +100,13 @@ export const InvoiceTable = defineComponent({
                     </div>
                   </td>
                   <td class="p-2">
-                    <div class="text-left font-medium uppercase whitespace-nowrap overflow-ellipsis">
-                      {Invoice.total ?? 0}
+                    <div class="text-left font-medium flex justify-between uppercase whitespace-nowrap overflow-ellipsis">
+                      {Invoice.total.toFixed(2) ?? 0} <span class="">DH</span>
                     </div>
                   </td>
                   <td class="p-2">
                     <div class="text-left whitespace-nowrap overflow-ellipsis">
-                      {formatDate(Invoice.createdAt) ?? (
+                      {Invoice.createdAt ?? (
                         <span class="text-red-400">No date</span>
                       )}
                     </div>

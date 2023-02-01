@@ -20,12 +20,12 @@ export interface productState {
 
 export interface commandState {
   commands: commandT[];
-  command: commandT | null;
+  command: commandDetailsT | null;
 }
 
 export interface invoiceState {
   invoices: invoiceT[];
-  invoice: invoiceT | null;
+  invoice: invoiceDetailsT | null;
 }
 
 export interface clientState {
@@ -46,7 +46,7 @@ export interface stockState {
 /////////////////////////////////
 //////////// COMMAND INTERFACES//
 export interface commandT {
-  [key: string]: any;
+  // [key: string]: any;
   id: number;
   createdAt: string;
   status: string;
@@ -73,6 +73,18 @@ export interface updateCommandT
 
 export interface newCommandItemT
   extends Pick<commandItemT, "productId" | "quantity"> {}
+
+export interface commandDetailsItemsT extends commandItemT {
+  product: {
+    name: string;
+    price: number;
+  };
+}
+
+export interface commandDetailsT extends Omit<commandT, "commandItems"> {
+  commandItems: commandDetailsItemsT[];
+  client: clientT;
+}
 // /////////////////////////////////
 ///////////// INVOICE INTERFACES ///
 ///////////////////////////////////
@@ -92,6 +104,9 @@ export type invoiceItemT = {
   invoiceId: number;
   quantity: number;
   stockId: number;
+  product: {
+    price: number;
+  };
 };
 
 export interface updateInvoiceT
@@ -103,8 +118,21 @@ export interface newInvoiceT
   extends Omit<invoiceT, "id" | "createdAt" | "total"> {
   invoiceItems: newInvoiceItemT[];
 }
+
 export interface newInvoiceItemT
-  extends Omit<invoiceItemT, "id" | "invoiceId" | "stockId"> {}
+  extends Omit<invoiceItemT, "id" | "invoiceId" | "stockId" | "product"> {}
+
+export interface invoiceDetailsItemT extends invoiceItemT {
+  product: {
+    price: number;
+    name: string;
+  };
+}
+
+export interface invoiceDetailsT extends Omit<invoiceT, "invoiceItems"> {
+  invoiceItems: invoiceDetailsItemT[];
+  vendor: vendorT;
+}
 ////////////////////////////////////
 //////////// CLIENT INTERFACES//////
 ////////////////////////////////////

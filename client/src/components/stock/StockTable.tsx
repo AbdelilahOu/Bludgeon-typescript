@@ -30,7 +30,6 @@ export const StockTable = defineComponent({
       "date",
       "",
     ];
-    //
     const formatDate = (theDate: string) => {
       return new Date(theDate).toLocaleDateString("fr-fr", {
         day: "numeric",

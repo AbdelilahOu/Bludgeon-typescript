@@ -21,7 +21,7 @@ export const CommandCreate = defineComponent({
     const { clients } = storeToRefs(useClientStore());
     const newCommand = reactive<newCommandT>({
       status: "",
-      clientId: null,
+      clientId: undefined,
       commandItems: [],
     });
     const commandItems = ref<newCommandItemT[]>([

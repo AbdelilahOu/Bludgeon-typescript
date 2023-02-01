@@ -41,16 +41,6 @@ export const CommandTable = defineComponent({
       modalStore.updateModal({ key: "name", value: name });
       modalStore.updateCommandRow(Command);
     };
-
-    const formatDate = (theDate: string) => {
-      return new Date(theDate).toLocaleDateString("fr-fr", {
-        day: "numeric",
-        month: "numeric",
-        year: "numeric",
-        hour: "2-digit",
-        minute: "2-digit",
-      });
-    };
     //
     const feilds: string[] = [
       "Command id",
@@ -132,7 +122,7 @@ export const CommandTable = defineComponent({
                   </td>
                   <td class="p-2">
                     <div class="text-left whitespace-nowrap overflow-ellipsis">
-                      {formatDate(Command.createdAt) ?? (
+                      {Command.createdAt ?? (
                         <span class="text-red-400">No date</span>
                       )}
                     </div>

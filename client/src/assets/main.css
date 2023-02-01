@@ -44,7 +44,7 @@
 }
 
 .defaultButton {
-  @apply h-9 px-4 w-full font-semibold disabled:cursor-default py-1 active:ring-1 active:ring-gray-500 transition-all duration-200 flex items-center whitespace-nowrap justify-center text-center rounded-sm border;
+  @apply h-9 px-4 print:hidden w-full font-semibold disabled:cursor-default py-1 active:ring-1 active:ring-gray-500 transition-all duration-200 flex items-center whitespace-nowrap justify-center text-center rounded-sm border;
 }
 
 * {

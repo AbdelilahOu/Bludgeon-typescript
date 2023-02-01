@@ -15,7 +15,7 @@ onBeforeMount(() => {
   useInvoiceStore().getAllInvoices();
   useClientStore().getAllClients();
   useVendorStore().getAllVendors();
-  // useRouter().push("/");
+  useRouter().push("/Clients");
 });
 </script>
 

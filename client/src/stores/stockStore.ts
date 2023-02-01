@@ -20,6 +20,10 @@ export const useStockStore = defineStore("StockStore", {
     getAllStockMouvements: async function () {
       const res: dataRowsT<stockMvmT> = await axios.get(api);
       this.stockMouvements = res.data.rows;
+      // .map((item) => ({
+      //   ...item,
+      //   date: formatDate(item.date),
+      // }));
     },
     createStockMouvement: async function (stockmvm: newStockMvmT) {
       const res: dataRowT<stockMvmT> = await axios.post(api, {

@@ -70,7 +70,7 @@ export const useProductStore = defineStore("ProductStore", {
           name: item.name,
           price: item.price,
           description: item.description,
-          stock: item.stockMouvements.reduce((a, b) => a + b.quantity, 0),
+          quantity: item.stockMouvements.reduce((a, b) => a + b.quantity, 0),
         };
       });
     },
