@@ -9,7 +9,22 @@ import {
 } from "../models";
 
 export const getCommand = (id: number) => {
-  return prisma.command.findUnique({ where: { id } });
+  return prisma.command.findUnique({
+    where: { id },
+    include: {
+      commandItems: {
+        include: {
+          product: {
+            select: {
+              name: true,
+              price: true,
+            },
+          },
+        },
+      },
+      client: true,
+    },
+  });
 };
 
 export const getAllCommands = () => {

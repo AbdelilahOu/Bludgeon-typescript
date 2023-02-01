@@ -37,6 +37,6 @@ export default class expressServer {
   }
 }
 
-const sth = new expressServer(express());
+// const sth = new expressServer(express());
 
-sth.run();
+// sth.run();

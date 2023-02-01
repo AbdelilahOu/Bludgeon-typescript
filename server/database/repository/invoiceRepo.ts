@@ -29,24 +29,36 @@ export const updateInvoice = (invoice: updateData<updateInvoiceT>) => {
 };
 
 export const getInvoice = (id: number) => {
-  return prisma.invoice.findUnique({ where: { id } });
+  return prisma.invoice.findUnique({
+    where: { id },
+    include: {
+      invoiceItems: {
+        include: {
+          product: {
+            select: {
+              price: true,
+              name: true,
+            },
+          },
+        },
+      },
+      vendor: true,
+    },
+  });
 };
 
 export const getAllInvoices = () => {
-  // {
-  //   select: {
-  //     id: true,
-  //     quantity: true,
-  //     product: {
-  //       select: {
-  //         price: true,
-  //       },
-  //     },
-  //   },
-  // },
   return prisma.invoice.findMany({
     include: {
-      invoiceItems: true,
+      invoiceItems: {
+        include: {
+          product: {
+            select: {
+              price: true,
+            },
+          },
+        },
+      },
     },
 
     orderBy: {

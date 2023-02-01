@@ -1,5 +1,5 @@
 import { app, BrowserWindow } from "electron";
-import expressServer from "../server/app";
+import expressServer from "../server/app.js";
 import * as express from "express";
 import * as path from "path";
 
@@ -14,7 +14,7 @@ function createWindow() {
       nodeIntegration: true,
       devTools: true,
     },
-    icon: "/dist/favicon.ico",
+    icon: "../favicon.ico",
   });
   win.loadFile("../index.html");
 }
