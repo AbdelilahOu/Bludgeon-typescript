@@ -4,7 +4,8 @@
   "type": "commonjs",
   "scripts": {
     "build": "tsc",
-    "start": "npm run build && electron ./dist/electron/main.js"
+    "start": "npm run build && electron ./dist/electron/main.js",
+    "dev": "nodemon server/app.ts"
   },
   "dependencies": {
     "@prisma/client": "^4.6.1",

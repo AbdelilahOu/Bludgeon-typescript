@@ -9,7 +9,10 @@ module.exports = {
       fontFamily: {
         // sans: ["gotham"],
       },
+      transitionProperty: {
+        width: "width",
+      },
     },
   },
-  plugins: [],
+  plugins: [require("tailwind-scrollbar")],
 };

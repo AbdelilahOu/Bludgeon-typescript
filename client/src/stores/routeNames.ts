@@ -1,24 +1,46 @@
-import type { RouteLinksType } from "../types";
+import type { RouteLinksTypeT } from "../types";
 
-export const RouteLinks: RouteLinksType[] = [
+export const RouteLinks: RouteLinksTypeT[] = [
   {
-    path: "/Client",
-    name: "👭 Clients",
+    path: "/Clients",
+    component: "Clients",
+    name: "Clients",
+    icon: "👭",
   },
   {
-    path: "/Product",
-    name: "📦 Products",
+    path: "/Vendors",
+    component: "Vendors",
+    name: "Vendors",
+    icon: "👥",
   },
   {
-    path: "/Command",
-    name: "🚚 Commands",
+    path: "/Products",
+    component: "Products",
+    name: "Products",
+    icon: "📦",
   },
   {
-    path: "/Stock",
-    name: "🏪 Stocks",
+    path: "/Commands/all",
+    component: "Commands",
+    name: "Commands",
+    icon: "🚚",
+  },
+  {
+    path: "/Invoices/all",
+    component: "Invoices",
+    name: "Invoices",
+    icon: "📋",
+  },
+  {
+    path: "/Stocks",
+    component: "Stocks",
+    name: "Stock",
+    icon: "🏪",
   },
   {
     path: "/Stats",
-    name: "📉 Stats",
+    component: "Stats",
+    name: "Statestiques",
+    icon: "📊",
   },
 ];

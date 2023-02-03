@@ -1,4 +1,4 @@
-import { defineComponent, type PropType } from "vue";
+import { defineComponent } from "vue";
 
 export const UiButton = defineComponent({
   name: "UiButton",
@@ -8,17 +8,24 @@ export const UiButton = defineComponent({
       required: false,
       default: "primary",
     },
+    Disable: {
+      type: Boolean,
+      default: false,
+    },
   },
   setup(props, { slots }) {
     return () => (
       <button
+        disabled={props.Disable}
         class={
           props.colorTheme == "primary"
-            ? "h-8 px-4 py-1 hover:bg-gray-300 active:ring-1 active:ring-gray-500 hover:border-gray-300 hover:text-black text-gray-600 transition-all duration-200 flex items-center whitespace-nowrap justify-center text-center w-28 bg-gray-50 rounded-sm border "
-            : ""
+            ? "defaultButton disabled:hover:bg-gray-50 disabled:hover:border-gray-200  hover:bg-gray-300  hover:border-gray-300 hover:text-black text-gray-600  bg-gray-50"
+            : "defaultButton disabled:hover:bg-gray-500 disabled:hover:border-gray-200  hover:bg-gray-300  hover:border-gray-300 hover:text-black text-gray-900   bg-gray-400"
         }
       >
-        {slots.default?.()}
+        <div class="flex items-center w-full h-full justify-center">
+          {slots.default?.()}
+        </div>
       </button>
     );
   },

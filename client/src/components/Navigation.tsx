@@ -14,11 +14,11 @@ export const Navigation = defineComponent({
     const route = useRoute();
     const ActiveLink = ref<string>("");
     onBeforeRouteUpdate((to) => {
-      ActiveLink.value =
-        RouteLinks.find((link) => link.path === to.fullPath)?.name ?? "/";
+      const link = RouteLinks.find((link) => link.component === to.name);
+      ActiveLink.value = link ? link.icon + " " + link.name : "/";
     });
     return () => (
-      <header class="w-full h-full ">
+      <header class="w-full h-full print:hidden sticky top-0 z-50 bg-white">
         <div class="w-full h-full flex  items-center p-3 justify-between">
           <div class="text-black flex items-center justify-center gap-2">
             <span
@@ -37,14 +37,20 @@ export const Navigation = defineComponent({
                 <path d="m11.1 19.1-6.45-6.475q-.15-.125-.212-.288-.063-.162-.063-.337 0-.175.063-.338.062-.162.212-.287L11.1 4.9q.225-.2.525-.213.3-.012.525.213.225.225.237.525.013.3-.212.55l-5.3 5.275H18.5q.3 0 .525.212.225.213.225.538 0 .325-.225.537-.225.213-.525.213H6.875l5.3 5.3q.2.2.212.512.013.313-.212.538-.225.225-.537.225-.313 0-.538-.225Z" />
               </svg>
             </span>
-            <span class="pb-[3px] text-primary">
+            <span class="pb-[3px] text-primary ">
               <RouterLink to="/">
                 <span class={"w-full h-full bg-white"}>🏠</span>
               </RouterLink>{" "}
               {route.fullPath !== "/" ? (
-                <span>
-                  /<span> {ActiveLink.value}</span>
-                </span>
+                route.name == "CommandDetails" ? (
+                  "/ 🚚 Commands / n°" + route.params.id
+                ) : route.name == "InvoiceDetails" ? (
+                  "/ 📋 Invoices / n°" + route.params.id
+                ) : (
+                  <span class="">
+                    /<span> {ActiveLink.value}</span>
+                  </span>
+                )
               ) : (
                 ""
               )}

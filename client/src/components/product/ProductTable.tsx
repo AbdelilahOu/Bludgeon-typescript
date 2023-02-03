@@ -1,88 +1,113 @@
-import { defineComponent, type PropType } from "vue";
+import { defineComponent, ref, type PropType } from "vue";
+import { useModalStore } from "@/stores/modalStore";
+import { UiPagination } from "../ui/UiPagination";
 import { UiCheckBox } from "../ui/UiCheckBox";
-import type { product } from "@/types";
+import type { productT } from "@/types";
+import UiIcon from "../ui/UiIcon.vue";
 
 export const ProductTable = defineComponent({
   name: "ProductTable",
+  components: { UiCheckBox, UiIcon, UiPagination },
   props: {
     Products: {
-      type: Array as PropType<product[]>,
+      type: Array as PropType<productT[]>,
       required: true,
     },
     sortBy: {
       type: Function as PropType<(by: string) => void>,
     },
+    FilterParam: {
+      type: String,
+      required: true,
+      default: "",
+    },
   },
   setup(props) {
-    const feilds: string[] = ["product name", "price", "unite", "action"];
-    return () => (
-      <table class="table-auto rounded-sm overflow-hidden w-full">
-        <thead class="text-xs rounded-sm font-semibold uppercase text-[rgba(25,23,17,0.6)] bg-gray-300">
-          <tr>
-            <th></th>
-            {feilds.map((feild) => (
-              <th class="p-2">
-                <div class="font-semibold text-left">{feild}</div>
-              </th>
-            ))}
-          </tr>
-        </thead>
-        <tbody class="text-sm divide-y divide-gray-100">
-          {props.Products.map((product) => (
-            <tr>
-              <td class="p-2">
-                <span class="h-full w-full grid">
-                  <UiCheckBox
-                    onCheck={(check) =>
-                      console.log(
-                        product.name,
-                        check ? "is checked" : "is unchecked"
-                      )
-                    }
-                  />
-                </span>
-              </td>
-              <td class="p-2">
-                <div class="font-medium text-gray-800">{product.name}</div>
-              </td>
-              <td class="p-2">
-                <div class="text-left">{product.price}</div>
-              </td>
-              <td class="p-2">
-                <div class="text-left">{product.unite}</div>
-              </td>
+    const modalStore = useModalStore();
 
-              <td class="p-2">
-                <div class="flex justify-start w-full ">
-                  <button>
-                    <svg
-                      class="w-8 h-8 text-red-400 hover:text-red-300  rounded-full hover:bg-gray-100 p-1"
-                      fill="none"
-                      stroke="currentColor"
-                      viewBox="0 0 24 24"
-                      xmlns="http://www.w3.org/2000/svg"
-                    >
-                      <path
-                        stroke-linecap="round"
-                        stroke-linejoin="round"
-                        stroke-width="2"
-                        d="M19 7l-.867 12.142A2 2 0 0116.138 21H7.862a2 2 0 01-1.995-1.858L5 7m5 4v6m4-6v6m1-10V4a1 1 0 00-1-1h-4a1 1 0 00-1 1v3M4 7h16"
-                      ></path>
-                    </svg>
-                  </button>
-                </div>
-              </td>
+    const feilds: string[] = ["product name", "price", "stock", "action"];
+    const pagination = ref<number>(0);
+    const toggleThisProduct = (product: productT, name: string) => {
+      modalStore.updateModal({ key: "show", value: true });
+      modalStore.updateModal({ key: "name", value: name });
+      modalStore.updateProductRow(product);
+    };
+    return () => (
+      <div class="w-full flex flex-col">
+        <table class="table-auto rounded-sm overflow-hidden w-full">
+          <thead class="text-xs h-9 rounded-sm font-semibold uppercase text-[rgba(25,23,17,0.6)] bg-gray-300">
+            <tr>
+              <th></th>
+              {feilds.map((feild) => (
+                <th class="p-2">
+                  <div class="font-semibold text-left">{feild}</div>
+                </th>
+              ))}
             </tr>
-          ))}
-        </tbody>
-        {props.Products?.length == 0 ? (
-          <tfoot>
-            <tr>No products</tr>
-          </tfoot>
-        ) : (
-          ""
-        )}
-      </table>
+          </thead>
+          <tbody class="text-sm divide-y divide-gray-100">
+            {props.Products.filter((c) =>
+              JSON.stringify(c).toLocaleLowerCase().includes(props.FilterParam)
+            )
+              .slice(pagination.value * 15, pagination.value * 15 + 15)
+              .map((product) => (
+                <tr>
+                  <td class="p-2">
+                    <span class="h-full w-full grid">
+                      <UiCheckBox
+                        onCheck={(check) =>
+                          console.log(
+                            product.name,
+                            check ? "is checked" : "is unchecked"
+                          )
+                        }
+                      />
+                    </span>
+                  </td>
+                  <td class="p-2">
+                    <div class="font-medium text-gray-800">{product.name}</div>
+                  </td>
+                  <td class="p-2">
+                    <div class="text-left">{product.price.toFixed(2)}</div>
+                  </td>
+                  <td class="p-2">
+                    <div class="text-left">{product?.quantity} item</div>
+                  </td>
+                  <td class="p-2">
+                    <div class="flex  justify-start gap-3">
+                      <UiIcon
+                        onClick={() =>
+                          toggleThisProduct(product, "ProductDelete")
+                        }
+                        name={"delete"}
+                      />
+                      <UiIcon
+                        onClick={() =>
+                          toggleThisProduct(product, "ProductUpdate")
+                        }
+                        name={"edit"}
+                      />
+                    </div>
+                  </td>
+                </tr>
+              ))}
+          </tbody>
+        </table>
+        <div>
+          {props.Products?.length == 0 ? (
+            <h1 class="font-semibold text-lg text-center pt-3 uppercase">
+              No products
+            </h1>
+          ) : (
+            <UiPagination
+              goBack={() => pagination.value--}
+              goForward={() => pagination.value++}
+              itemsNumber={props.Products.length}
+              page={pagination.value}
+            />
+          )}
+        </div>
+      </div>
     );
   },
 });

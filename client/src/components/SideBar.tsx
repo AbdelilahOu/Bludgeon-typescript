@@ -1,6 +1,6 @@
-import { UiSideLink } from "./ui/UiSideLink";
 import { defineComponent, ref, type PropType } from "vue";
 import { RouteLinks } from "@/stores/routeNames";
+import { UiSideLink } from "./ui/UiSideLink";
 export const SideBar = defineComponent({
   name: "SideBar",
   props: {
@@ -9,6 +9,7 @@ export const SideBar = defineComponent({
       required: true,
     },
   },
+  components: { UiSideLink },
   setup(props) {
     const IsCollapse = ref<boolean>(false);
 
@@ -18,15 +19,13 @@ export const SideBar = defineComponent({
     };
 
     return () => (
-      <aside class="w-full h-full  bg-gray-100">
-        <div class="w-full h-full grid grid-rows-[50px_1fr]">
+      <aside class="w-full h-full sticky top-0 z-50 bg-gray-100">
+        <div class="w-full h-screen print:hidden sticky top-0 z-50 grid grid-rows-[46px_1fr] gap-1">
           <div class="w-full bg-gray-300/10  h-full px-1 grid grid-cols-1 items-center justify-start">
             <span
-              class={
-                IsCollapse.value
-                  ? "font-medium  text-black flex items-center justify-around px-1"
-                  : "font-medium  text-black flex items-center justify-between px-1"
-              }
+              class={`font-medium  text-black flex items-center px-1 ${
+                IsCollapse.value ? "justify-around" : "justify-between"
+              }`}
             >
               {IsCollapse.value ? (
                 ""
@@ -37,11 +36,9 @@ export const SideBar = defineComponent({
               )}
               <span
                 onClick={() => TriggerColapse()}
-                class={
-                  IsCollapse.value
-                    ? "rotate-180 cursor-pointer transition-all duration-200 transform hover:fill-gray-800 fill-primary"
-                    : "transition-all duration-200 cursor-pointer transform hover:fill-gray-800 fill-primary"
-                }
+                class={`transition-all duration-200 cursor-pointer transform hover:fill-gray-800 fill-primary ${
+                  IsCollapse.value ? "rotate-180" : ""
+                }`}
               >
                 <svg
                   viewBox="0 0 16 16"
@@ -52,34 +49,34 @@ export const SideBar = defineComponent({
               </span>
             </span>
           </div>
-          <div class="w-full px-1 h-full overflow-x-hidden grid grid-cols-1 gap-1 grid-rows-[1fr_32px_32px_32px] justify-between pb-[18px]">
+          <div class="w-full px-1 h-full overflow-x-hidden grid grid-cols-1 gap-1 grid-rows-[1fr_36px_36px] justify-between pb-[18px]">
             <div class="w-full h-full flex flex-col gap-1">
               {RouteLinks.map((link) => {
                 return (
                   <UiSideLink
                     IsText={!IsCollapse.value}
                     LinkPath={link.path}
-                    LinkIcon={link.name.split(" ")[0]}
-                    LinkText={link.name.split(" ")[1]}
+                    LinkIcon={link.icon}
+                    LinkText={link.name}
                   />
                 );
               })}
             </div>
             <UiSideLink
               IsText={!IsCollapse.value}
-              LinkPath={"/Sitting"}
+              LinkPath={"/Notifications"}
               LinkIcon={"🔔"}
               LinkText={"Notifications"}
             />
-            <UiSideLink
+            {/* <UiSideLink
               IsText={!IsCollapse.value}
               LinkPath={"/Sitting"}
-              LinkIcon={"⚙"}
-              LinkText={"Sittings"}
-            />
+              LinkIcon={"⚙"}=
+              LinkText={"Sitti^ù°P0lohèjungs"}
+            /> */}
             <UiSideLink
               IsText={!IsCollapse.value}
-              LinkPath={"/Sitting"}
+              LinkPath={"/"}
               LinkIcon={"🌐"}
               LinkText={"English"}
             />

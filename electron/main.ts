@@ -1,8 +1,6 @@
 import { app, BrowserWindow } from "electron";
-import expressServer from "../server/app";
+import expressServer from "../server/app.js";
 import * as express from "express";
-
-// import axios from "axios";
 import * as path from "path";
 
 const server = new expressServer(express());
@@ -16,7 +14,7 @@ function createWindow() {
       nodeIntegration: true,
       devTools: true,
     },
-    icon: "/dist/favicon.ico",
+    icon: "../favicon.ico",
   });
   win.loadFile("../index.html");
 }
@@ -35,6 +33,5 @@ app.on("window-all-closed", () => {
   if (process.platform !== "darwin") {
     app.quit();
     server.close();
-    // axios.get("http://localhost:3111/close");
   }
 });
