@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { newClientT, updateClientT, updateData } from "../models";
 import { prisma } from "..";
 
@@ -28,34 +27,3 @@ export const getAllClients = () => {
 export const deleteClient = (id: number) => {
   return prisma.client.delete({ where: { id } });
 };
-=======
-import { newClientT, updateClientT, updateData } from "../models";
-import { prisma } from "..";
-
-export const createClient = (data: newClientT) => {
-  return prisma.client.create({ data });
-};
-
-export const updateClient = (client: updateData<updateClientT>) => {
-  return prisma.client.update({
-    where: { id: client.id },
-    data: client.data,
-  });
-};
-
-export const getClient = (id: number) => {
-  return prisma.client.findUnique({ where: { id } });
-};
-
-export const getAllClients = () => {
-  return prisma.client.findMany({
-    orderBy: {
-      id: "desc",
-    },
-  });
-};
-
-export const deleteClient = (id: number) => {
-  return prisma.client.delete({ where: { id } });
-};
->>>>>>> 0b7f70c6e632db25455c392e4e0f596d442c8834
