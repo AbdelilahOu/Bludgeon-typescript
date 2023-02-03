@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { defineComponent, onBeforeUnmount } from "vue";
 import { useInvoiceStore } from "@/stores/invoiceStore";
 import { useModalStore } from "@/stores/modalStore";
@@ -42,48 +41,3 @@ export const InvoiceDelete = defineComponent({
     );
   },
 });
-=======
-import { defineComponent, onBeforeUnmount } from "vue";
-import { useInvoiceStore } from "@/stores/invoiceStore";
-import { useModalStore } from "@/stores/modalStore";
-import { storeToRefs } from "pinia";
-import { UiButton } from "../ui/UiButton";
-
-export const InvoiceDelete = defineComponent({
-  name: "InvoiceDelete",
-  components: { UiButton },
-  setup() {
-    //
-    const modalStore = useModalStore();
-    const { invoice } = storeToRefs(modalStore);
-    //
-    const deleteTheInvoice = () => {
-      if (invoice.value?.id) {
-        useInvoiceStore().deleteOneInvoice(invoice.value?.id);
-        modalStore.updateModal({ key: "show", value: false });
-      }
-    };
-    //
-    onBeforeUnmount(() => modalStore.updateInvoiceRow(null));
-    return () => (
-      <div class="w-1/2 h-fit z-50 gap-3 flex flex-col bg-white p-2 min-w-[350px]">
-        <h1 class="font-semibold text-lg text-gray-800 border-b-2 border-b-gray-500 pb-2 uppercase text-center">
-          Are you sure you wanna delete the Invoice n° {invoice.value?.id} ?
-        </h1>
-        <div class="flex gap-2">
-          <UiButton colorTheme="a" onClick={() => deleteTheInvoice()}>
-            Confirme
-          </UiButton>
-          <UiButton
-            onClick={() =>
-              modalStore.updateModal({ key: "show", value: false })
-            }
-          >
-            Cancel
-          </UiButton>
-        </div>
-      </div>
-    );
-  },
-});
->>>>>>> 0b7f70c6e632db25455c392e4e0f596d442c8834

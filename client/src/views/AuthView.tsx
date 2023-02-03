@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { UiButton } from "@/components/ui/UiButton";
 import { UiInput } from "@/components/ui/UiInput";
 import { defineComponent, ref } from "vue";
@@ -48,17 +47,3 @@ export const AuthView = defineComponent({
     );
   },
 });
-=======
-import { defineComponent } from "vue";
-
-export const AuthView = defineComponent({
-  name: "Auth",
-  setup() {
-    return () => (
-      <main class="w-screen h-screen">
-        <div class="w-full h-full flex flex-col"></div>
-      </main>
-    );
-  },
-});
->>>>>>> 0b7f70c6e632db25455c392e4e0f596d442c8834

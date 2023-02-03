@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 import { defineComponent, type PropType } from "vue";
 import { Line } from "vue-chartjs";
 import {
@@ -49,55 +48,3 @@ export const ChartLine = defineComponent({
     );
   },
 });
-=======
-import { defineComponent, type PropType } from "vue";
-import { Line } from "vue-chartjs";
-import {
-  Chart as ChartJS,
-  Title,
-  Tooltip,
-  Legend,
-  LineElement,
-  CategoryScale,
-  LinearScale,
-  LineController,
-  PointElement,
-} from "chart.js";
-
-export const ChartLine = defineComponent({
-  name: "ChartLine",
-  props: {
-    chartData: {
-      type: Object as PropType<{
-        labels: string[];
-        datasets: { [key: string]: any; data: number[] }[];
-      }>,
-      required: true,
-    },
-    chartOptions: {
-      type: Object,
-      default: () => {},
-    },
-    id: {
-      type: String,
-      required: true,
-    },
-  },
-  setup(props) {
-    ChartJS.register(
-      PointElement,
-      Title,
-      Tooltip,
-      Legend,
-      LineElement,
-      CategoryScale,
-      LineController,
-      LinearScale
-    );
-
-    return () => (
-      <Line id={props.id} options={props.chartOptions} data={props.chartData} />
-    );
-  },
-});
->>>>>>> 0b7f70c6e632db25455c392e4e0f596d442c8834

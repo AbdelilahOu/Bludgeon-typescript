@@ -7,15 +7,6 @@ import { useVendorStore } from "./stores/vendorStore";
 import { useStockStore } from "./stores/stockStore";
 import { RouterView, useRouter } from "vue-router";
 import { onBeforeMount, Transition } from "vue";
-<<<<<<< HEAD
-=======
-import { useClientStore } from "./stores/clientStore";
-import { useProductStore } from "./stores/productStore";
-import { useVendorStore } from "./stores/vendorStore";
-import { useCommandStore } from "./stores/commandStore";
-import { useStockStore } from "./stores/stockStore";
-import { useInvoiceStore } from "./stores/invoiceStore";
->>>>>>> 0b7f70c6e632db25455c392e4e0f596d442c8834
 
 onBeforeMount(() => {
   useStockStore().getAllStockMouvements();
