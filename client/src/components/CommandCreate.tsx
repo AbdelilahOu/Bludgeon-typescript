@@ -92,7 +92,7 @@ export const CommandCreate = defineComponent({
                         : (newCommand.status = "")
                     }
                   />
-                  <span>{globalTranslate("Commands.status.Delivered")}</span>
+                  <span>{globalTranslate("Commands.status.delivered")}</span>
                 </div>
                 <div class="h-full w-full flex flex-row flex-nowrap items-center justify-center gap-2">
                   <UiCheckBox
@@ -102,7 +102,7 @@ export const CommandCreate = defineComponent({
                         : (newCommand.status = "")
                     }
                   />
-                  <span>{globalTranslate("Commands.status.Pending")}</span>
+                  <span>{globalTranslate("Commands.status.pending")}</span>
                 </div>
                 <div class="h-full w-full flex flex-row justify-end flex-nowrap items-center gap-2">
                   <UiCheckBox
@@ -112,7 +112,7 @@ export const CommandCreate = defineComponent({
                         : (newCommand.status = "")
                     }
                   />
-                  <span>{globalTranslate("Commands.status.Canceled")}</span>
+                  <span>{globalTranslate("Commands.status.canceled")}</span>
                 </div>
               </div>
             </div>

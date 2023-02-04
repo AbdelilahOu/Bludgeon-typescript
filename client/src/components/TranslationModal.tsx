@@ -1,5 +1,6 @@
 import { useModalStore } from "@/stores/modalStore";
 import { useTranslationStore } from "@/stores/translationStore";
+import { globalTranslate } from "@/utils/globalTranslate";
 import { storeToRefs } from "pinia";
 import { defineComponent } from "vue";
 import { useI18n } from "vue-i18n";
@@ -22,12 +23,12 @@ export const TranslationModal = defineComponent({
     return () => (
       <div class="w-1/2 h-fit z-50 gap-3 flex flex-col bg-white p-2 min-w-[350px]">
         <h1 class="font-semibold text-lg text-gray-800 border-b-2 border-b-gray-500 pb-2 uppercase text-center">
-          Change Language
+          {globalTranslate("Global.translationTitle")}
         </h1>
         <div class="grid grid-cols-2 gap-2 ">
           {availableLocals.value.map((item) => (
             <UiButton onClick={() => ChangeLocale(item)}>
-              <span class="w-1/2 items-center h-full flex justify-around">
+              <span class="w-3/5 items-center h-full text-start flex justify-center gap-2">
                 <UiIcon name={item.key} />
                 {item.text}
               </span>

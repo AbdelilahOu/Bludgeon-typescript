@@ -103,27 +103,27 @@ export const CommandUpdate = defineComponent({
                         : (updateCommand.status = "")
                     }
                   />
-                  <span>{globalTranslate("Commands.status[0]")}</span>
+                  <span>{globalTranslate("Commands.status.delivered")}</span>
                 </div>
                 <div class="h-full w-full flex flex-row flex-nowrap items-center justify-center gap-2">
                   <UiCheckBox
                     onCheck={(check) =>
                       check
-                        ? (updateCommand.status = "pending")
+                        ? (updateCommand.status = "Pending")
                         : (updateCommand.status = "")
                     }
                   />
-                  <span>{globalTranslate("Commands.status[1]")}</span>
+                  <span>{globalTranslate("Commands.status.pending")}</span>
                 </div>
                 <div class="h-full w-full flex flex-row justify-end flex-nowrap items-center gap-2">
                   <UiCheckBox
                     onCheck={(check) =>
                       check
-                        ? (updateCommand.status = "canceled")
+                        ? (updateCommand.status = "Canceled")
                         : (updateCommand.status = "")
                     }
                   />
-                  <span>{globalTranslate("Commands.status[2]")}</span>
+                  <span>{globalTranslate("Commands.status.canceled")}</span>
                 </div>
               </div>
             </div>
