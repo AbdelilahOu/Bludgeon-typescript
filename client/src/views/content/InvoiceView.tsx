@@ -1,11 +1,12 @@
 import { defineComponent, onBeforeMount, ref, Transition } from "vue";
-import { InvoiceTable } from "@/components/invoice/InvoiceTable";
+import { InvoiceTable } from "@/components/InvoiceTable";
 import { useInvoiceStore } from "@/stores/invoiceStore";
 import { UiButton } from "@/components/ui/UiButton";
 import { useModalStore } from "@/stores/modalStore";
 import { UiInput } from "@/components/ui/UiInput";
 import UiIcon from "@/components/ui/UiIcon.vue";
 import { storeToRefs } from "pinia";
+import { globalTranslate } from "@/utils/globalTranslate";
 
 export const InvoiceView = defineComponent({
   name: "Invoices",
@@ -49,7 +50,7 @@ export const InvoiceView = defineComponent({
                         : value.toLocaleLowerCase())
                   }
                   Type="text"
-                  PlaceHolder="Search"
+                  PlaceHolder={globalTranslate("Global.search")}
                 >
                   <UiIcon
                     class=" fill-gray-400 cursor-default hover:bg-white"
@@ -66,7 +67,7 @@ export const InvoiceView = defineComponent({
                     class=" fill-gray-900 cursor-default hover:bg-transparent"
                     name="add"
                   />{" "}
-                  Add new Invoice{" "}
+                  {globalTranslate("Invoices.index.addButton")}
                 </UiButton>
               </div>
             </div>

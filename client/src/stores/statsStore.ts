@@ -41,7 +41,7 @@ export const useStatsStore = defineStore("StatsStore", {
           r[date].push({ date, quantity, model });
           return r;
         }, Object.create(null));
-      // group based on the model of the sstock mouvmenet {january:{IN:[...],OUT:[...]}}
+      // group based on the model of the stock mouvmenet {january:{IN:[...],OUT:[...]}}
       for (const month of months) {
         if (dataSet[month]) {
           result[month] = dataSet[month].reduce((r, { model, quantity }) => {

@@ -33,7 +33,9 @@ export const UiSideLink = defineComponent({
         >
           {props.LinkIcon}
           {props.IsText ? (
-            <span class="text-[rgba(25,23,17,0.6)] ml-1">{props.LinkText}</span>
+            <span class="text-[rgba(25,23,17,0.6)] ml-1 whitespace-nowrap">
+              {props.LinkText}
+            </span>
           ) : (
             ""
           )}

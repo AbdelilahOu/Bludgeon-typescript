@@ -145,7 +145,9 @@ export interface clientT {
 }
 
 export interface newClientT extends Omit<clientT, "id"> {}
-export interface updateClientT extends Partial<clientT> {}
+export interface updateClientT extends Partial<clientT> {
+  [key: string]: any;
+}
 /////////////////////////////////////////////////
 //////////////////// VENDOR INTERFACES //////////
 ////////////////////////////////////////////////

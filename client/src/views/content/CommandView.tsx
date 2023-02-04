@@ -1,11 +1,12 @@
 import { defineComponent, onBeforeMount, ref, Transition } from "vue";
-import { CommandTable } from "@/components/command/CommandTable";
+import { CommandTable } from "@/components/CommandTable";
 import { useCommandStore } from "@/stores/commandStore";
 import { UiButton } from "@/components/ui/UiButton";
 import { useModalStore } from "@/stores/modalStore";
 import { UiInput } from "@/components/ui/UiInput";
 import UiIcon from "@/components/ui/UiIcon.vue";
 import { storeToRefs } from "pinia";
+import { globalTranslate } from "@/utils/globalTranslate";
 
 export const CommandView = defineComponent({
   name: "Commands",
@@ -49,7 +50,7 @@ export const CommandView = defineComponent({
                         : value.toLocaleLowerCase())
                   }
                   Type="text"
-                  PlaceHolder="Search"
+                  PlaceHolder={globalTranslate("Global.search")}
                 >
                   <UiIcon
                     class=" fill-gray-400 cursor-default hover:bg-white"
@@ -66,7 +67,7 @@ export const CommandView = defineComponent({
                     class=" fill-gray-900 cursor-default hover:bg-transparent"
                     name="add"
                   />{" "}
-                  Add new command{" "}
+                  {globalTranslate("Commands.index.addButton")}
                 </UiButton>
               </div>
             </div>

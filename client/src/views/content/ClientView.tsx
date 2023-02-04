@@ -1,7 +1,8 @@
 import { defineComponent, onBeforeMount, ref, Transition } from "vue";
-import { ClientTable } from "@/components/user/ClientTable";
+import { ClientTable } from "@/components/ClientTable";
 import { useClientStore } from "@/stores/clientStore";
 import { UiButton } from "@/components/ui/UiButton";
+import { globalTranslate } from "@/utils/globalTranslate";
 import { useModalStore } from "@/stores/modalStore";
 import { UiInput } from "@/components/ui/UiInput";
 import UiIcon from "@/components/ui/UiIcon.vue";
@@ -49,7 +50,7 @@ export const ClientView = defineComponent({
                         : value.toLocaleLowerCase())
                   }
                   Type="text"
-                  PlaceHolder="Search"
+                  PlaceHolder={globalTranslate("Global.search")}
                 >
                   <UiIcon
                     class=" fill-gray-400 cursor-default hover:bg-white"
@@ -66,7 +67,7 @@ export const ClientView = defineComponent({
                     class=" fill-gray-900 cursor-default hover:bg-transparent"
                     name="add"
                   />{" "}
-                  Add new client{" "}
+                  {globalTranslate("Clients.index.addButton")}
                 </UiButton>
               </div>
             </div>

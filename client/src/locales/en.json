@@ -1,0 +1,189 @@
+{
+  "Stats": {
+    "Title": "Sold and bought items during the last three months",
+    "Labels": ["BOUGHT", "SOLD"]
+  },
+  "Clients": {
+    "index": {
+      "addButton": "Add new client",
+      "feilds": ["client name", "e-mail", "phone number", "address", "action"]
+    },
+    "create": {
+      "title": "create a client",
+      "button": "Create",
+      "placeholders": ["Name", "E-mail", "Phone number", "Addresse"]
+    },
+    "update": {
+      "title": "update client",
+      "button": "Update "
+    },
+    "delete": {
+      "title": "are you sure you wanna delete the client ",
+      "yes": "Confirme",
+      "no": "Cancel"
+    }
+  },
+  "Vendors": {
+    "index": {
+      "addButton": "Add new seller",
+      "feilds": ["seller name", "e-mail", "phone number", "adresse", "action"]
+    },
+    "create": {
+      "title": "create a seller",
+      "button": "Create",
+      "placeholders": ["Name", "E-mail", "Phone number", "Addresse"]
+    },
+    "update": {
+      "title": "update seller",
+      "button": "Update "
+    },
+    "delete": {
+      "title": "are you sure you wanna delete the seller ",
+      "yes": "Confirme",
+      "no": "Cancel"
+    }
+  },
+  "Products": {
+    "index": {
+      "addButton": "Add new product",
+      "feilds": ["product name", "price", "stock", "action"]
+    },
+    "create": {
+      "title": "create a product",
+      "button": "Create",
+      "placeholders": [
+        "Name",
+        "Price in DH",
+        "Initiale Quantity",
+        "description"
+      ]
+    },
+    "update": {
+      "title": "UPDATE product",
+      "button": "Update "
+    },
+    "delete": {
+      "title": "are you sure you wanna delete the product ",
+      "yes": "Confirme",
+      "no": "Cancel"
+    }
+  },
+  "Commands": {
+    "index": {
+      "addButton": "Add new Command",
+      "feilds": ["command id", "client id", "items", "STATUS", "Date", "action"]
+    },
+    "create": {
+      "title": "create new command",
+      "details": {
+        "client": {
+          "title": "client details",
+          "select": "Select a client"
+        },
+        "command": {
+          "title": "command details",
+          "add": "add a product",
+          "select": "Select a product",
+          "placeholder": "Product quantity"
+        }
+      },
+      "button": "Create a Command"
+    },
+    "update": {
+      "title": "update command",
+      "details": {
+        "client": {
+          "title": "client details"
+        },
+        "command": {
+          "title": "command details",
+          "add": "add a product"
+        }
+      },
+      "button": "Update Command"
+    },
+    "delete": {
+      "title": "are you sure you wanna delete the command ",
+      "yes": "Confirme",
+      "no": "Cancel"
+    },
+    "status": {
+      "delivered": "Delivered",
+      "pending": "Pending",
+      "canceled": "Canceled"
+    }
+  },
+  "Invoices": {
+    "index": {
+      "addButton": "Add new Invoice",
+      "feilds": ["invoice id", "seller id", "items", "total", "Date", "action"]
+    },
+    "create": {
+      "title": "create new invoice",
+      "details": {
+        "seller": {
+          "title": "seller details",
+          "select": "Select a seller"
+        },
+        "invoice": {
+          "title": "invoice details",
+          "add": "add a product",
+          "select": "Select a product",
+          "placeholder": "Product quantity"
+        }
+      },
+      "button": "Create a Invoice"
+    },
+    "update": {
+      "title": "update invoice",
+      "details": {
+        "seller": {
+          "title": "seller details"
+        },
+        "invoice": {
+          "title": "invoice details",
+          "add": "add a product"
+        }
+      },
+      "button": "Update Invoice"
+    },
+    "delete": {
+      "title": "are you sure you wanna delete the invoice ",
+      "yes": "Confirme",
+      "no": "Cancel"
+    }
+  },
+  "Stocks": {
+    "index": {
+      "addButton": "Add to Stock",
+      "feilds": [
+        "id",
+        "product name",
+        "product price",
+        "quantity",
+        "command id",
+        "invoice id",
+        "date",
+        ""
+      ]
+    },
+    "create": {
+      "title": "add items to stock",
+      "select": "Select a product",
+      "placeholder": "Quantity",
+      "button": "Add"
+    }
+  },
+  "Global": {
+    "search": "Search",
+    "routes": {
+      "Clients": "Clients",
+      "Sellers": "Sellers",
+      "Products": "Products",
+      "Commands": "Commands",
+      "Invoices": "Invoices",
+      "Stock": "Stock",
+      "Statistics": "Statistics"
+    }
+  }
+}

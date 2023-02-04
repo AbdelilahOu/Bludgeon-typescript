@@ -1,11 +1,12 @@
 import { defineComponent, onBeforeMount, ref, Transition } from "vue";
-import { StockTable } from "@/components/stock/StockTable";
+import { StockTable } from "@/components/StockTable";
 import { useStockStore } from "@/stores/stockStore";
 import { UiButton } from "@/components/ui/UiButton";
 import { UiInput } from "@/components/ui/UiInput";
 import UiIcon from "@/components/ui/UiIcon.vue";
 import { storeToRefs } from "pinia";
 import { useModalStore } from "@/stores/modalStore";
+import { globalTranslate } from "@/utils/globalTranslate";
 
 export const StockView = defineComponent({
   name: "Stocks",
@@ -47,7 +48,7 @@ export const StockView = defineComponent({
                           : value.toLocaleLowerCase())
                     }
                     Type="text"
-                    PlaceHolder="Search"
+                    PlaceHolder={globalTranslate("Global.search")}
                   >
                     <UiIcon
                       class=" fill-gray-400 cursor-default hover:bg-white"
@@ -64,7 +65,7 @@ export const StockView = defineComponent({
                       class=" fill-gray-900 cursor-default hover:bg-transparent"
                       name="add"
                     />{" "}
-                    Add to stock
+                    {globalTranslate("Stocks.index.addButton")}
                   </UiButton>
                 </div>
               </div>

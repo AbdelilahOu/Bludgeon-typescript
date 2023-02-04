@@ -1,9 +1,10 @@
-import { ChartLine } from "@/components/charts/ChartLine";
-import { ChartBar } from "@/components/charts/ChartBart";
+import { ChartLine } from "@/components/ChartLine";
+import { ChartBar } from "@/components/ChartBart";
 import { useStockStore } from "@/stores/stockStore";
 import { useStatsStore } from "@/stores/statsStore";
 import { defineComponent, ref } from "vue";
 import { storeToRefs } from "pinia";
+import { globalTranslate } from "@/utils/globalTranslate";
 
 export const StatsView = defineComponent({
   name: "Stats",
@@ -17,12 +18,13 @@ export const StatsView = defineComponent({
       stockMouvements.value
     );
     console.log(stockData);
+
     return () => (
       <main class="w-full h-full px-3 py-1">
         <div class="w-full h-full grid grid-cols-1 grid-rows-1">
           <div>
             <h1 class="uppercase text-gray-600 font-semibold mb-1">
-              sold and bought items during the last three months
+              {globalTranslate("Stats.Title")}
             </h1>
             <ChartBar
               id="stock-mouvements-for-past-three-months"
@@ -30,7 +32,7 @@ export const StatsView = defineComponent({
                 labels: months,
                 datasets: [
                   {
-                    label: "BOUGHT",
+                    label: globalTranslate("Stats.Labels[0]"),
                     backgroundColor: "rgba(255, 200, 0, 0.2)",
                     borderColor: "rgba(255, 200, 0,0.5)",
                     data: [
@@ -41,7 +43,7 @@ export const StatsView = defineComponent({
                     borderWidth: 2,
                   },
                   {
-                    label: "SOLD",
+                    label: globalTranslate("Stats.Labels[1]"),
                     data: [
                       stockData[months[0]]?.OUT ?? 0,
                       stockData[months[1]]?.OUT ?? 0,

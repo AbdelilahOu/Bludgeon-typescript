@@ -1,6 +1,10 @@
 import { defineComponent, ref, type PropType } from "vue";
 import { RouteLinks } from "@/stores/routeNames";
 import { UiSideLink } from "./ui/UiSideLink";
+import { UiButton } from "./ui/UiButton";
+import { useModalStore } from "@/stores/modalStore";
+import { globalTranslate } from "@/utils/globalTranslate";
+import { useTranslationStore } from "@/stores/translationStore";
 export const SideBar = defineComponent({
   name: "SideBar",
   props: {
@@ -51,13 +55,13 @@ export const SideBar = defineComponent({
           </div>
           <div class="w-full px-1 h-full overflow-x-hidden grid grid-cols-1 gap-1 grid-rows-[1fr_36px_36px] justify-between pb-[18px]">
             <div class="w-full h-full flex flex-col gap-1">
-              {RouteLinks.map((link) => {
+              {RouteLinks.map((link, index) => {
                 return (
                   <UiSideLink
                     IsText={!IsCollapse.value}
                     LinkPath={link.path}
                     LinkIcon={link.icon}
-                    LinkText={link.name}
+                    LinkText={globalTranslate(`Global.routes.${link.name}`)}
                   />
                 );
               })}
@@ -68,18 +72,24 @@ export const SideBar = defineComponent({
               LinkIcon={"🔔"}
               LinkText={"Notifications"}
             />
-            {/* <UiSideLink
-              IsText={!IsCollapse.value}
-              LinkPath={"/Sitting"}
-              LinkIcon={"⚙"}=
-              LinkText={"Sitti^ù°P0lohèjungs"}
-            /> */}
-            <UiSideLink
-              IsText={!IsCollapse.value}
-              LinkPath={"/"}
-              LinkIcon={"🌐"}
-              LinkText={"English"}
-            />
+
+            <button
+              onClick={() => {
+                useModalStore().updateModal({ key: "show", value: true });
+                useModalStore().updateModal({
+                  key: "name",
+                  value: "TranslationModal",
+                });
+              }}
+              class={
+                "w-full flex h-9 whitespace-nowrap flex-nowrap overflow-hidden rounded-sm items-center text-[rgba(25,23,17,0.6)] py-1 px-2 hover:bg-gray-200 transition-all duration-300"
+              }
+            >
+              🌐{" "}
+              {!IsCollapse.value
+                ? useTranslationStore().currentLocale.text
+                : ""}
+            </button>
           </div>
         </div>
       </aside>

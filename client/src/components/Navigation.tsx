@@ -4,18 +4,23 @@ import {
   useRoute,
   useRouter,
 } from "vue-router";
-import { defineComponent, ref } from "vue";
+import { defineComponent, onMounted, ref } from "vue";
 import { RouteLinks } from "@/stores/routeNames";
+import { globalTranslate } from "@/utils/globalTranslate";
 
 export const Navigation = defineComponent({
   name: "Navigation",
   setup() {
     const router = useRouter();
     const route = useRoute();
-    const ActiveLink = ref<string>("");
+    const ActiveLink = ref<any>("");
+    onMounted(() => {
+      ActiveLink.value = RouteLinks.find(
+        (link) => link.component === route.name
+      );
+    });
     onBeforeRouteUpdate((to) => {
-      const link = RouteLinks.find((link) => link.component === to.name);
-      ActiveLink.value = link ? link.icon + " " + link.name : "/";
+      ActiveLink.value = RouteLinks.find((link) => link.component === to.name);
     });
     return () => (
       <header class="w-full h-full print:hidden sticky top-0 z-50 bg-white">
@@ -43,12 +48,24 @@ export const Navigation = defineComponent({
               </RouterLink>{" "}
               {route.fullPath !== "/" ? (
                 route.name == "CommandDetails" ? (
-                  "/ 🚚 Commands / n°" + route.params.id
+                  `/ 🚚 ${globalTranslate("Global.routes.Commands")} / n°` +
+                  route.params.id
                 ) : route.name == "InvoiceDetails" ? (
-                  "/ 📋 Invoices / n°" + route.params.id
+                  `"/ 📋 ${globalTranslate("Global.routes.Invoices")} / n°"` +
+                  route.params.id
                 ) : (
                   <span class="">
-                    /<span> {ActiveLink.value}</span>
+                    /
+                    <span>
+                      {" "}
+                      {ActiveLink.value
+                        ? ActiveLink.value.icon +
+                          " " +
+                          globalTranslate(
+                            `Global.routes.${ActiveLink.value.name}`
+                          )
+                        : "/"}
+                    </span>
                   </span>
                 )
               ) : (

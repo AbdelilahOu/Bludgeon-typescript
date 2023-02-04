@@ -7,20 +7,11 @@ import type {
   invoiceDetailsT,
   //   updateInvoiceT,
 } from "@/types";
+import { formatDate } from "@/utils/formatDate";
 import axios from "axios";
 import { defineStore } from "pinia";
 
 const api: string = "http://localhost:3111/invoice/";
-
-const formatDate = (theDate: string) => {
-  return new Date(theDate).toLocaleDateString("fr-fr", {
-    day: "numeric",
-    month: "numeric",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-};
 
 export const useInvoiceStore = defineStore("InvoiceStore", {
   state: (): invoiceState => {

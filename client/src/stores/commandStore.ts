@@ -7,18 +7,9 @@ import type {
   updateCommandT,
   commandDetailsT,
 } from "@/types";
+import { formatDate } from "@/utils/formatDate";
 import axios from "axios";
 import { defineStore } from "pinia";
-
-const formatDate = (theDate: string) => {
-  return new Date(theDate).toLocaleDateString("fr-fr", {
-    day: "numeric",
-    month: "numeric",
-    year: "numeric",
-    hour: "2-digit",
-    minute: "2-digit",
-  });
-};
 
 const api: string = "http://localhost:3111/command/";
 

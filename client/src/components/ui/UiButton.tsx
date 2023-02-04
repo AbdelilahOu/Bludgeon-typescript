@@ -17,11 +17,11 @@ export const UiButton = defineComponent({
     return () => (
       <button
         disabled={props.Disable}
-        class={
+        class={`defaultButton disabled:hover:border-gray-200 hover:bg-gray-300 hover:border-gray-300 hover:text-black ${
           props.colorTheme == "primary"
-            ? "defaultButton disabled:hover:bg-gray-50 disabled:hover:border-gray-200  hover:bg-gray-300  hover:border-gray-300 hover:text-black text-gray-600  bg-gray-50"
-            : "defaultButton disabled:hover:bg-gray-500 disabled:hover:border-gray-200  hover:bg-gray-300  hover:border-gray-300 hover:text-black text-gray-900   bg-gray-400"
-        }
+            ? " disabled:hover:bg-gray-50 text-gray-600 bg-gray-50"
+            : " disabled:hover:bg-gray-500 text-gray-900 bg-gray-400"
+        }`}
       >
         <div class="flex items-center w-full h-full justify-center">
           {slots.default?.()}

@@ -10,7 +10,7 @@ export const RouteLinks: RouteLinksTypeT[] = [
   {
     path: "/Vendors",
     component: "Vendors",
-    name: "Vendors",
+    name: "Sellers",
     icon: "👥",
   },
   {
@@ -40,7 +40,7 @@ export const RouteLinks: RouteLinksTypeT[] = [
   {
     path: "/Stats",
     component: "Stats",
-    name: "Statestiques",
+    name: "Statistics",
     icon: "📊",
   },
 ];

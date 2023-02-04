@@ -1,11 +1,12 @@
 import { defineComponent, onBeforeMount, ref, Transition } from "vue";
-import { VendorTable } from "@/components/vendor/VendorTable";
+import { VendorTable } from "@/components/VendorTable";
 import { useVendorStore } from "@/stores/vendorStore";
 import { UiButton } from "@/components/ui/UiButton";
 import { useModalStore } from "@/stores/modalStore";
 import { UiInput } from "@/components/ui/UiInput";
 import UiIcon from "@/components/ui/UiIcon.vue";
 import { storeToRefs } from "pinia";
+import { globalTranslate } from "@/utils/globalTranslate";
 
 export const VendorView = defineComponent({
   name: "Vendors",
@@ -48,7 +49,7 @@ export const VendorView = defineComponent({
                         : value.toLocaleLowerCase())
                   }
                   Type="text"
-                  PlaceHolder="Search"
+                  PlaceHolder={globalTranslate("Global.search")}
                 >
                   <UiIcon
                     class=" fill-gray-400 cursor-default hover:bg-white"
@@ -65,7 +66,7 @@ export const VendorView = defineComponent({
                     class=" fill-gray-900 cursor-default hover:bg-transparent"
                     name="add"
                   />{" "}
-                  Add new vendor{" "}
+                  {globalTranslate("Vendors.index.addButton")}
                 </UiButton>
               </div>
             </div>

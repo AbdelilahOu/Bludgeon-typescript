@@ -1,11 +1,12 @@
 import { defineComponent, onBeforeMount, ref, Transition } from "vue";
-import { ProductTable } from "@/components/product/ProductTable";
+import { ProductTable } from "@/components/ProductTable";
 import { useProductStore } from "@/stores/productStore";
 import { UiButton } from "@/components/ui/UiButton";
 import { useModalStore } from "@/stores/modalStore";
 import { UiInput } from "@/components/ui/UiInput";
 import UiIcon from "@/components/ui/UiIcon.vue";
 import { storeToRefs } from "pinia";
+import { globalTranslate } from "@/utils/globalTranslate";
 
 export const ProductView = defineComponent({
   name: "Products",
@@ -47,7 +48,7 @@ export const ProductView = defineComponent({
                         : value.toLocaleLowerCase())
                   }
                   Type="text"
-                  PlaceHolder="Search"
+                  PlaceHolder={globalTranslate("Global.search")}
                 >
                   <UiIcon
                     class=" fill-gray-400 cursor-default hover:bg-white"
@@ -64,7 +65,7 @@ export const ProductView = defineComponent({
                     class=" fill-gray-900 cursor-default hover:bg-transparent"
                     name="add"
                   />{" "}
-                  Add new product{" "}
+                  {globalTranslate("Products.index.addButton")}
                 </UiButton>
               </div>
             </div>
