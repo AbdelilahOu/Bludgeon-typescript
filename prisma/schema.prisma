@@ -12,6 +12,7 @@ model Product {
   name            String           @unique()
   description     String?
   price           Float
+  tva             Float            @default(0)
   stockMouvements StockMouvement[]
   invoiceItems    InvoiceItem[]
   commandItems    CommandItem[]
@@ -23,7 +24,7 @@ model Client {
   phone    String?
   email    String?
   addresse String?
-  commands Command[]
+  invoices Invoice[]
 }
 
 model Vendor {
@@ -32,15 +33,15 @@ model Vendor {
   phone    String?
   email    String?
   addresse String?
-  invoices Invoice[]
+  commands Command[]
 }
 
 model Invoice {
   id           Int           @id @default(autoincrement())
-  vendor       Vendor        @relation(fields: [vendorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  client       Client        @relation(fields: [clientId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   total        Float
   createdAt    DateTime      @default(now())
-  vendorId     Int
+  clientId     Int
   invoiceItems InvoiceItem[]
 }
 
@@ -57,10 +58,10 @@ model InvoiceItem {
 
 model Command {
   id           Int           @id @default(autoincrement())
-  client       Client        @relation(fields: [clientId], references: [id], onDelete: Cascade, onUpdate: Cascade)
+  vendor       Vendor        @relation(fields: [vendorId], references: [id], onDelete: Cascade, onUpdate: Cascade)
   status       String
   createdAt    DateTime      @default(now())
-  clientId     Int
+  vendorId     Int
   commandItems CommandItem[]
 }
 
