@@ -64,11 +64,11 @@ export const updateInvoiceController = async (req: Request, res: Response) => {
   const { Invoice }: { Invoice: incomingInvoiceT } = req.body.data;
   const { id } = req.params;
   try {
-    const { vendorId, total, invoiceItems } = Invoice;
+    const { clientId, total, invoiceItems } = Invoice;
 
     const row = await updateInvoice({
       id: Number(id),
-      data: { vendorId, total },
+      data: { clientId, total },
     });
     const rowItems = [];
     for await (const item of invoiceItems) {
