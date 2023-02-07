@@ -40,6 +40,7 @@ export interface productT {
   price: number;
   description?: string;
   quantity: number;
+  tva: number;
 }
 
 export interface newProductT extends Omit<productT, "id"> {}
@@ -50,7 +51,7 @@ export interface updateProductT extends Partial<newProductT> {}
 //////////////////////////
 export interface commandT {
   id: number;
-  clientId: number;
+  vendorId: number;
   status: string;
 }
 
@@ -78,7 +79,7 @@ export interface incomingCommandT extends newCommandT {
 
 export interface invoiceT {
   id: number;
-  vendorId: number;
+  clientId: number;
   total: number;
 }
 
