@@ -38,9 +38,9 @@ export const getCommandController = async (req: Request, res: Response) => {
 
 export const createCommandController = async (req: Request, res: Response) => {
   const { Command }: { Command: incomingCommandT } = req.body.data;
-  const { status, clientId, commandItems } = Command;
+  const { status, vendorId, commandItems } = Command;
   try {
-    const commandRow = await createCommand({ status, clientId });
+    const commandRow = await createCommand({ status, vendorId });
 
     let commandRowItems: any[] = [];
     for await (const item of commandItems) {
@@ -68,13 +68,13 @@ export const updateCommandController = async (req: Request, res: Response) => {
   const { Command }: { Command: incomingCommandT } = req.body.data;
   const { id } = req.params;
   try {
-    const { status, clientId, commandItems } = Command;
+    const { status, vendorId, commandItems } = Command;
 
     const updatedCommand = await updateCommand({
       id: Number(id),
       data: {
         status,
-        clientId,
+        vendorId,
       },
     });
 
