@@ -24,7 +24,7 @@ export const VendorView = defineComponent({
     const searchQuery = ref<string>("");
     //
     onBeforeMount(() => {
-      if (!vendors.value.length) VendorStore.getAllVendors();
+      VendorStore.getAllVendors();
     });
     //
     const updateModal = (name: string) => {

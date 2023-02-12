@@ -13,6 +13,7 @@ import { IndexView } from "../views/IndexView";
 import { AuthView } from "@/views/AuthView";
 import { InvoiceDetails } from "@/views/content/InvoiceDetails";
 import { InvoiceIndex } from "@/views/content/InvoiceIndex";
+import { HomeView } from "@/views/content/HomeView";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -26,6 +27,11 @@ const router = createRouter({
           path: "Products",
           name: "Products",
           component: ProductView,
+        },
+        {
+          path: "Home",
+          name: "Home",
+          component: HomeView,
         },
         {
           path: "Clients",

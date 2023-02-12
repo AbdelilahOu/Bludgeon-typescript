@@ -78,7 +78,7 @@ export const CommandTable = defineComponent({
                   </td>
                   <td class="p-2">
                     <div class="text-left whitespace-nowrap overflow-ellipsis">
-                      {Command.clientId ?? (
+                      {Command.vendorId ?? (
                         <span class="text-red-400">No email</span>
                       )}
                     </div>
@@ -109,7 +109,9 @@ export const CommandTable = defineComponent({
                               : "bg-red-300 px-2 py-[1px] rounded-full"
                           }
                         >
-                          {globalTranslate(`Commands.status.${Command.status}`)}
+                          {globalTranslate(
+                            `Commands.status.${Command.status.toLowerCase()}`
+                          )}
                         </span>
                       ) : (
                         <span class="text-red-400">No status</span>

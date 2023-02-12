@@ -12,7 +12,7 @@ import { UiButton } from "./ui/UiButton";
 import type { updateInvoiceT } from "@/types";
 import { storeToRefs } from "pinia";
 import { UiUpdateSelect } from "./ui/UiUpdateSelect";
-import { useVendorStore } from "@/stores/vendorStore";
+import { useClientStore } from "@/stores/clientStore";
 import { UiCheckBox } from "./ui/UiCheckBox";
 import { useProductStore } from "@/stores/productStore";
 import UiIcon from "./ui/UiIcon.vue";
@@ -24,19 +24,19 @@ export const InvoiceUpdate = defineComponent({
   setup() {
     //
     const productStore = useProductStore();
-    const vendorStore = useVendorStore();
+    const clientStore = useClientStore();
     const modalStore = useModalStore();
     //
     const { invoice: invoiceRow } = storeToRefs(modalStore);
 
     const { products } = storeToRefs(productStore);
-    const { vendors } = storeToRefs(vendorStore);
+    const { clients } = storeToRefs(clientStore);
     const IsClicked = ref<boolean>(false);
     //
     const invoice: updateInvoiceT = {
       id: undefined,
       total: undefined,
-      vendorId: undefined,
+      clientId: undefined,
       invoiceItems: [],
     };
     //
@@ -73,21 +73,21 @@ export const InvoiceUpdate = defineComponent({
         <div class="h-full  w-full grid grid-cols-1 gap-2">
           <div class="w-full  h-full flex flex-col gap-1">
             <h1 class="font-medium">
-              {globalTranslate("Invoices.update.details.vendor.title")}
+              {globalTranslate("Invoices.update.details.client.title")}
             </h1>
             <UiUpdateSelect
               Value={
-                vendors.value.find((cli) => updateInvoice.vendorId === cli.id)
+                clients.value.find((cli) => updateInvoice.clientId === cli.id)
                   ?.name ?? ""
               }
-              items={vendors.value.map((vendor) => ({
-                name: vendor.name,
-                id: vendor.id,
+              items={clients.value.map((client) => ({
+                name: client.name,
+                id: client.id,
               }))}
-              onSelect={(id: number) => (updateInvoice.vendorId = id)}
+              onSelect={(id: number) => (updateInvoice.clientId = id)}
               IsClickedOuside={IsClicked.value}
             >
-              {globalTranslate("Invoices.update.details.vendor.select")}
+              {globalTranslate("Invoices.update.details.client.select")}
             </UiUpdateSelect>
           </div>
           <div class="w-full  h-full flex flex-col gap-1">
@@ -125,7 +125,7 @@ export const InvoiceUpdate = defineComponent({
                       IsClickedOuside={IsClicked.value}
                     >
                       {globalTranslate(
-                        "Invoices.update.details.invoice.select"
+                        "Invoices.create.details.invoice.select"
                       )}
                     </UiUpdateSelect>
                   ))}

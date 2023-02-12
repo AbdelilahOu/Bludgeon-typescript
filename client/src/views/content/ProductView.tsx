@@ -31,7 +31,7 @@ export const ProductView = defineComponent({
     const sortProductBy = (by: string) => "";
     //
     onBeforeMount(() => {
-      if (!products.value.length) productStore.getAllProducts();
+      productStore.getAllProducts();
     });
     return () => (
       <main class="w-full h-full px-3">

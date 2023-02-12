@@ -6,7 +6,7 @@
   "Clients": {
     "index": {
       "addButton": "Add new client",
-      "feilds": ["client name", "e-mail", "phone number", "address", "action"]
+      "feilds": ["client name", "e-mail", "phone number", "addresse", "action"]
     },
     "create": {
       "title": "create a client",
@@ -26,7 +26,7 @@
   "Vendors": {
     "index": {
       "addButton": "Add new seller",
-      "feilds": ["seller name", "e-mail", "phone number", "adresse", "action"]
+      "feilds": ["seller name", "e-mail", "phone number", "addresse", "action"]
     },
     "create": {
       "title": "create a seller",
@@ -46,16 +46,19 @@
   "Products": {
     "index": {
       "addButton": "Add new product",
-      "feilds": ["product name", "price", "stock", "action"]
+      "feilds": ["product name", "type", "price", "TVA", "stock", "action"],
+      "types": ["Product", "Service"]
     },
     "create": {
       "title": "create a product",
       "button": "Create",
       "placeholders": [
         "Name",
+        "Select type",
         "Price in DH",
+        "TVA",
         "Initiale Quantity",
-        "description"
+        "Description"
       ]
     },
     "update": {
@@ -71,14 +74,14 @@
   "Commands": {
     "index": {
       "addButton": "Add new Command",
-      "feilds": ["command id", "client id", "items", "STATUS", "Date", "action"]
+      "feilds": ["command id", "seller id", "items", "STATUS", "Date", "action"]
     },
     "create": {
       "title": "create new command",
       "details": {
-        "client": {
-          "title": "client details",
-          "select": "Select a client"
+        "seller": {
+          "title": "seller details",
+          "select": "Select a seller"
         },
         "command": {
           "title": "command details",
@@ -92,11 +95,13 @@
     "update": {
       "title": "update command",
       "details": {
-        "client": {
-          "title": "client details"
+        "seller": {
+          "title": "seller details",
+          "select": "Select a seller"
         },
         "command": {
           "title": "command details",
+          "select": "Select a product",
           "add": "add a product"
         }
       },
@@ -113,17 +118,70 @@
       "canceled": "Canceled"
     }
   },
+  "CommandDetails": {
+    "details": {
+      "command": {
+        "title": "command details",
+        "id": "id",
+        "date": "date",
+        "status": "status"
+      },
+      "seller": {
+        "title": "seller details",
+        "id": "id",
+        "name": "name",
+        "phone": "phoner number",
+        "email": "email",
+        "addresse": "addresse"
+      },
+      "items": {
+        "title": "command items details",
+        "fields": ["name", "id", "quantity", "price", "type", "total"]
+      },
+      "button": "print"
+    }
+  },
+  "InvoiceDetails": {
+    "details": {
+      "invoice": {
+        "title": "invoice details",
+        "id": "id",
+        "date": "date"
+      },
+      "client": {
+        "title": "client details",
+        "id": "id",
+        "name": "name",
+        "phone": "phoner number",
+        "email": "email",
+        "addresse": "addresse"
+      },
+      "items": {
+        "title": "invoice items details",
+        "fields": [
+          "name",
+          "id",
+          "quantity",
+          "price",
+          "tva",
+          "total tva",
+          "total"
+        ]
+      },
+      "button": "print"
+    }
+  },
   "Invoices": {
     "index": {
       "addButton": "Add new Invoice",
-      "feilds": ["invoice id", "seller id", "items", "total", "Date", "action"]
+      "feilds": ["invoice id", "client id", "items", "total", "Date", "action"]
     },
     "create": {
       "title": "create new invoice",
       "details": {
-        "seller": {
-          "title": "seller details",
-          "select": "Select a seller"
+        "client": {
+          "title": "client details",
+          "select": "Select a client"
         },
         "invoice": {
           "title": "invoice details",
@@ -137,12 +195,14 @@
     "update": {
       "title": "update invoice",
       "details": {
-        "seller": {
-          "title": "seller details"
+        "client": {
+          "title": "client details",
+          "select": ""
         },
         "invoice": {
           "title": "invoice details",
-          "add": "add a product"
+          "add": "add a product",
+          "select": ""
         }
       },
       "button": "Update Invoice"
@@ -173,6 +233,11 @@
       "placeholder": "Quantity",
       "button": "Add"
     }
+  },
+  "Auth": {
+    "title": "Log in",
+    "username": "Username",
+    "password": "Password"
   },
   "Global": {
     "search": "Search",

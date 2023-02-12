@@ -2,7 +2,7 @@ import { defineComponent, reactive, ref, withModifiers } from "vue";
 import type { newCommandT, newCommandItemT } from "@/types";
 import { useCommandStore } from "@/stores/commandStore";
 import { useProductStore } from "@/stores/productStore";
-import { useClientStore } from "@/stores/clientStore";
+import { useVendorStore } from "@/stores/vendorStore";
 import { useModalStore } from "@/stores/modalStore";
 import { UiCheckBox } from "./ui/UiCheckBox";
 import { UiButton } from "./ui/UiButton";
@@ -19,10 +19,10 @@ export const CommandCreate = defineComponent({
     const isFlash = ref<boolean>(false);
     const IsClicked = ref<boolean>(false);
     const { products } = storeToRefs(useProductStore());
-    const { clients } = storeToRefs(useClientStore());
+    const { vendors } = storeToRefs(useVendorStore());
     const newCommand = reactive<newCommandT>({
       status: "",
-      clientId: undefined,
+      vendorId: undefined,
       commandItems: [],
     });
     const commandItems = ref<newCommandItemT[]>([
@@ -36,7 +36,7 @@ export const CommandCreate = defineComponent({
       newCommand.commandItems = commandItems.value.filter(
         (item) => item.productId !== 0 && item.quantity !== 0
       );
-      if (newCommand.clientId && newCommand.commandItems.length !== 0) {
+      if (newCommand.vendorId && newCommand.commandItems.length !== 0) {
         useCommandStore().createOneCommand(newCommand);
         useModalStore().updateModal({ key: "show", value: false });
       }
@@ -64,17 +64,17 @@ export const CommandCreate = defineComponent({
         <div class="h-full  w-full grid grid-cols-1 gap-2">
           <div class="w-full  h-full flex flex-col gap-1">
             <h1 class="font-medium">
-              {globalTranslate("Commands.create.details.client.title")}
+              {globalTranslate("Commands.create.details.seller.title")}
             </h1>
             <UiSelect
-              items={clients.value.map((client) => ({
-                name: client.name,
-                id: client.id,
+              items={vendors.value.map((vendor) => ({
+                name: vendor.name,
+                id: vendor.id,
               }))}
-              onSelect={(id: number) => (newCommand.clientId = id)}
+              onSelect={(id: number) => (newCommand.vendorId = id)}
               IsClickedOuside={IsClicked.value}
             >
-              {globalTranslate("Commands.create.details.client.select")}
+              {globalTranslate("Commands.create.details.seller.select")}
             </UiSelect>
           </div>
           <div class="w-full  h-full flex flex-col gap-1">
@@ -88,7 +88,7 @@ export const CommandCreate = defineComponent({
                   <UiCheckBox
                     onCheck={(check) =>
                       check
-                        ? (newCommand.status = "Delivered")
+                        ? (newCommand.status = "delivered")
                         : (newCommand.status = "")
                     }
                   />
@@ -98,7 +98,7 @@ export const CommandCreate = defineComponent({
                   <UiCheckBox
                     onCheck={(check) =>
                       check
-                        ? (newCommand.status = "Pending")
+                        ? (newCommand.status = "pending")
                         : (newCommand.status = "")
                     }
                   />
@@ -108,7 +108,7 @@ export const CommandCreate = defineComponent({
                   <UiCheckBox
                     onCheck={(check) =>
                       check
-                        ? (newCommand.status = "Canceled")
+                        ? (newCommand.status = "canceled")
                         : (newCommand.status = "")
                     }
                   />

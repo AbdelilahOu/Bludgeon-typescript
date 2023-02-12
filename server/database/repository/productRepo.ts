@@ -7,6 +7,8 @@ export const createProduct = (data: newProductT) => {
       name: data.name,
       price: data.price,
       description: data.description,
+      tva: data.tva,
+      type: data.type,
       stockMouvements: {
         create: {
           quantity: Number(data.quantity),
@@ -24,6 +26,8 @@ export const updateProduct = (update: updateData<updateProductT>) => {
       name: update.data.name,
       price: update.data.price,
       description: update.data.description,
+      tva: update.data.tva,
+      type: update.data.type,
     },
   });
 };

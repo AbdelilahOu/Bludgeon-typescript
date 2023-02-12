@@ -8,7 +8,7 @@ import { Application } from "express";
 import * as express from "express";
 import * as cors from "cors";
 
-export default class expressServer {
+export class expressServer {
   public app: Application;
   public server: any;
 
@@ -37,6 +37,6 @@ export default class expressServer {
   }
 }
 
-const sth = new expressServer(express());
+// const sth = new expressServer(express());
 
-sth.run();
+// sth.run();

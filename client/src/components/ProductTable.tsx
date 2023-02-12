@@ -39,7 +39,7 @@ export const ProductTable = defineComponent({
           <thead class="text-xs h-9 rounded-sm font-semibold uppercase text-[rgba(25,23,17,0.6)] bg-gray-300">
             <tr>
               <th></th>
-              {[0, 1, 2, 3].map((index) => (
+              {[0, 1, 2, 3, 4, 5].map((index) => (
                 <th class="p-2 w-fit ">
                   <div class="font-semibold text-left">
                     {globalTranslate(`Products.index.feilds[${index}]`)}
@@ -71,7 +71,13 @@ export const ProductTable = defineComponent({
                     <div class="font-medium text-gray-800">{product.name}</div>
                   </td>
                   <td class="p-2">
+                    <div class="font-medium text-gray-800">{product.type}</div>
+                  </td>
+                  <td class="p-2">
                     <div class="text-left">{product.price.toFixed(2)}</div>
+                  </td>
+                  <td class="p-2">
+                    <div class="text-left">{product.tva.toFixed(2)} %</div>
                   </td>
                   <td class="p-2">
                     <div class="text-left">{product?.quantity} item</div>

@@ -1,8 +1,8 @@
 import { defineComponent, onBeforeMount, ref, Transition } from "vue";
+import { globalTranslate } from "@/utils/globalTranslate";
 import { ClientTable } from "@/components/ClientTable";
 import { useClientStore } from "@/stores/clientStore";
 import { UiButton } from "@/components/ui/UiButton";
-import { globalTranslate } from "@/utils/globalTranslate";
 import { useModalStore } from "@/stores/modalStore";
 import { UiInput } from "@/components/ui/UiInput";
 import UiIcon from "@/components/ui/UiIcon.vue";
@@ -10,12 +10,7 @@ import { storeToRefs } from "pinia";
 
 export const ClientView = defineComponent({
   name: "Clients",
-  components: {
-    ClientTable,
-    UiButton,
-    UiInput,
-    UiIcon,
-  },
+  components: { ClientTable, UiButton, UiInput, UiIcon },
   setup() {
     const modalStore = useModalStore();
     const clientStore = useClientStore();

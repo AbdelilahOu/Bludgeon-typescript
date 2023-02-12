@@ -25,7 +25,7 @@ export const StockView = defineComponent({
     const searchQuery = ref<string>("");
 
     onBeforeMount(() => {
-      if (stockMouvements.value.length) stockStore.getAllStockMouvements();
+      stockStore.getAllStockMouvements();
     });
 
     const updateModal = (name: string) => {

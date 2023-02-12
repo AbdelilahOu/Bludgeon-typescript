@@ -29,6 +29,7 @@ export const useTranslationStore = defineStore("TranslationStore", {
   },
   actions: {
     changeLocale: function (locale: locale) {
+      localStorage.setItem("locale", JSON.stringify(locale));
       this.currentLocale = locale;
     },
   },

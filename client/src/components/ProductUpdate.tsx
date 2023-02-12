@@ -5,6 +5,7 @@ import { UiUpdateInput } from "./ui/UiUpdateInput";
 import { UiButton } from "./ui/UiButton";
 import type { updateProductT } from "@/types";
 import { storeToRefs } from "pinia";
+import { UiUpdateSelect } from "./ui/UiUpdateSelect";
 
 export const ProductUpdate = defineComponent({
   name: "ProductUpdate",
@@ -18,6 +19,8 @@ export const ProductUpdate = defineComponent({
       price: undefined,
       quantity: undefined,
       description: undefined,
+      tva: undefined,
+      type: undefined,
     };
     const updateProduct = reactive<updateProductT>({
       ...(ProductRow.value ? ProductRow.value : Product),
@@ -46,6 +49,25 @@ export const ProductUpdate = defineComponent({
             Type="text"
             PlaceHolder="Name"
           />
+          <UiUpdateSelect
+            IsClickedOuside={false}
+            items={[
+              {
+                id: 1,
+                name: "Produit",
+              },
+              {
+                id: 2,
+                name: "Service",
+              },
+            ]}
+            Value={updateProduct.type ?? ""}
+            onSelect={(val) =>
+              (updateProduct.type = val === 1 ? "Produit" : "Service")
+            }
+          >
+            Select product Type
+          </UiUpdateSelect>
           <UiUpdateInput
             Value={ProductRow.value?.price}
             OnInputChange={(value) => (updateProduct["price"] = Number(value))}
@@ -53,11 +75,17 @@ export const ProductUpdate = defineComponent({
             PlaceHolder="Price"
           />
           <UiUpdateInput
+            Value={ProductRow.value?.tva}
+            OnInputChange={(value) => (updateProduct["tva"] = Number(value))}
+            Type="number"
+            PlaceHolder="TVA"
+          />
+          <UiUpdateInput
             // Value={ProductRow.value?.stock}
             OnInputChange={(value) =>
               (updateProduct["quantity"] = Number(value))
             }
-            Type="text"
+            Type="number"
             PlaceHolder="Add Stock"
           />
           <UiUpdateInput

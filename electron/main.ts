@@ -1,5 +1,5 @@
 import { app, BrowserWindow } from "electron";
-import expressServer from "../server/app.js";
+import { expressServer } from "../server/app.js";
 import * as express from "express";
 import * as path from "path";
 
@@ -13,6 +13,8 @@ function createWindow() {
       preload: path.join(__dirname, "preload.js"),
       nodeIntegration: true,
       devTools: true,
+      allowRunningInsecureContent: true,
+      webSecurity: false,
     },
     icon: "../favicon.ico",
   });

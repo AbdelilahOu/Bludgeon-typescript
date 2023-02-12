@@ -66,10 +66,7 @@ export const useProductStore = defineStore("ProductStore", {
       const res: dataRowsT<productTfromApiT> = await axios.get(api);
       this.products = res.data.rows.map((item: productTfromApiT) => {
         return {
-          id: item.id,
-          name: item.name,
-          price: item.price,
-          description: item.description,
+          ...item,
           quantity: item.stockMouvements.reduce((a, b) => a + b.quantity, 0),
         };
       });

@@ -10,7 +10,7 @@ import {
 
 import { Response, Request } from "express";
 import { serializeBigInt } from "../utils/serializeBigInt";
-import { updateProductT } from "../database/models";
+import { newProductT, updateProductT } from "../database/models";
 
 export const getProductsController = async (req: Request, res: Response) => {
   try {
@@ -37,7 +37,7 @@ export const getProductController = async (req: Request, res: Response) => {
 };
 
 export const createProductController = async (req: Request, res: Response) => {
-  const { Product } = req.body.data;
+  const { Product }: { Product: newProductT } = req.body.data;
   console.log(Product);
   try {
     const row = await createProduct(Product);
@@ -51,9 +51,9 @@ export const createProductController = async (req: Request, res: Response) => {
 };
 
 export const updateProductController = async (req: Request, res: Response) => {
-  console.log(req.body);
   const { Product }: { Product: updateProductT } = req.body.data;
   const { id } = req.params;
+  console.log(Product);
   try {
     const row = await updateProduct({ id: Number(id), data: Product });
     if (Product.quantity && Product.quantity > 0) {

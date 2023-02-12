@@ -25,7 +25,7 @@ export const CommandView = defineComponent({
     const searchQuery = ref<string>("");
     //
     onBeforeMount(() => {
-      if (!commands.value.length) CommandStore.getAllCommands();
+      CommandStore.getAllCommands();
     });
     //
     const updateModal = (name: string) => {

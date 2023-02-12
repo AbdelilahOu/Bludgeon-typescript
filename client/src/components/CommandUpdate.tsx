@@ -1,3 +1,15 @@
+import { globalTranslate } from "@/utils/globalTranslate";
+import { useCommandStore } from "@/stores/commandStore";
+import { useProductStore } from "@/stores/productStore";
+import { useVendorStore } from "@/stores/vendorStore";
+import { UiUpdateSelect } from "./ui/UiUpdateSelect";
+import { useModalStore } from "@/stores/modalStore";
+import { UiUpdateInput } from "./ui/UiUpdateInput";
+import type { updateCommandT } from "@/types";
+import { UiCheckBox } from "./ui/UiCheckBox";
+import { UiButton } from "./ui/UiButton";
+import UiIcon from "./ui/UiIcon.vue";
+import { storeToRefs } from "pinia";
 import {
   defineComponent,
   reactive,
@@ -5,18 +17,6 @@ import {
   ref,
   withModifiers,
 } from "vue";
-import { useCommandStore } from "@/stores/commandStore";
-import { useModalStore } from "@/stores/modalStore";
-import { UiUpdateInput } from "./ui/UiUpdateInput";
-import { UiButton } from "./ui/UiButton";
-import type { updateCommandT } from "@/types";
-import { storeToRefs } from "pinia";
-import { UiUpdateSelect } from "./ui/UiUpdateSelect";
-import { useClientStore } from "@/stores/clientStore";
-import { UiCheckBox } from "./ui/UiCheckBox";
-import { useProductStore } from "@/stores/productStore";
-import UiIcon from "./ui/UiIcon.vue";
-import { globalTranslate } from "@/utils/globalTranslate";
 
 export const CommandUpdate = defineComponent({
   name: "CommandUpdate",
@@ -24,19 +24,19 @@ export const CommandUpdate = defineComponent({
   setup() {
     //
     const productStore = useProductStore();
-    const clientStore = useClientStore();
+    const vendorStore = useVendorStore();
     const modalStore = useModalStore();
     //
     const { command: CommandRow } = storeToRefs(modalStore);
 
     const { products } = storeToRefs(productStore);
-    const { clients } = storeToRefs(clientStore);
+    const { vendors } = storeToRefs(vendorStore);
     const IsClicked = ref<boolean>(false);
     //
     const Command: updateCommandT = {
       id: undefined,
       status: undefined,
-      clientId: undefined,
+      vendorId: undefined,
       commandItems: [],
     };
     //
@@ -72,21 +72,21 @@ export const CommandUpdate = defineComponent({
         <div class="h-full  w-full grid grid-cols-1 gap-2">
           <div class="w-full  h-full flex flex-col gap-1">
             <h1 class="font-medium">
-              {globalTranslate("Commands.update.details.client.title")}
+              {globalTranslate("Commands.update.details.seller.title")}
             </h1>
             <UiUpdateSelect
               Value={
-                clients.value.find((cli) => updateCommand.clientId === cli.id)
+                vendors.value.find((cli) => updateCommand.vendorId === cli.id)
                   ?.name ?? ""
               }
-              items={clients.value.map((client) => ({
-                name: client.name,
-                id: client.id,
+              items={vendors.value.map((vendor) => ({
+                name: vendor.name,
+                id: vendor.id,
               }))}
-              onSelect={(id: number) => (updateCommand.clientId = id)}
+              onSelect={(id: number) => (updateCommand.vendorId = id)}
               IsClickedOuside={IsClicked.value}
             >
-              {globalTranslate("Commands.update.details.client.select")}
+              {globalTranslate("Commands.update.details.vendor.select")}
             </UiUpdateSelect>
           </div>
           <div class="w-full  h-full flex flex-col gap-1">
@@ -99,7 +99,7 @@ export const CommandUpdate = defineComponent({
                   <UiCheckBox
                     onCheck={(check) =>
                       check
-                        ? (updateCommand.status = "Delivered")
+                        ? (updateCommand.status = "delivered")
                         : (updateCommand.status = "")
                     }
                   />
@@ -109,7 +109,7 @@ export const CommandUpdate = defineComponent({
                   <UiCheckBox
                     onCheck={(check) =>
                       check
-                        ? (updateCommand.status = "Pending")
+                        ? (updateCommand.status = "pending")
                         : (updateCommand.status = "")
                     }
                   />
@@ -119,7 +119,7 @@ export const CommandUpdate = defineComponent({
                   <UiCheckBox
                     onCheck={(check) =>
                       check
-                        ? (updateCommand.status = "Canceled")
+                        ? (updateCommand.status = "canceled")
                         : (updateCommand.status = "")
                     }
                   />

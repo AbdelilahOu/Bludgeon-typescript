@@ -2,7 +2,7 @@ import { defineComponent, reactive, ref, withModifiers } from "vue";
 import type { newInvoiceT, newInvoiceItemT } from "@/types";
 import { useInvoiceStore } from "@/stores/invoiceStore";
 import { useProductStore } from "@/stores/productStore";
-import { useVendorStore } from "@/stores/vendorStore";
+import { useClientStore } from "@/stores/clientStore";
 import { useModalStore } from "@/stores/modalStore";
 import { UiCheckBox } from "./ui/UiCheckBox";
 import { UiButton } from "./ui/UiButton";
@@ -19,9 +19,9 @@ export const InvoiceCreate = defineComponent({
     const isFlash = ref<boolean>(false);
     const IsClicked = ref<boolean>(false);
     const { products } = storeToRefs(useProductStore());
-    const { vendors } = storeToRefs(useVendorStore());
+    const { clients } = storeToRefs(useClientStore());
     const newInvoice = reactive<newInvoiceT>({
-      vendorId: 0,
+      clientId: 0,
       invoiceItems: [],
     });
     const InvoiceItems = ref<newInvoiceItemT[]>([
@@ -35,7 +35,7 @@ export const InvoiceCreate = defineComponent({
       newInvoice.invoiceItems = InvoiceItems.value.filter(
         (item) => item.productId !== 0 && item.quantity !== 0
       );
-      if (newInvoice.vendorId && newInvoice.invoiceItems.length !== 0) {
+      if (newInvoice.clientId && newInvoice.invoiceItems.length !== 0) {
         useInvoiceStore().createOneInvoice(newInvoice);
         useModalStore().updateModal({ key: "show", value: false });
       }
@@ -63,17 +63,17 @@ export const InvoiceCreate = defineComponent({
         <div class="h-full  w-full grid grid-cols-1 gap-2">
           <div class="w-full  h-full flex flex-col gap-1">
             <h1 class="font-medium">
-              {globalTranslate("Invoices.create.details.vendor.title")}
+              {globalTranslate("Invoices.create.details.client.title")}
             </h1>
             <UiSelect
-              items={vendors.value.map((vendor) => ({
-                name: vendor.name,
-                id: vendor.id,
+              items={clients.value.map((client) => ({
+                name: client.name,
+                id: client.id,
               }))}
-              onSelect={(id: number) => (newInvoice.vendorId = id)}
+              onSelect={(id: number) => (newInvoice.clientId = id)}
               IsClickedOuside={IsClicked.value}
             >
-              {globalTranslate("Invoices.create.details.vendor.select")}
+              {globalTranslate("Invoices.create.details.client.select")}
             </UiSelect>
           </div>
           <div class="w-full  h-full flex flex-col gap-1">

@@ -11,7 +11,7 @@ export const createInvoice = (data: newInvoiceT) => {
   return prisma.invoice.create({
     data: {
       total: data.total ?? 0,
-      vendor: { connect: { id: data.vendorId } },
+      client: { connect: { id: data.clientId } },
     },
   });
 };
@@ -21,8 +21,8 @@ export const updateInvoice = (invoice: updateData<updateInvoiceT>) => {
     where: { id: invoice.id },
     data: {
       total: invoice.data.total ? invoice.data.total : undefined,
-      vendor: invoice.data.vendorId
-        ? { connect: { id: invoice.data.vendorId } }
+      client: invoice.data.clientId
+        ? { connect: { id: invoice.data.clientId } }
         : undefined,
     },
   });
@@ -38,11 +38,12 @@ export const getInvoice = (id: number) => {
             select: {
               price: true,
               name: true,
+              tva: true,
             },
           },
         },
       },
-      vendor: true,
+      client: true,
     },
   });
 };
@@ -92,8 +93,8 @@ export const createInvoiceItem = (data: newInvoiceItemT) => {
               id: data.productId,
             },
           },
-          quantity: data.quantity,
-          model: "IN",
+          quantity: -data.quantity,
+          model: "OUT",
         },
       },
     },
@@ -116,7 +117,7 @@ export const updateInvoiceItem = (data: updateInvoiceItemT) => {
       },
       stock: {
         update: {
-          quantity: data.quantity,
+          quantity: -data.quantity,
         },
       },
     },
@@ -139,8 +140,8 @@ export const updateInvoiceItem = (data: updateInvoiceItemT) => {
               id: data.productId,
             },
           },
-          quantity: data.quantity,
-          model: "IN",
+          quantity: -data.quantity,
+          model: "OUT",
         },
       },
     },

@@ -74,7 +74,7 @@ export const InvoiceTable = defineComponent({
                   </td>
                   <td class="p-2">
                     <div class="text-left whitespace-nowrap overflow-ellipsis">
-                      {Invoice.vendorId ?? (
+                      {Invoice.clientId ?? (
                         <span class="text-red-400">No email</span>
                       )}
                     </div>

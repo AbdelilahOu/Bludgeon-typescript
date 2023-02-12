@@ -50,7 +50,7 @@ export interface commandT {
   id: number;
   createdAt: string;
   status: string;
-  clientId: number;
+  vendorId: number;
   commandItems: commandItemT[];
 }
 
@@ -78,12 +78,13 @@ export interface commandDetailsItemsT extends commandItemT {
   product: {
     name: string;
     price: number;
+    type: string;
   };
 }
 
 export interface commandDetailsT extends Omit<commandT, "commandItems"> {
   commandItems: commandDetailsItemsT[];
-  client: clientT;
+  vendor: vendorT;
 }
 // /////////////////////////////////
 ///////////// INVOICE INTERFACES ///
@@ -92,9 +93,8 @@ export interface commandDetailsT extends Omit<commandT, "commandItems"> {
 export type invoiceT = {
   id: number;
   total: number;
-  vendorId: number;
   createdAt: string;
-  vendorId: number;
+  clientId: number;
   invoiceItems: invoiceItemT[];
 };
 
@@ -126,12 +126,13 @@ export interface invoiceDetailsItemT extends invoiceItemT {
   product: {
     price: number;
     name: string;
+    tva: number;
   };
 }
 
 export interface invoiceDetailsT extends Omit<invoiceT, "invoiceItems"> {
   invoiceItems: invoiceDetailsItemT[];
-  vendor: vendorT;
+  client: clientT;
 }
 ////////////////////////////////////
 //////////// CLIENT INTERFACES//////
@@ -179,6 +180,8 @@ export interface productT {
   price: number;
   quantity: number;
   description?: string;
+  tva: number;
+  type: string;
 }
 export interface newProductT extends Omit<productT, "id"> {}
 export interface productTfromApiT extends Omit<productT, "stock"> {

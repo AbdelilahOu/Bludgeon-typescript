@@ -15,7 +15,7 @@ export const IndexView = defineComponent({
     onBeforeRouteUpdate(() => {
       modalStore.updateModal({ key: "show", value: false });
     });
-    const IsCollapse = ref<boolean>(false);
+    const IsCollapse = ref<boolean>(true);
     return () => (
       <main
         class={`w-screen h-screen overflow-y-auto scrollbar-thin scrollbar-thumb-transparent  flex `}
@@ -26,9 +26,8 @@ export const IndexView = defineComponent({
           }`}
         >
           <SideBar
-            onCollapse={(IsCollapsed: boolean) =>
-              (IsCollapse.value = IsCollapsed)
-            }
+            IsCollapse={IsCollapse.value}
+            Collapse={() => (IsCollapse.value = !IsCollapse.value)}
           />
         </div>
         <div class="grid grid-rows-[46px_1fr] w-full relative">

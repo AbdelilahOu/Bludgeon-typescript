@@ -18,11 +18,12 @@ export const getCommand = (id: number) => {
             select: {
               name: true,
               price: true,
+              type: true,
             },
           },
         },
       },
-      client: true,
+      vendor: true,
     },
   });
 };
@@ -42,9 +43,9 @@ export const createCommand = (data: newCommandT) => {
   return prisma.command.create({
     data: {
       status: data.status,
-      client: {
+      vendor: {
         connect: {
-          id: data.clientId,
+          id: data.vendorId,
         },
       },
     },
@@ -72,8 +73,8 @@ export const createCommandItem = (data: newCommandItemT) => {
               id: data.productId,
             },
           },
-          quantity: -data.quantity,
-          model: "OUT",
+          quantity: data.quantity,
+          model: "IN",
         },
       },
     },
@@ -94,7 +95,7 @@ export const updateCommandItem = (data: updateCommandItemT) => {
       },
       stock: {
         update: {
-          quantity: -data.quantity,
+          quantity: data.quantity,
         },
       },
     },
@@ -117,8 +118,8 @@ export const updateCommandItem = (data: updateCommandItemT) => {
               id: data.productId,
             },
           },
-          quantity: -data.quantity,
-          model: "OUT",
+          quantity: data.quantity,
+          model: "IN",
         },
       },
     },
@@ -140,8 +141,8 @@ export const updateCommand = (command: updateData<updateCommmandT>) => {
     },
     data: {
       status: command.data.status,
-      client: command.data.clientId
-        ? { connect: { id: command.data.clientId } }
+      vendor: command.data.vendorId
+        ? { connect: { id: command.data.vendorId } }
         : undefined,
     },
   });

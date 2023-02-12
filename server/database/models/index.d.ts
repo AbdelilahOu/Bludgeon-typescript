@@ -41,6 +41,7 @@ export interface productT {
   description?: string;
   quantity: number;
   tva: number;
+  type: string;
 }
 
 export interface newProductT extends Omit<productT, "id"> {}

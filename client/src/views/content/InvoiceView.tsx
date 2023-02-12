@@ -25,7 +25,7 @@ export const InvoiceView = defineComponent({
     const searchQuery = ref<string>("");
     //
     onBeforeMount(() => {
-      if (!invoices.value.length) InvoiceStore.getAllInvoices();
+      InvoiceStore.getAllInvoices();
     });
     //
     const updateModal = (name: string) => {

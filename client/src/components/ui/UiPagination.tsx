@@ -27,7 +27,7 @@ export const UiPagination = defineComponent({
       }
     };
     const goForward = () => {
-      if (Math.round(props.itemsNumber / 15) > props.page) {
+      if (props.page + 1 < Math.ceil(props.itemsNumber / 15)) {
         props.goForward();
       }
     };
@@ -46,7 +46,7 @@ export const UiPagination = defineComponent({
             </span>
             <span class="px-1">{props.page + 1}</span>
             <span class="px-1 text-base text-gray-400">
-              {props.page + 2 < Math.round(props.itemsNumber / 15) + 1
+              {props.page + 1 === Math.ceil(props.itemsNumber / 15)
                 ? ""
                 : props.page + 2}
             </span>

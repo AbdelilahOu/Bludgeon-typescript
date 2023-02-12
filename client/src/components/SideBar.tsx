@@ -1,25 +1,25 @@
 import { defineComponent, ref, type PropType } from "vue";
 import { RouteLinks } from "@/stores/routeNames";
 import { UiSideLink } from "./ui/UiSideLink";
-import { UiButton } from "./ui/UiButton";
 import { useModalStore } from "@/stores/modalStore";
 import { globalTranslate } from "@/utils/globalTranslate";
 import { useTranslationStore } from "@/stores/translationStore";
 export const SideBar = defineComponent({
   name: "SideBar",
   props: {
-    onCollapse: {
-      type: Function as PropType<(IsCollapse: boolean) => void>,
+    Collapse: {
+      type: Function as PropType<() => void>,
+      required: true,
+    },
+    IsCollapse: {
+      type: Boolean,
       required: true,
     },
   },
   components: { UiSideLink },
   setup(props) {
-    const IsCollapse = ref<boolean>(false);
-
     const TriggerColapse = () => {
-      IsCollapse.value = !IsCollapse.value;
-      props.onCollapse(IsCollapse.value);
+      props.Collapse();
     };
 
     return () => (
@@ -28,10 +28,10 @@ export const SideBar = defineComponent({
           <div class="w-full bg-gray-300/10  h-full px-1 grid grid-cols-1 items-center justify-start">
             <span
               class={`font-medium  text-black flex items-center px-1 ${
-                IsCollapse.value ? "justify-around" : "justify-between"
+                props.IsCollapse ? "justify-around" : "justify-between"
               }`}
             >
-              {IsCollapse.value ? (
+              {props.IsCollapse ? (
                 ""
               ) : (
                 <span class="whitespace-nowrap pl-2 text-primary overflow-hidden">
@@ -41,7 +41,7 @@ export const SideBar = defineComponent({
               <span
                 onClick={() => TriggerColapse()}
                 class={`transition-all duration-200 cursor-pointer transform hover:fill-gray-800 fill-primary ${
-                  IsCollapse.value ? "rotate-180" : ""
+                  props.IsCollapse ? "rotate-180" : ""
                 }`}
               >
                 <svg
@@ -53,12 +53,12 @@ export const SideBar = defineComponent({
               </span>
             </span>
           </div>
-          <div class="w-full px-1 h-full overflow-x-hidden grid grid-cols-1 gap-1 grid-rows-[1fr_36px_36px] justify-between pb-[18px]">
+          <div class="w-full px-1 h-full overflow-x-hidden grid grid-cols-1 gap-1 grid-rows-[1fr_36px] justify-between pb-[18px]">
             <div class="w-full h-full flex flex-col gap-1">
               {RouteLinks.map((link, index) => {
                 return (
                   <UiSideLink
-                    IsText={!IsCollapse.value}
+                    IsText={!props.IsCollapse}
                     LinkPath={link.path}
                     LinkIcon={link.icon}
                     LinkText={globalTranslate(`Global.routes.${link.name}`)}
@@ -66,12 +66,12 @@ export const SideBar = defineComponent({
                 );
               })}
             </div>
-            <UiSideLink
-              IsText={!IsCollapse.value}
+            {/* <UiSideLink
+              IsText={!props.IsCollapse}
               LinkPath={"/Notifications"}
               LinkIcon={"🔔"}
               LinkText={"Notifications"}
-            />
+            /> */}
 
             <button
               onClick={() => {
@@ -86,7 +86,7 @@ export const SideBar = defineComponent({
               }
             >
               🌐{" "}
-              {!IsCollapse.value
+              {!props.IsCollapse
                 ? useTranslationStore().currentLocale.text
                 : ""}
             </button>
