@@ -20,15 +20,15 @@ export interface updateClientT extends Partial<newClientT> {}
 ////////////// VENDOR //////
 ////////////////////////////
 
-export interface vendorT {
+export interface sellerT {
   id: number;
   name: string;
   email?: string;
   phone?: string;
   addresse?: string;
 }
-export interface newVendorT extends Omit<vendorT, "id"> {}
-export interface updateVendorT extends Partial<newVendorT> {}
+export interface newSellerT extends Omit<sellerT, "id"> {}
+export interface updateSellerT extends Partial<newSellerT> {}
 
 //////////////////////////
 ///////////// PRODUCT ////

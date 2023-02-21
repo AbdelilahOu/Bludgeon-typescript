@@ -39,6 +39,7 @@ export const getInvoice = (id: number) => {
               price: true,
               name: true,
               tva: true,
+              description: true,
             },
           },
         },

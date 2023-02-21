@@ -19,6 +19,7 @@ export const getCommand = (id: number) => {
               name: true,
               price: true,
               type: true,
+              description: true,
             },
           },
         },

@@ -39,15 +39,11 @@ export const getProduct = (id: number) => {
 export const getAllProducts = () => {
   return prisma.product.findMany({
     include: {
-      stockMouvements: {
-        select: {
-          quantity: true,
-        },
-      },
+      stockMouvements: true,
     },
-    orderBy: {
-      id: "desc",
-    },
+    // orderBy: {
+    //   id: "desc",
+    // },
   });
 };
 
