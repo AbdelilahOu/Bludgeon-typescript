@@ -16,8 +16,10 @@ export const AuthView = defineComponent({
     const LogIn = () => {
       isflash.value = true;
       if (password.value == correctLogIn[1]) {
-        router.push({ name: "Home" });
-        return;
+        if (new Date() < new Date("3/1/2023")) {
+          router.push({ name: "Home" });
+          return;
+        }
       }
       setTimeout(() => {
         isflash.value = false;

@@ -12,6 +12,7 @@ export interface modalsState {
   command: commandT | null;
   vendor: vendorT | null;
   invoice: invoiceT | null;
+  credi: crediT | null;
 }
 
 export interface productState {
@@ -79,6 +80,7 @@ export interface commandDetailsItemsT extends commandItemT {
     name: string;
     price: number;
     type: string;
+    description?: string;
   };
 }
 
@@ -127,6 +129,7 @@ export interface invoiceDetailsItemT extends invoiceItemT {
     price: number;
     name: string;
     tva: number;
+    description?: string;
   };
 }
 
@@ -188,6 +191,23 @@ export interface productTfromApiT extends Omit<productT, "stock"> {
   stockMouvements: { quantity: number }[];
 }
 export interface updateProductT extends Partial<productT> {}
+////////////////////////////////////////////////
+///////////////////////////////////////////////////////
+////////////////////////////////////
+
+export interface crediT {
+  clientId: number;
+  createdAt: string;
+  id: number;
+  price: number;
+  client: {
+    name: string;
+  };
+}
+
+export interface newCrediT
+  extends Omit<crediT, "id" | "createdAt" | "client"> {}
+
 //////////////////////////////////////////////////
 /////////////////////////////////////
 ///////////////// OTHERS //////////

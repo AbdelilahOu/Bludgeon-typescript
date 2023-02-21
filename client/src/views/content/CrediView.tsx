@@ -1,26 +1,26 @@
 import { defineComponent, onBeforeMount, ref, Transition } from "vue";
 import { globalTranslate } from "@/utils/globalTranslate";
-import { ClientTable } from "@/components/ClientTable";
-import { useClientStore } from "@/stores/clientStore";
+import { CrediTable } from "@/components/CrediTable";
 import { UiButton } from "@/components/ui/UiButton";
 import { useModalStore } from "@/stores/modalStore";
 import { UiInput } from "@/components/ui/UiInput";
 import UiIcon from "@/components/ui/UiIcon.vue";
 import { storeToRefs } from "pinia";
+import { useCrediStore } from "@/stores/crediStore";
 
-export const ClientView = defineComponent({
-  name: "Clients",
-  components: { ClientTable, UiButton, UiInput, UiIcon },
+export const CrediView = defineComponent({
+  name: "Credis",
+  components: { CrediTable, UiButton, UiInput, UiIcon },
   setup() {
     const modalStore = useModalStore();
-    const clientStore = useClientStore();
-    const { clients } = storeToRefs(clientStore);
+    const CrediStore = useCrediStore();
+    const { Credis } = storeToRefs(CrediStore);
     //
     const searchQuery = ref<string>("");
 
     //
     onBeforeMount(() => {
-      if (!clients.value.length) clientStore.getAllClients();
+      if (!Credis.value.length) CrediStore.getAllCredis();
     });
     //
     const updateModal = (name: string) => {
@@ -28,7 +28,7 @@ export const ClientView = defineComponent({
       modalStore.updateModal({ key: "name", value: name });
     };
     //
-    const sortClientsBy = (by: string) => {};
+    const sortCredisBy = (by: string) => {};
 
     return () => (
       <main class="w-full h-full px-3">
@@ -56,23 +56,23 @@ export const ClientView = defineComponent({
               <div class="w-1/4 flex gap-2">
                 <UiButton
                   colorTheme="a"
-                  onClick={() => updateModal("ClientCreate")}
+                  onClick={() => updateModal("CrediCreate")}
                 >
                   <UiIcon
                     class=" fill-gray-900 cursor-default hover:bg-transparent"
                     name="add"
                   />{" "}
-                  {globalTranslate("Clients.index.addButton")}
+                  {globalTranslate("Credis.index.addButton")}
                 </UiButton>
               </div>
             </div>
           </Transition>
 
           <Transition appear>
-            <ClientTable
+            <CrediTable
               FilterParam={searchQuery.value}
-              sortBy={(by: string) => sortClientsBy(by)}
-              Clients={clients.value}
+              sortBy={(by: string) => sortCredisBy(by)}
+              Credi={Credis.value}
             />
           </Transition>
         </div>

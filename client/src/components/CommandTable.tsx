@@ -154,18 +154,12 @@ export const CommandTable = defineComponent({
           </tbody>
         </table>
         <div>
-          {props.Commands?.length == 0 ? (
-            <h1 class="font-semibold text-lg text-center pt-3 uppercase">
-              No Commands
-            </h1>
-          ) : (
-            <UiPagination
-              goBack={() => pagination.value--}
-              goForward={() => pagination.value++}
-              itemsNumber={props.Commands.length}
-              page={pagination.value}
-            />
-          )}
+          <UiPagination
+            goBack={() => pagination.value--}
+            goForward={() => pagination.value++}
+            itemsNumber={props.Commands.length}
+            page={pagination.value}
+          />
         </div>
       </div>
     );

@@ -107,18 +107,12 @@ export const VendorTable = defineComponent({
           </tbody>
         </table>
         <div>
-          {props.Vendors?.length == 0 ? (
-            <h1 class="font-semibold text-lg text-center pt-3 uppercase">
-              No vendors
-            </h1>
-          ) : (
-            <UiPagination
-              goBack={() => pagination.value--}
-              goForward={() => pagination.value++}
-              itemsNumber={props.Vendors.length}
-              page={pagination.value}
-            />
-          )}
+          <UiPagination
+            goBack={() => pagination.value--}
+            goForward={() => pagination.value++}
+            itemsNumber={props.Vendors.length}
+            page={pagination.value}
+          />
         </div>
       </div>
     );

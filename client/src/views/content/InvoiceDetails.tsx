@@ -140,7 +140,7 @@ export const InvoiceDetails = defineComponent({
                 <thead class="text-xs h-9 rounded-sm font-semibold uppercase text-[rgba(25,23,17,0.6)] bg-gray-300">
                   <tr>
                     <th></th>
-                    {[0, 1, 2, 3, 4, 5, 6].map((index) => (
+                    {[0, 1, 2, 3, 4, 5, 6, 7].map((index) => (
                       <th class="p-2">
                         <div class="font-semibold text-left">
                           {globalTranslate(
@@ -166,6 +166,12 @@ export const InvoiceDetails = defineComponent({
                       <td class="p-2">
                         <div class="font-medium text-gray-800">
                           {item.productId}
+                        </div>
+                      </td>
+                      <td class="p-2">
+                        <div class="text-left">
+                          {" "}
+                          {item.product.description}{" "}
                         </div>
                       </td>
                       <td class="p-2">

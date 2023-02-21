@@ -3,6 +3,7 @@ import { useVendorStore } from "@/stores/vendorStore";
 import { useModalStore } from "@/stores/modalStore";
 import { UiButton } from "./ui/UiButton";
 import { storeToRefs } from "pinia";
+import { globalTranslate } from "@/utils/globalTranslate";
 
 export const VendorDelete = defineComponent({
   name: "VendorDelete",
@@ -20,18 +21,19 @@ export const VendorDelete = defineComponent({
     return () => (
       <div class="w-1/2 h-fit z-50 gap-3 flex flex-col bg-white p-2 min-w-[350px]">
         <h1 class="font-semibold text-lg text-gray-800 border-b-2 border-b-gray-500 pb-2 uppercase text-center">
-          Are you sure you wanna delete the Vendor {vendor.value?.name} ?
+          {globalTranslate("Vendors.delete.title")}
+          {vendor.value?.name} ?
         </h1>
         <div class="flex gap-2">
           <UiButton colorTheme="a" onClick={() => deleteTheVendor()}>
-            Confirme
+            {globalTranslate("Vendors.delete.yes")}
           </UiButton>
           <UiButton
             onClick={() =>
               modalStore.updateModal({ key: "show", value: false })
             }
           >
-            Cancel
+            {globalTranslate("Vendors.delete.no")}
           </UiButton>
         </div>
       </div>

@@ -45,7 +45,7 @@ export const ProductCreate = defineComponent({
             Type="text"
             PlaceHolder={globalTranslate("Products.create.placeholders[0]")}
           />
-          <UiSelect
+          {/* <UiSelect
             IsClickedOuside={false}
             items={[
               {
@@ -62,7 +62,7 @@ export const ProductCreate = defineComponent({
             }
           >
             {globalTranslate("Products.create.placeholders[1]")}
-          </UiSelect>
+          </UiSelect> */}
           <UiInput
             IsEmpty={isFlash.value && newProduct["price"] == 0}
             OnInputChange={(value) => (newProduct["price"] = Number(value))}

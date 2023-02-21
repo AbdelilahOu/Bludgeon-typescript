@@ -4,6 +4,7 @@ import { useModalStore } from "@/stores/modalStore";
 import type { newVendorT } from "@/types";
 import { UiButton } from "./ui/UiButton";
 import { UiInput } from "./ui/UiInput";
+import { globalTranslate } from "@/utils/globalTranslate";
 export const VendorCreate = defineComponent({
   name: "VendorCreate",
   components: { UiButton, UiInput },
@@ -28,7 +29,7 @@ export const VendorCreate = defineComponent({
     return () => (
       <div class="w-1/2 h-fit z-50 gap-3 flex flex-col bg-white p-2 min-w-[350px]">
         <h1 class="font-semibold text-lg text-gray-800 border-b-2 border-b-gray-500 pb-2 uppercase text-center">
-          Create new Vendor
+          {globalTranslate("Vendors.create.title")}
         </h1>
         <div class="h-full w-full flex flex-col gap-2">
           <UiInput
@@ -38,7 +39,7 @@ export const VendorCreate = defineComponent({
                 typeof value == "string" ? value : JSON.stringify(value))
             }
             Type="text"
-            PlaceHolder="Name"
+            PlaceHolder={globalTranslate("Vendors.create.placeholders[0]")}
           />
           <UiInput
             IsEmpty={isFlash.value && newVendor["email"] == ""}
@@ -47,7 +48,7 @@ export const VendorCreate = defineComponent({
                 typeof value == "string" ? value : JSON.stringify(value))
             }
             Type="text"
-            PlaceHolder="Email"
+            PlaceHolder={globalTranslate("Vendors.create.placeholders[1]")}
           />
           <UiInput
             IsEmpty={isFlash.value && newVendor["phone"] == ""}
@@ -56,7 +57,7 @@ export const VendorCreate = defineComponent({
                 typeof value == "string" ? value : JSON.stringify(value))
             }
             Type="text"
-            PlaceHolder="Phone"
+            PlaceHolder={globalTranslate("Vendors.create.placeholders[2]")}
           />
           <UiInput
             IsEmpty={isFlash.value && newVendor["addresse"] == ""}
@@ -65,12 +66,12 @@ export const VendorCreate = defineComponent({
                 typeof value == "string" ? value : JSON.stringify(value))
             }
             Type="text"
-            PlaceHolder="Address"
+            PlaceHolder={globalTranslate("Vendors.create.placeholders[3]")}
           />
         </div>
         <div class="flex">
           <UiButton colorTheme="a" onClick={() => createNewVendor()}>
-            Create vendor
+            {globalTranslate("Vendors.create.button")}
           </UiButton>
         </div>
       </div>

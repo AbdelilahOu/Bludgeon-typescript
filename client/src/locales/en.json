@@ -46,7 +46,15 @@
   "Products": {
     "index": {
       "addButton": "Add new product",
-      "feilds": ["product name", "type", "price", "TVA", "stock", "action"],
+      "feilds": [
+        "id",
+        "product name",
+        "description",
+        "price",
+        "TVA",
+        "stock",
+        "action"
+      ],
       "types": ["Product", "Service"]
     },
     "create": {
@@ -136,7 +144,15 @@
       },
       "items": {
         "title": "command items details",
-        "fields": ["name", "id", "quantity", "price", "type", "total"]
+        "fields": [
+          "name",
+          "id",
+          "description",
+          "quantity",
+          "price",
+          "type",
+          "total"
+        ]
       },
       "button": "print"
     }
@@ -161,6 +177,7 @@
         "fields": [
           "name",
           "id",
+          "description",
           "quantity",
           "price",
           "tva",
@@ -234,6 +251,23 @@
       "button": "Add"
     }
   },
+  "Credis": {
+    "index": {
+      "addButton": "Add to Credit",
+      "feilds": ["id", "client name", "client id", "amount", "date", ""]
+    },
+    "create": {
+      "title": "add credit",
+      "select": "Select a client",
+      "placeholder": "Amount",
+      "button": "Add"
+    },
+    "delete": {
+      "title": "are you sure you wanna delete the credit ",
+      "yes": "Confirme",
+      "no": "Cancel"
+    }
+  },
   "Auth": {
     "title": "Log in",
     "username": "Username",
@@ -248,7 +282,8 @@
       "Commands": "Commands",
       "Invoices": "Invoices",
       "Stock": "Stock",
-      "Statistics": "Statistics"
+      "Statistics": "Statistics",
+      "Credi": "Credit"
     },
     "translationTitle": "Change Language"
   }

@@ -25,8 +25,6 @@ export const ProductTable = defineComponent({
   },
   setup(props) {
     const modalStore = useModalStore();
-
-    const feilds: string[] = ["product name", "price", "stock", "action"];
     const pagination = ref<number>(0);
     const toggleThisProduct = (product: productT, name: string) => {
       modalStore.updateModal({ key: "show", value: true });
@@ -39,7 +37,7 @@ export const ProductTable = defineComponent({
           <thead class="text-xs h-9 rounded-sm font-semibold uppercase text-[rgba(25,23,17,0.6)] bg-gray-300">
             <tr>
               <th></th>
-              {[0, 1, 2, 3, 4, 5].map((index) => (
+              {[0, 1, 2, 3, 4, 5, 6].map((index) => (
                 <th class="p-2 w-fit ">
                   <div class="font-semibold text-left">
                     {globalTranslate(`Products.index.feilds[${index}]`)}
@@ -68,10 +66,15 @@ export const ProductTable = defineComponent({
                     </span>
                   </td>
                   <td class="p-2">
+                    <div class="font-medium text-gray-800">{product.id}</div>
+                  </td>
+                  <td class="p-2">
                     <div class="font-medium text-gray-800">{product.name}</div>
                   </td>
                   <td class="p-2">
-                    <div class="font-medium text-gray-800">{product.type}</div>
+                    <div class="font-medium text-gray-800 max-w-[90px] overflow-hidden">
+                      {product.description}
+                    </div>
                   </td>
                   <td class="p-2">
                     <div class="text-left">{product.price.toFixed(2)}</div>
@@ -103,18 +106,12 @@ export const ProductTable = defineComponent({
           </tbody>
         </table>
         <div>
-          {props.Products?.length == 0 ? (
-            <h1 class="font-semibold text-lg text-center pt-3 uppercase">
-              No products
-            </h1>
-          ) : (
-            <UiPagination
-              goBack={() => pagination.value--}
-              goForward={() => pagination.value++}
-              itemsNumber={props.Products.length}
-              page={pagination.value}
-            />
-          )}
+          <UiPagination
+            goBack={() => pagination.value--}
+            goForward={() => pagination.value++}
+            itemsNumber={props.Products.length}
+            page={pagination.value}
+          />
         </div>
       </div>
     );

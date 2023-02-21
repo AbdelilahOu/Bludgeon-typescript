@@ -135,18 +135,12 @@ export const InvoiceTable = defineComponent({
           </tbody>
         </table>
         <div>
-          {props.Invoices?.length == 0 ? (
-            <h1 class="font-semibold text-lg text-center pt-3 uppercase">
-              No Invoices
-            </h1>
-          ) : (
-            <UiPagination
-              goBack={() => pagination.value--}
-              goForward={() => pagination.value++}
-              itemsNumber={props.Invoices.length}
-              page={pagination.value}
-            />
-          )}
+          <UiPagination
+            goBack={() => pagination.value--}
+            goForward={() => pagination.value++}
+            itemsNumber={props.Invoices.length}
+            page={pagination.value}
+          />
         </div>
       </div>
     );

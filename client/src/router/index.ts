@@ -14,6 +14,7 @@ import { AuthView } from "@/views/AuthView";
 import { InvoiceDetails } from "@/views/content/InvoiceDetails";
 import { InvoiceIndex } from "@/views/content/InvoiceIndex";
 import { HomeView } from "@/views/content/HomeView";
+import { CrediView } from "@/views/content/CrediView";
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -91,6 +92,11 @@ const router = createRouter({
           path: "Notifications",
           name: "Notifications",
           component: NotificationsView,
+        },
+        {
+          path: "Credi",
+          name: "Credi",
+          component: CrediView,
         },
       ],
     },

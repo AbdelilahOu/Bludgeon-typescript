@@ -18,6 +18,8 @@ import { ClientDelete } from "./ClientDelete";
 import { ClientUpdate } from "./ClientUpdate";
 import { ClientCreate } from "./ClientCreate";
 import { StockCreate } from "./StockCreate";
+import { CrediCreate } from "./CrediCreate";
+import { CrediDelete } from "./CrediDelete";
 export default {
   components: {
     TranslationModal,
@@ -37,6 +39,8 @@ export default {
     ClientUpdate,
     ClientCreate,
     StockCreate,
+    CrediCreate,
+    CrediDelete,
   },
   props: {
     name: {

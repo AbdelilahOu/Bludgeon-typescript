@@ -106,18 +106,12 @@ export const ClientTable = defineComponent({
           </tbody>
         </table>
         <div>
-          {props.Clients?.length == 0 ? (
-            <h1 class="font-semibold text-lg text-center pt-3 uppercase">
-              No clients
-            </h1>
-          ) : (
-            <UiPagination
-              goBack={() => pagination.value--}
-              goForward={() => pagination.value++}
-              itemsNumber={props.Clients.length}
-              page={pagination.value}
-            />
-          )}
+          <UiPagination
+            goBack={() => pagination.value--}
+            goForward={() => pagination.value++}
+            itemsNumber={props.Clients.length}
+            page={pagination.value}
+          />
         </div>
       </div>
     );

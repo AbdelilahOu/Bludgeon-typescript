@@ -5,6 +5,7 @@ import sellers from "../../assets/images/sellers.jpeg";
 import clients from "../../assets/images/clients.jpg";
 import stock from "../../assets/images/stock.jpg";
 import stats from "../../assets/images/stats.jpg";
+import credi from "../../assets/images/credi.webp";
 
 import { globalTranslate } from "@/utils/globalTranslate";
 import { UiButton } from "@/components/ui/UiButton";
@@ -51,6 +52,11 @@ export const HomeView = defineComponent({
         image: stats,
         text: globalTranslate("Global.routes.Statistics"),
         path: "/Stats",
+      },
+      {
+        image: credi,
+        text: globalTranslate("Global.routes.Credi"),
+        path: "/Credi",
       },
     ];
     return () => (

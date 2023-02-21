@@ -64,6 +64,7 @@ export const useProductStore = defineStore("ProductStore", {
   actions: {
     getAllProducts: async function () {
       const res: dataRowsT<productTfromApiT> = await axios.get(api);
+      console.log(res.data.rows);
       this.products = res.data.rows.map((item: productTfromApiT) => {
         return {
           ...item,
@@ -88,9 +89,7 @@ export const useProductStore = defineStore("ProductStore", {
           Product,
         },
       });
-      this.products.map((pro) => {
-        if (pro.id === res.data.row.id) pro = res.data.row;
-      });
+      this.getAllProducts();
     },
     deleteOneProduct: async function (id: number) {
       const res: dataRowT<number> = await axios.delete(api + id);
